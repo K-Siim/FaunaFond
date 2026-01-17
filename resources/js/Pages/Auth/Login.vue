@@ -1,11 +1,8 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import logo from '../../../images/Logo.jpg';
 
 defineProps({
     canResetPassword: {
@@ -19,7 +16,6 @@ defineProps({
 const form = useForm({
     email: '',
     password: '',
-    remember: false,
 });
 
 const submit = () => {
@@ -31,70 +27,112 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
+        <Head title="Logi sisse" />
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
+        <div class=" w-full flex items-center justify-center px-4" style="background-color: #E7F0E4;">
+            <div class="w-full max-w-[375px] flex flex-col items-center">
+                <div class="mb-8">
+                    <img 
+                        :src="logo" 
+                        alt="Logo" 
+                        class="w-[130px] h-[130px] border border-[#275342] rounded-3xl object-cover"
+                    />
+                </div>
+
+                <div v-if="status" class="mb-4 text-sm font-medium text-center" style="color: #275342;">
+                    {{ status }}
+                </div>
+
+                <div class="w-full max-w-[300px]">
+                    <form @submit.prevent="submit" class="flex flex-col gap-[10px]">
+                        <div>
+                            <input
+                                id="email"
+                                type="email"
+                                v-model="form.email"
+                                required
+                                autofocus
+                                autocomplete="username"
+                                placeholder="E-mail"
+                                class="w-full h-[44px] rounded-[16px] border px-4 py-3 placeholder:text-[#275342]"
+                                style="background-color: #FFFDF5; color: #275342; border-width: 1px; border-color: #275342;"
+                            />
+                            <InputError class="mt-1 text-xs" :message="form.errors.email" />
+                        </div>
+
+                        <div>
+                            <input
+                                id="password"
+                                type="password"
+                                v-model="form.password"
+                                required
+                                autocomplete="current-password"
+                                placeholder="Salasõna"
+                                class="w-full h-[44px] rounded-[16px] border px-4 py-3 placeholder:text-[#275342]"
+                                style="background-color: #FFFDF5; color: #275342; border-width: 1px; border-color: #275342;"
+                            />
+                            <InputError class="mt-1 text-xs" :message="form.errors.password" />
+                        </div>
+
+                        <div class="text-right mt-0">
+                            <Link
+                                v-if="canResetPassword"
+                                :href="route('password.request')"
+                                class="text-sm hover:underline"
+                                style="color: #0E2C20;"
+                            >
+                                Unustasid parooli?
+                            </Link>
+                        </div>
+
+                        <button
+                            type="submit"
+                            :disabled="form.processing"
+                            :class="{ 'opacity-25': form.processing }"
+                            class="w-full h-[44px] rounded-[16px] mt-4 transition-opacity"
+                            style="background-color: #275342; color: #FFFDF3; font-weight: 800;"
+                        >
+                            LOGI SISSE
+                        </button>
+
+                        <div class="text-center mt-2">
+                            <Link
+                                :href="route('register')"
+                                class="text-sm hover:underline"
+                                style="color: #0E2C20;"
+                            >
+                                Loo kasutaja
+                            </Link>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4 block">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-pink-600"
-                        >Remember me</span
-                    >
-                </label>
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
     </GuestLayout>
 </template>
+
+<style scoped>
+input:focus {
+    outline: none;
+    border-color: #275342;
+    box-shadow: 0 0 0 2px rgba(39, 83, 66, 0.1);
+}
+
+button:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+@media (max-width: 375px) {
+    .max-w-\[300px\] {
+        max-width: calc(100vw - 2rem);
+    }
+}
+
+input {
+    font-size: 16px;
+}
+</style>
