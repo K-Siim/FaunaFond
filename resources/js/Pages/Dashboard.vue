@@ -1,10 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head } from '@inertiajs/vue3'
-import PetContent from '@/Components/PetInfo/PetContent.vue'
 
-
-defineProps({
+const props = defineProps({
   pet: Object,
 })
 </script>
@@ -12,12 +10,11 @@ defineProps({
 <template>
   <Head title="Dashboard" />
 
-  <AuthenticatedLayout>
+  <AuthenticatedLayout :pet="pet">
     <template #header>
       <h2 class="text-xl font-semibold leading-tight text-gray-800">
         Tere, Kasutaja!
       </h2>
     </template>
-
   </AuthenticatedLayout>
 </template>
