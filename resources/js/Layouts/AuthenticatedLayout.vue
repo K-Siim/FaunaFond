@@ -5,6 +5,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import PetContent from '@/Components/PetInfo/PetContent.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
@@ -12,7 +13,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-[#E7F0E4]">
             <nav
                 class="border-b border-gray-100 bg-white"
             >
@@ -192,7 +193,20 @@ const showingNavigationDropdown = ref(false);
             <!-- Page Content -->
             <main>
                 <slot />
+                <div class="flex justify-center items-center h-full flex-col p-5 gap-5">
+                    <div class="flex justify-center items-center pt-3 pb-3 gap-5 flex-col w-full">
+                        <div class="flex flex-row justify-between items- w-full pt-2 pb-2">
+                            <h5 class="text-[#275342] text-[20px]">Lemmikute nimekiri</h5>
+                            <a href="">
+                                <button class="text-[#275342] text-[16px] h-full">Vaata kõiki</button>
+                            </a>
+                        </div>
+                        <PetContent :pet="pet" />
+
+                    </div>
+                </div>
             </main>
         </div>
     </div>
+    
 </template>
