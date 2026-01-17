@@ -120,9 +120,12 @@ const props = defineProps({
                     <div class="flex justify-center items-center pt-3 pb-3 gap-5 flex-col w-full">
                         <div class="flex flex-row justify-between items- w-full pt-2 pb-2">
                             <h5 class="text-[#275342] text-[20px]">Lemmikute nimekiri</h5>
-                            <a href="">
-                                <button class="text-[#275342] text-[16px] h-full">Vaata kõiki</button>
-                            </a>
+
+                            <Link :href="route('pets.index')">
+                                <button class="text-[#275342] text-[16px] h-full">
+                                    Vaata kõiki
+                                </button>
+                            </Link>
                         </div>
                         <div class="p-5">
                             <div v-if="pets && pets.length">
