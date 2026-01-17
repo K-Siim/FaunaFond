@@ -14,7 +14,8 @@ class PetSeeder extends Seeder
             'species' => 'Dog',
             'dob' => '2008-10-06',
             'weight' => 12.5,
-            'image' => null,
+            'image' => 'https://placekitten.com/200/200'
+
         ]);
     }
 }

@@ -11,7 +11,7 @@ import { Link } from '@inertiajs/vue3';
 const showingNavigationDropdown = ref(false);
 
 const props = defineProps({
-  pet: Object,
+  pets: Array,
 });
 </script>
 
@@ -124,11 +124,25 @@ const props = defineProps({
                                 <button class="text-[#275342] text-[16px] h-full">Vaata kõiki</button>
                             </a>
                         </div>
-
-                        <div class="w-full p-5">
-                            <PetContent v-if="pet" :pet="pet" />
-                            <p v-else>No pet found</p>
+                        <div class="p-5">
+                            <div v-if="pets && pets.length">
+                                <PetContent
+                                v-for="pet in pets"
+                                :key="pet.id"
+                                :pet="pet"
+                                class="mb-4"
+                                />
+                            </div>
+                            <p v-else>No pets found</p>
                         </div>
+
+
+                        <Link :href="route('pets.create')">
+                        <button class="text-[#275342] text-[16px] h-full">
+                            Add Pet
+                        </button>
+                        </Link>
+
                     </div>
                 </div>
             </main>

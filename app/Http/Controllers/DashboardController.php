@@ -9,8 +9,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $pets = Pet::where('user_id', auth()->id())->get();
+
         return Inertia::render('Dashboard', [
-            'pet' => Pet::first(),
+            'pets' => $pets,
         ]);
     }
 }
