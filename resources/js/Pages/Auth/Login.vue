@@ -98,7 +98,7 @@ const submit = () => {
                         <div class="text-center mt-2">
                             <Link
                                 :href="route('register')"
-                                class="text-sm hover:underline"
+                                class="text-xl hover:underline"
                                 style="color: #0E2C20;"
                             >
                                 Loo kasutaja

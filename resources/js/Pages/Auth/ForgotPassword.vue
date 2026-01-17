@@ -1,10 +1,8 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import logo from '../../../images/Logo.jpg';
 
 defineProps({
     status: {
@@ -23,46 +21,87 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Forgot Password" />
+        <Head title="Unustasid parooli" />
 
-        <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email
-            address and we will email you a password reset link that will allow
-            you to choose a new one.
-        </div>
+        <div class="w-full flex items-center justify-center px-4" style="background-color: #E7F0E4;">
+            <div class="w-full max-w-[375px] flex flex-col items-center">
+                <div class="mb-8">
+                    <img 
+                        :src="logo" 
+                        alt="Logo" 
+                        class="w-[130px] h-[130px] border border-[#275342] rounded-3xl object-cover"
+                    />
+                </div>
 
-        <div
-            v-if="status"
-            class="mb-4 text-sm font-medium text-green-600"
-        >
-            {{ status }}
-        </div>
+                <div v-if="status" class="mb-4 text-sm font-medium text-center px-4" style="color: #275342;">
+                    {{ status }}
+                </div>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+                <div class="w-full max-w-[300px]">
+                    <form @submit.prevent="submit" class="flex flex-col gap-[10px]">
+                        <div>
+                            <input
+                                id="email"
+                                type="email"
+                                v-model="form.email"
+                                required
+                                autofocus
+                                autocomplete="username"
+                                placeholder="E-mail"
+                                class="w-full h-[44px] rounded-[16px] border px-4 py-3 placeholder:text-[#275342]/60"
+                                style="background-color: #FFFDF5; color: #275342; border-width: 1px; border-color: #275342;"
+                            />
+                            <InputError class="mt-1 text-xs" :message="form.errors.email" />
+                        </div>
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
+                        <button
+                            type="submit"
+                            :disabled="form.processing"
+                            :class="{ 'opacity-25': form.processing }"
+                            class="w-full h-[44px] rounded-[16px] mt-4 transition-opacity"
+                            style="background-color: #275342; color: #FFFDF3; font-weight: 800;"
+                        >
+                            SAADA UUS PAROOL MEILILE
+                        </button>
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                        <div class="text-center mt-4">
+                            <Link
+                                :href="route('login')"
+                                class="text-xl hover:underline"
+                                style="color: #0E2C20;"
+                            >
+                                Salasõna meeles? Logi sisse
+                            </Link>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Email Password Reset Link
-                </PrimaryButton>
-            </div>
-        </form>
+        </div>
     </GuestLayout>
 </template>
+
+<style scoped>
+input:focus {
+    outline: none;
+    border-color: #275342;
+    box-shadow: 0 0 0 2px rgba(39, 83, 66, 0.1);
+}
+
+button:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+@media (max-width: 375px) {
+    .max-w-\[300px\] {
+        max-width: calc(100vw - 2rem);
+    }
+}
+
+input {
+    font-size: 16px;
+}
+</style>
