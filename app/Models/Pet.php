@@ -12,5 +12,8 @@ class Pet extends Model
         'dob',
         'weight',
         'image',
+        'chip',
+        'breed',
+        'gender',
     ];
 }
