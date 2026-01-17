@@ -67,7 +67,7 @@ const submit = () => {
                         <div class="text-center mt-4">
                             <Link
                                 :href="route('login')"
-                                class="text-xl hover:underline"
+                                class="text-base hover:underline"
                                 style="color: #0E2C20;"
                             >
                                 Salasõna meeles? Logi sisse
