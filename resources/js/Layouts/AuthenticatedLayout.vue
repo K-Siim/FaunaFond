@@ -55,9 +55,9 @@ const props = defineProps({
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')">Profile</DropdownLink>
+                                        <DropdownLink :href="route('profile.index')">Profiil</DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
+                                            Logi välja
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -96,11 +96,11 @@ const props = defineProps({
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
+                            <ResponsiveNavLink :href="route('profile.index')">
+                                Profiil
                             </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
+                                Logi välja
                             </ResponsiveNavLink>
                         </div>
                     </div>
