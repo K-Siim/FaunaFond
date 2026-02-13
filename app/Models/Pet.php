@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\VetVisit;
 
 class Pet extends Model
 {
@@ -24,5 +25,10 @@ class Pet extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function vetVisits()
+    {
+        return $this->hasMany(VetVisit::class)->orderBy('visit_date', 'desc');
     }
 }
