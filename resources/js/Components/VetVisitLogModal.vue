@@ -108,7 +108,7 @@ function submit() {
     >
       <!-- Modal card -->
       <div
-        class="relative w-full max-w-sm bg-[#F0F4EF] rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto"
+        class="relative w-full max-w-sm bg-[#F0F4EF] rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hide"
       >
         <!-- Close button -->
         <button
