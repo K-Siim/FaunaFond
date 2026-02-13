@@ -14,6 +14,14 @@ use Inertia\Response;
 class ProfileController extends Controller
 {
     /**
+     * Display the user's profile.
+     */
+    public function index(Request $request): Response
+    {
+        return Inertia::render('Profile/Index');
+    }
+
+    /**
      * Display the user's profile form.
      */
     public function edit(Request $request): Response
@@ -37,7 +45,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.index')->with('status', 'profile-updated');
     }
 
     /**
