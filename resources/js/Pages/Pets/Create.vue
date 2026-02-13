@@ -23,7 +23,7 @@ const form = useForm({
   <AuthenticatedLayout>
     <template #header>
       <h2 class="text-xl font-semibold leading-tight text-gray-800">
-        Add Pet
+        Lisa uus lemmik
       </h2>
     </template>
 
@@ -40,7 +40,7 @@ const form = useForm({
           <input v-model="form.image" placeholder="Image URL" class="border p-2 rounded" />
 
           <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
-            Save Pet
+            Salvesta
           </button>
         </div>
       </form>
