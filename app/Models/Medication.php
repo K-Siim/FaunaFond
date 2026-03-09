@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Medication extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'pet_id',
+        'user_id',
+        'name',
+        'dose_amount',
+        'dose_unit',
+        'frequency_per_day',
+        'start_date',
+        'end_date',
+    ];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'dose_amount' => 'decimal:2',
+    ];
+
+    public function pet()
+    {
+        return $this->belongsTo(Pet::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}
