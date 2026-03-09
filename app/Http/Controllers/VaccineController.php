@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class VaccineController extends Controller
 {
+
     public function store(Request $request, Pet $pet)
     {
         $validated = $request->validate([
@@ -28,6 +29,10 @@ class VaccineController extends Controller
 
     public function update(Request $request, Pet $pet, Vaccine $vaccine)
     {
+        if ($vaccine->pet_id !== $pet->id) {
+            abort(403, 'This vaccine does not belong to this pet.');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'administered_date' => 'required|date',
@@ -42,6 +47,10 @@ class VaccineController extends Controller
 
     public function destroy(Pet $pet, Vaccine $vaccine)
     {
+        if ($vaccine->pet_id !== $pet->id) {
+            abort(403, 'This vaccine does not belong to this pet.');
+        }
+
         $vaccine->delete();
 
         return back()->with('success', 'Vaktsiin kustutatud!');

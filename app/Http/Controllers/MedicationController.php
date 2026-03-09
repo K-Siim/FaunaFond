@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class MedicationController extends Controller
 {
+
     public function store(Request $request, Pet $pet)
     {
         $validated = $request->validate([
@@ -30,6 +31,10 @@ class MedicationController extends Controller
 
     public function update(Request $request, Pet $pet, Medication $medication)
     {
+        if ($medication->pet_id !== $pet->id) {
+            abort(403, 'This medication does not belong to this pet.');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'dose_amount' => 'required|numeric|min:0',
@@ -46,6 +51,10 @@ class MedicationController extends Controller
 
     public function destroy(Pet $pet, Medication $medication)
     {
+        if ($medication->pet_id !== $pet->id) {
+            abort(403, 'This medication does not belong to this pet.');
+        }
+
         $medication->delete();
 
         return back()->with('success', 'Ravim kustutatud!');

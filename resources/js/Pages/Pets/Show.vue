@@ -3,19 +3,36 @@ import { ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import VetVisitLogModal from '@/Components/VetVisitLogModal.vue';
+import VaccineModal from '@/Components/VaccineModal.vue';
+import MedicationModal from '@/Components/MedicationModal.vue';
 
 const props = defineProps({
     pet: Object,
 });
 
+// ── Modals ───────────────────────────────────────────────
 const showVetModal = ref(false);
+const showVaccineModal = ref(false);
+const showMedicationModal = ref(false);
 
+// ── Expanded entries (accordions) ────────────────────────
 const expandedVisitId = ref(null);
+const expandedVaccineId = ref(null);
+const expandedMedicationId = ref(null);
 
 function toggleVisit(id) {
     expandedVisitId.value = expandedVisitId.value === id ? null : id;
 }
 
+function toggleVaccine(id) {
+    expandedVaccineId.value = expandedVaccineId.value === id ? null : id;
+}
+
+function toggleMedication(id) {
+    expandedMedicationId.value = expandedMedicationId.value === id ? null : id;
+}
+
+// ── Delete actions ───────────────────────────────────────
 const deleteForm = useForm({});
 
 function deleteVisit(visitId) {
@@ -25,6 +42,21 @@ function deleteVisit(visitId) {
     });
 }
 
+function deleteVaccine(vaccineId) {
+    if (!confirm('Kustuta see vaktsiin?')) return;
+    deleteForm.delete(route('vaccines.destroy', { pet: props.pet.id, vaccine: vaccineId }), {
+        preserveScroll: true,
+    });
+}
+
+function deleteMedication(medicationId) {
+    if (!confirm('Kustuta see ravim?')) return;
+    deleteForm.delete(route('medications.destroy', { pet: props.pet.id, medication: medicationId }), {
+        preserveScroll: true,
+    });
+}
+
+// ── Format date helper ───────────────────────────────────
 function formatDate(dateStr) {
     if (!dateStr) return '';
     const d = new Date(dateStr);
@@ -38,107 +70,139 @@ function formatDate(dateStr) {
     <AuthenticatedLayout>
         <div class="flex flex-col gap-10">
 
-            <section class="bg-[#FFFDF5]">
+            <!-- ── Meditsiiniline info ───────────────────────── -->
+            <section class="bg-[#FFFDF5] p-6 rounded-2xl">
                 <div class="flex flex-col gap-6">
-                    <div class="flex flex-row justify-between">
-                        <h3>Meditsiiniline info</h3>
-                        <Link
-                            href="/pets/create"
-                            class="text-green-600 font-medium flex justify-center items-center pl-2 pr-2 border border-green-600 rounded-full hover:bg-green-600 hover:text-white transition w-5 h-5"
-                        >+</Link>
+                    <div class="flex flex-row justify-between items-center">
+                        <h3 class="text-base font-semibold text-gray-800">Meditsiiniline info</h3>
+                        <button
+                            @click="showVaccineModal = true"
+                            class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
+                        >+</button>
                     </div>
 
-                    <div class="flex flex-col gap-4">
-                        <div class="flex flex-col gap-2">
-                            <h4>Vaktsiinid</h4>
-                            <div></div>
+                    <!-- Vaccines -->
+                    <div class="flex flex-col gap-3">
+                        <h4 class="text-sm font-medium text-gray-700">Vaktsiinid</h4>
+                        
+                        <p v-if="!pet.vaccines || pet.vaccines.length === 0" class="text-sm text-gray-400 text-center py-4">
+                            Vaktsiine pole veel lisatud.
+                        </p>
+
+                        <div v-for="vaccine in pet.vaccines" :key="vaccine.id" class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+                            <button class="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition" @click="toggleVaccine(vaccine.id)">
+                                <div class="flex flex-col items-start text-left">
+                                    <span class="text-sm font-semibold text-gray-800">{{ vaccine.name }}</span>
+                                    <span class="text-xs text-gray-400 mt-0.5">{{ formatDate(vaccine.administered_date) }}</span>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 transition-transform duration-200" :class="expandedVaccineId === vaccine.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+
+                            <div v-if="expandedVaccineId === vaccine.id" class="px-4 pb-4 border-t border-gray-100">
+                                <div class="mt-3 space-y-1 text-sm text-gray-600">
+                                    <p v-if="vaccine.expiry_date"><strong>Aegub:</strong> {{ formatDate(vaccine.expiry_date) }}</p>
+                                    <p v-if="vaccine.batch_number"><strong>Partii:</strong> {{ vaccine.batch_number }}</p>
+                                </div>
+                                <div class="flex justify-end mt-3">
+                                    <button @click="deleteVaccine(vaccine.id)" class="text-xs text-red-400 hover:text-red-600 transition">Kustuta</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex flex-col gap-2">
-                            <h4>Ravimid</h4>
-                            <div></div>
+                    </div>
+
+                    <!-- Medications -->
+                    <div class="flex flex-col gap-3 mt-4">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-sm font-medium text-gray-700">Ravimid</h4>
+                            <button
+                                @click="showMedicationModal = true"
+                                class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
+                            >+</button>
+                        </div>
+                        
+                        <p v-if="!pet.medications || pet.medications.length === 0" class="text-sm text-gray-400 text-center py-4">
+                            Ravimeid pole veel lisatud.
+                        </p>
+
+                        <div v-for="medication in pet.medications" :key="medication.id" class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+                            <button class="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition" @click="toggleMedication(medication.id)">
+                                <div class="flex flex-col items-start text-left">
+                                    <span class="text-sm font-semibold text-gray-800">{{ medication.name }}</span>
+                                    <span class="text-xs text-gray-400 mt-0.5">{{ medication.dose_amount }}{{ medication.dose_unit }} · {{ medication.frequency_per_day }}x päevas</span>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 transition-transform duration-200" :class="expandedMedicationId === medication.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+
+                            <div v-if="expandedMedicationId === medication.id" class="px-4 pb-4 border-t border-gray-100">
+                                <div class="mt-3 space-y-1 text-sm text-gray-600">
+                                    <p><strong>Algas:</strong> {{ formatDate(medication.start_date) }}</p>
+                                    <p v-if="medication.end_date"><strong>Lõpeb:</strong> {{ formatDate(medication.end_date) }}</p>
+                                </div>
+                                <div class="flex justify-end mt-3">
+                                    <button @click="deleteMedication(medication.id)" class="text-xs text-red-400 hover:text-red-600 transition">Kustuta</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="bg-[#FFFDF5]">
+            <!-- ── Meeldetuletused ───────────────────────────── -->
+            <section class="bg-[#FFFDF5] p-6 rounded-2xl">
                 <div class="flex flex-col gap-6">
-                    <div class="flex flex-row justify-between">
-                        <h3>Meeldetuletused</h3>
+                    <div class="flex flex-row justify-between items-center">
+                        <h3 class="text-base font-semibold text-gray-800">Meeldetuletused</h3>
                         <Link
                             href="/pets/create"
-                            class="text-green-600 font-medium flex justify-center items-center pl-2 pr-2 border border-green-600 rounded-full hover:bg-green-600 hover:text-white transition w-5 h-5"
+                            class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
                         >+</Link>
                     </div>
                     <div class="flex flex-col gap-4">
+                        <p class="text-sm text-gray-400 text-center py-4">Meeldetuletusi pole veel lisatud.</p>
                     </div>
                 </div>
             </section>
 
-            <section class="bg-[#FFFDF5]">
+            <!-- ── Arstivisiitide logi ───────────────────────── -->
+            <section class="bg-[#FFFDF5] p-6 rounded-2xl">
                 <div class="flex flex-col gap-6">
-
                     <div class="flex flex-row justify-between items-center">
                         <h3 class="text-base font-semibold text-gray-800">Arstivisiitide logi</h3>
                         <button
                             @click="showVetModal = true"
                             class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
-                            aria-label="Lisa arstivisiit"
                         >+</button>
                     </div>
 
                     <div class="flex flex-col gap-3">
-                        <p
-                            v-if="!pet.vetVisits || pet.vetVisits.length === 0"
-                            class="text-sm text-gray-400 text-center py-4"
-                        >
+                        <p v-if="!pet.vet_visits || pet.vet_visits.length === 0" class="text-sm text-gray-400 text-center py-4">
                             Arstivisiite pole veel lisatud.
                         </p>
 
-                        <div
-                            v-for="visit in pet.vetVisits"
-                            :key="visit.id"
-                            class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm"
-                        >
-                            <button
-                                class="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition"
-                                @click="toggleVisit(visit.id)"
-                            >
+                        <div v-for="visit in pet.vet_visits" :key="visit.id" class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+                            <button class="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition" @click="toggleVisit(visit.id)">
                                 <div class="flex flex-col items-start text-left">
                                     <span class="text-sm font-semibold text-gray-800">{{ visit.clinic_name }}</span>
                                     <span class="text-xs text-gray-400 mt-0.5">{{ formatDate(visit.visit_date) }}</span>
                                 </div>
-
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    :class="expandedVisitId === visit.id ? 'rotate-180' : ''"
-                                    fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2"
-                                >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 transition-transform duration-200" :class="expandedVisitId === visit.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
                                 </svg>
                             </button>
 
-                            <div
-                                v-if="expandedVisitId === visit.id"
-                                class="px-4 pb-4 border-t border-gray-100"
-                            >
+                            <div v-if="expandedVisitId === visit.id" class="px-4 pb-4 border-t border-gray-100">
                                 <p class="text-sm text-gray-600 whitespace-pre-wrap mt-3 leading-relaxed">
                                     {{ visit.log || 'Logi puudub.' }}
                                 </p>
-
                                 <div class="flex justify-end mt-3">
-                                    <button
-                                        @click="deleteVisit(visit.id)"
-                                        class="text-xs text-red-400 hover:text-red-600 transition"
-                                    >
-                                        Kustuta
-                                    </button>
+                                    <button @click="deleteVisit(visit.id)" class="text-xs text-red-400 hover:text-red-600 transition">Kustuta</button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -146,10 +210,8 @@ function formatDate(dateStr) {
         </div>
     </AuthenticatedLayout>
 
-    <VetVisitLogModal
-        v-if="showVetModal"
-        :pet-id="pet.id"
-        :pet-name="pet.name"
-        @close="showVetModal = false"
-    />
+    <!-- Modals -->
+    <VetVisitLogModal v-if="showVetModal" :pet-id="pet.id" :pet-name="pet.name" @close="showVetModal = false" />
+    <VaccineModal v-if="showVaccineModal" :pet-id="pet.id" :pet-name="pet.name" @close="showVaccineModal = false" />
+    <MedicationModal v-if="showMedicationModal" :pet-id="pet.id" :pet-name="pet.name" @close="showMedicationModal = false" />
 </template>
