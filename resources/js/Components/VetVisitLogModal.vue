@@ -15,7 +15,6 @@ const props = defineProps({
 
 const emit = defineEmits(['close']);
 
-// ── Calendar state ──────────────────────────────────────
 const today = new Date();
 const currentMonth = ref(today.getMonth());
 const currentYear  = ref(today.getFullYear());
@@ -77,7 +76,6 @@ function isSelected(day) {
 
 function clearDate() { selectedDate.value = null; }
 
-// ── Form ────────────────────────────────────────────────
 const form = useForm({
     clinic_name: '',
     visit_date:  '',

@@ -89,14 +89,14 @@ function formatDate(dateStr) {
 
                     <div class="flex flex-col gap-3">
                         <p
-                            v-if="!pet.vet_visits || pet.vet_visits.length === 0"
+                            v-if="!pet.vetVisits || pet.vetVisits.length === 0"
                             class="text-sm text-gray-400 text-center py-4"
                         >
                             Arstivisiite pole veel lisatud.
                         </p>
 
                         <div
-                            v-for="visit in pet.vet_visits"
+                            v-for="visit in pet.vetVisits"
                             :key="visit.id"
                             class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm"
                         >
