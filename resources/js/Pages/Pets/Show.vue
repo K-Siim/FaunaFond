@@ -3,19 +3,15 @@ import { ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import VetVisitLogModal from '@/Components/VetVisitLogModal.vue';
-import VaccineModal from '@/Components/VaccineModal.vue';
-import MedicationModal from '@/Components/MedicationModal.vue';
+import MedicalRecordModal from '@/Components/MedicalRecordModal.vue';
 
 const props = defineProps({
     pet: Object,
 });
 
-// ── Modals ───────────────────────────────────────────────
 const showVetModal = ref(false);
-const showVaccineModal = ref(false);
-const showMedicationModal = ref(false);
+const showMedicalModal = ref(false);
 
-// ── Expanded entries (accordions) ────────────────────────
 const expandedVisitId = ref(null);
 const expandedVaccineId = ref(null);
 const expandedMedicationId = ref(null);
@@ -32,7 +28,6 @@ function toggleMedication(id) {
     expandedMedicationId.value = expandedMedicationId.value === id ? null : id;
 }
 
-// ── Delete actions ───────────────────────────────────────
 const deleteForm = useForm({});
 
 function deleteVisit(visitId) {
@@ -56,7 +51,6 @@ function deleteMedication(medicationId) {
     });
 }
 
-// ── Format date helper ───────────────────────────────────
 function formatDate(dateStr) {
     if (!dateStr) return '';
     const d = new Date(dateStr);
@@ -70,18 +64,16 @@ function formatDate(dateStr) {
     <AuthenticatedLayout>
         <div class="flex flex-col gap-10">
 
-            <!-- ── Meditsiiniline info ───────────────────────── -->
             <section class="bg-[#FFFDF5] p-6 rounded-2xl">
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-row justify-between items-center">
                         <h3 class="text-base font-semibold text-gray-800">Meditsiiniline info</h3>
                         <button
-                            @click="showVaccineModal = true"
+                            @click="showMedicalModal = true"
                             class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
                         >+</button>
                     </div>
 
-                    <!-- Vaccines -->
                     <div class="flex flex-col gap-3">
                         <h4 class="text-sm font-medium text-gray-700">Vaktsiinid</h4>
                         
@@ -112,15 +104,8 @@ function formatDate(dateStr) {
                         </div>
                     </div>
 
-                    <!-- Medications -->
                     <div class="flex flex-col gap-3 mt-4">
-                        <div class="flex justify-between items-center">
-                            <h4 class="text-sm font-medium text-gray-700">Ravimid</h4>
-                            <button
-                                @click="showMedicationModal = true"
-                                class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
-                            >+</button>
-                        </div>
+                        <h4 class="text-sm font-medium text-gray-700">Ravimid</h4>
                         
                         <p v-if="!pet.medications || pet.medications.length === 0" class="text-sm text-gray-400 text-center py-4">
                             Ravimeid pole veel lisatud.
@@ -167,7 +152,6 @@ function formatDate(dateStr) {
                 </div>
             </section>
 
-            <!-- ── Arstivisiitide logi ───────────────────────── -->
             <section class="bg-[#FFFDF5] p-6 rounded-2xl">
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-row justify-between items-center">
@@ -210,8 +194,6 @@ function formatDate(dateStr) {
         </div>
     </AuthenticatedLayout>
 
-    <!-- Modals -->
     <VetVisitLogModal v-if="showVetModal" :pet-id="pet.id" :pet-name="pet.name" @close="showVetModal = false" />
-    <VaccineModal v-if="showVaccineModal" :pet-id="pet.id" :pet-name="pet.name" @close="showVaccineModal = false" />
-    <MedicationModal v-if="showMedicationModal" :pet-id="pet.id" :pet-name="pet.name" @close="showMedicationModal = false" />
+    <MedicalRecordModal v-if="showMedicalModal" :pet-id="pet.id" :pet-name="pet.name" @close="showMedicalModal = false" />
 </template>
