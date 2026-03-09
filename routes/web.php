@@ -37,14 +37,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/pets/{pet}/vet-visits/{vetVisit}', [VetVisitController::class, 'destroy'])->name('vet-visits.destroy');
 
     // Vaccines routes
-    Route::post('/vaccines',            [VaccineController::class, 'store'])   ->name('vaccines.store');
-    Route::put('/vaccines/{vaccine}',   [VaccineController::class, 'update'])  ->name('vaccines.update');
-    Route::delete('/vaccines/{vaccine}',[VaccineController::class, 'destroy']) ->name('vaccines.destroy');
+    Route::post('/pets/{pet}/vaccines',            [VaccineController::class, 'store'])   ->name('vaccines.store');
+    Route::put('/pets/{pet}/vaccines/{vaccine}',   [VaccineController::class, 'update'])  ->name('vaccines.update');
+    Route::delete('/pets/{pet}/vaccines/{vaccine}',[VaccineController::class, 'destroy']) ->name('vaccines.destroy');
     
     // Medications routes
-    Route::post('/medications',               [MedicationController::class, 'store'])   ->name('medications.store');
-    Route::put('/medications/{medication}',   [MedicationController::class, 'update'])  ->name('medications.update');
-    Route::delete('/medications/{medication}',[MedicationController::class, 'destroy']) ->name('medications.destroy');
+    Route::post('/pets/{pet}/medications',               [MedicationController::class, 'store'])   ->name('medications.store');
+    Route::put('/pets/{pet}/medications/{medication}',   [MedicationController::class, 'update'])  ->name('medications.update');
+    Route::delete('/pets/{pet}/medications/{medication}',[MedicationController::class, 'destroy']) ->name('medications.destroy');
 });
 
 require __DIR__.'/auth.php';

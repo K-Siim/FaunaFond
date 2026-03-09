@@ -201,7 +201,7 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
 
                     <template v-if="treatmentType === 'ravim'">
                         <div class="flex gap-3">
-                            <input v-model="medicationForm.dose_amount" type="number" step="0.01" placeholder="Annus" class="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
+                            <input v-model="medicationForm.dose_amount" type="number" step="1" placeholder="Annus" class="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
                             <select v-model="medicationForm.dose_unit" class="w-28 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40">
                                 <option value="ml">ml</option>
                                 <option value="mg">mg</option>
