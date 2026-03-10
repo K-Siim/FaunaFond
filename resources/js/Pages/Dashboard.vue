@@ -10,7 +10,7 @@ const props = defineProps({
 })
 </script>
 
-<template>
+<template >
   <Head title="Dashboard" />
 
   <AuthenticatedLayout :pets="pets">

@@ -8,19 +8,22 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('vetVisits', function (Blueprint $table) {
+        Schema::create('medications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pet_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('clinic_name');
-            $table->date('visit_date');
-            $table->text('log')->nullable();
+            $table->string('name');
+            $table->decimal('dose_amount', 8, 2);
+            $table->string('dose_unit'); // ml, mg, etc
+            $table->integer('frequency_per_day');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('vetVisits');
+        Schema::dropIfExists('medications');
     }
 };
