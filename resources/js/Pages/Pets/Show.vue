@@ -62,7 +62,7 @@ function formatDate(dateStr) {
     <Head :title="pet.name" />
 
     <AuthenticatedLayout>
-        <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-10 w-full p-6">
 
             <section class="bg-[#FFFDF5] p-6 rounded-2xl">
                 <div class="flex flex-col gap-6">
