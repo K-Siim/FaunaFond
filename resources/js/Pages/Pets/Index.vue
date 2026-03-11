@@ -11,9 +11,15 @@ const props = defineProps({
   <Head title="My Pets" />
 
   <AuthenticatedLayout>
+    <template #header>
+      <h2 class="text-xl font-semibold leading-tight text-gray-800">
+        Minu lemmikud
+      </h2>
+    </template>
+
     <div class="p-6">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="text-lg font-semibold">Kõik lemmikud</h3>
+        <h3 class="text-lg font-semibold">Lemmikute nimekiri</h3>
         <Link href="/pets/create" class="text-green-600 font-medium pl-2 pr-2 border border-green-600 rounded-lg hover:bg-green-600 hover:text-white transition">
           +
         </Link>
@@ -46,7 +52,7 @@ const props = defineProps({
         </div>
 
 
-      <p v-else>Lemmikuid ei leitud</p>
+      <p v-else>Lemmikloomi ei leitud</p>
     </div>
   </AuthenticatedLayout>
 </template>
