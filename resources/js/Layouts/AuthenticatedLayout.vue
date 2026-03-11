@@ -5,7 +5,6 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import PetContent from '@/Components/PetInfo/PetContent.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
@@ -55,9 +54,9 @@ const props = defineProps({
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')">Profile</DropdownLink>
+                                        <DropdownLink :href="route('profile.index')">Profiil</DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
+                                            Logi välja
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -96,18 +95,18 @@ const props = defineProps({
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
+                            <ResponsiveNavLink :href="route('profile.index')">
+                                Profiil
                             </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
+                                Logi välja
                             </ResponsiveNavLink>
                         </div>
                     </div>
                 </div>
             </nav>
 
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header class="bg-[#E7F0E4]" v-if="$slots.header">
                 <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>

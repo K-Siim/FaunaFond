@@ -19,4 +19,7 @@ export default {
     },
 
     plugins: [forms],
+
+    plugins: [require('tailwind-scrollbar-hide')],
+
 };
