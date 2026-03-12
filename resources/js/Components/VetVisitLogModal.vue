@@ -111,7 +111,7 @@ function submit() {
         <!-- Close button -->
         <button
           @click="emit('close')"
-          class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition z-10"
+          class="absolute top-3.5 right-4 text-gray-500 hover:text-gray-800 transition z-10"
           aria-label="Sulge"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
@@ -121,7 +121,7 @@ function submit() {
           </svg>
         </button>
 
-        <div class="p-5 pt-20 flex flex-col gap-4">
+        <div class="p-5 pt-12 flex flex-col gap-4">
 
           <!-- Pet name (read-only display) -->
           <div class="flex items-center justify-between bg-white rounded-xl px-4 py-3 border border-gray-200">
@@ -262,7 +262,7 @@ function submit() {
           <button
             @click="submit"
             :disabled="form.processing"
-            class="w-full bg-[#2D5A3D] text-white font-semibold tracking-widest text-sm py-4 rounded-xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60"
+            class="w-full bg-[#275342] text-white font-semibold tracking-widest text-sm py-4 rounded-xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60"
           >
             {{ form.processing ? 'Salvestamine...' : 'LISA SISSEKANNE' }}
           </button>

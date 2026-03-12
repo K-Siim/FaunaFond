@@ -21,6 +21,7 @@ class VetVisit extends Model
         'visit_date' => 'date',
     ];
 
+
     public function pet()
     {
         return $this->belongsTo(Pet::class);

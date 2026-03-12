@@ -38,13 +38,13 @@ const props = defineProps({
                                 class="mb-4"
                                 />
                             </div>
-                            <p v-else>No pets found</p>
+                            <p v-else>Lemmikloomi ei leitud</p>
                         </div>
 
 
                         <Link :href="route('pets.create')">
                         <button class="text-[#275342] text-[16px] h-full">
-                            Add Pet
+                            Lisa loom
                         </button>
                         </Link>
 

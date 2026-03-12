@@ -36,13 +36,13 @@ const props = defineProps({
 
                 <div>
                     <h4 class="text-lg font-bold">{{ pet.name }}</h4>
-                    <p><strong>Species:</strong> {{ pet.species }}</p>
-                    <p><strong>Breed:</strong> {{ pet.breed }}</p>
-                    <p><strong>Gender:</strong> {{ pet.gender }}</p>
-                    <p><strong>DOB:</strong> {{ pet.dob }}</p>
-                    <p><strong>Weight:</strong> {{ pet.weight }}</p>
-                    <p><strong>Chip:</strong> {{ pet.chip }}</p>
-                    <p><strong>Image URL:</strong> {{ pet.image }}</p>
+                    <p><strong>Liik:</strong> {{ pet.species }}</p>
+                    <p><strong>Tõug:</strong> {{ pet.breed }}</p>
+                    <p><strong>Sugu:</strong> {{ pet.gender }}</p>
+                    <p><strong>Sünnikuupäev:</strong> {{ pet.dob }}</p>
+                    <p><strong>Kaal:</strong> {{ pet.weight }}</p>
+                    <p><strong>Kiip:</strong> {{ pet.chip }}</p>
+                    <p><strong>Pilt:</strong> {{ pet.image }}</p>
                 </div>
 
               </div>

@@ -179,19 +179,19 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" @click.self="emit('close')">
             <div class="relative w-full max-w-sm bg-[#F0F4EF] rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
 
-                <button @click="emit('close')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition z-10">
+                <button @click="emit('close')" class="absolute top-3.5 right-4 text-gray-500 hover:text-gray-800 transition z-10">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
 
-                <div class="p-5 flex flex-col gap-4">
+                <div class="p-5 flex flex-col gap-4 pt-12">
 
                     <div class="flex items-center justify-between bg-white rounded-xl px-4 py-3 border border-gray-200">
                         <span class="text-sm text-gray-700 font-medium">{{ petName || 'Lemmiku nimi' }}</span>
                     </div>
 
-                    <select v-model="treatmentType" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40">
+                    <select v-model="treatmentType" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#275342]/40">
                         <option value="vaktsiin">Vaktsiin</option>
                         <option value="ravim">Ravim</option>
                     </select>
@@ -200,9 +200,9 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                     <p v-if="currentForm.errors.name" class="text-red-500 text-xs -mt-2">{{ currentForm.errors.name }}</p>
 
                     <template v-if="treatmentType === 'ravim'">
-                        <div class="flex gap-3">
-                            <input v-model="medicationForm.dose_amount" type="number" step="1" placeholder="Annus" class="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
-                            <select v-model="medicationForm.dose_unit" class="w-28 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40">
+                        <div class="flex justify-between gap-3 w-full">
+                            <input v-model="medicationForm.dose_amount" type="number" step="1" placeholder="Annus" class="flex w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
+                            <select v-model="medicationForm.dose_unit" class="w-1/2 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40">
                                 <option value="ml">ml</option>
                                 <option value="mg">mg</option>
                                 <option value="g">g</option>

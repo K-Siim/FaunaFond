@@ -27,9 +27,9 @@ const form = useForm({
       </h2>
     </template>
 
-    <div class="p-6">
+    <div class="p-6 justify-center items-center w-full">
       <form @submit.prevent="form.post(route('pets.store'))">
-        <div class="grid grid-cols-1 gap-4">
+        <div class="grid grid-cols-1 gap-4 w-full max-w-md mx-auto">
           <input v-model="form.name" placeholder="Nimi" class="border p-2 rounded" />
           <input v-model="form.chip" placeholder="Kiip" class="border p-2 rounded" />
           <input v-model="form.species" placeholder="Liik" class="border p-2 rounded" />
@@ -39,7 +39,7 @@ const form = useForm({
           <input v-model="form.weight" placeholder="Kaal" class="border p-2 rounded" />
           <input v-model="form.image" placeholder="Pilt" class="border p-2 rounded" />
 
-          <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
+          <button type="submit" class="bg-[#275342] text-white px-4 py-2 rounded">
             Salvesta
           </button>
         </div>
