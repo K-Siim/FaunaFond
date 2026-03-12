@@ -262,7 +262,7 @@ function submit() {
           <button
             @click="submit"
             :disabled="form.processing"
-            class="w-full bg-[#2D5A3D] text-white font-semibold tracking-widest text-sm py-4 rounded-xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60"
+            class="w-full bg-[#275342] text-white font-semibold tracking-widest text-sm py-4 rounded-xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60"
           >
             {{ form.processing ? 'Salvestamine...' : 'LISA SISSEKANNE' }}
           </button>

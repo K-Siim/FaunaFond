@@ -39,7 +39,7 @@ const form = useForm({
           <input v-model="form.weight" placeholder="Kaal" class="border p-2 rounded" />
           <input v-model="form.image" placeholder="Pilt" class="border p-2 rounded" />
 
-          <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
+          <button type="submit" class="bg-[#275342] text-white px-4 py-2 rounded">
             Salvesta
           </button>
         </div>

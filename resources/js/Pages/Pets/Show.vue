@@ -67,7 +67,7 @@ function formatDate(dateStr) {
             <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-row justify-between items-center">
-                        <h3 class="text-base font-semibold text-gray-800">Meditsiiniline info</h3>
+                        <h3 class="text-base font-semibold text-[#275342]">Meditsiiniline info</h3>
                         <button
                             @click="showMedicalModal = true"
                             class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"

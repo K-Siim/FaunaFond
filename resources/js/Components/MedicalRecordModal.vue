@@ -191,7 +191,7 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                         <span class="text-sm text-gray-700 font-medium">{{ petName || 'Lemmiku nimi' }}</span>
                     </div>
 
-                    <select v-model="treatmentType" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40">
+                    <select v-model="treatmentType" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#275342]/40">
                         <option value="vaktsiin">Vaktsiin</option>
                         <option value="ravim">Ravim</option>
                     </select>
@@ -202,7 +202,7 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                     <template v-if="treatmentType === 'ravim'">
                         <div class="flex justify-between gap-3 w-full">
                             <input v-model="medicationForm.dose_amount" type="number" step="1" placeholder="Annus" class="flex w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
-                            <select v-model="medicationForm.dose_unit" class="w-28 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40">
+                            <select v-model="medicationForm.dose_unit" class="w-1/2 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40">
                                 <option value="ml">ml</option>
                                 <option value="mg">mg</option>
                                 <option value="g">g</option>
