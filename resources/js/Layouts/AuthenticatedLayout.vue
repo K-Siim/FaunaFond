@@ -1,13 +1,16 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 
-const showingNavigationDropdown = ref(false);
+const menuOpen = ref(false);
+
+const toggleMenu = () => {
+    menuOpen.value = !menuOpen.value;
+};
+
+const logout = () => {
+    router.post(route('logout'));
+};
 
 const props = defineProps({
   pets: Array,
@@ -17,137 +20,70 @@ const props = defineProps({
 <template>
     <div>
         <div class="min-h-screen bg-[#E7F0E4]">
-            <nav class="border-b border-gray-100 bg-white">
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex h-16 justify-between">
-                        <div class="flex">
-                            <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
-                                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
-                            </div>
 
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </NavLink>
-                            </div>
-                        </div>
+            <button
+                @click="toggleMenu"
+                class="absolute top-6 left-6 z-50 p-2"
+                style="color: #275342"
+                aria-label="Menüü"
+            >
+                <svg v-if="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-8 w-8"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
 
-                        <div class="hidden sm:ms-6 sm:flex sm:items-center">
-                            <div class="relative ms-3">
-                                <Dropdown align="right" width="48">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button type="button"
-                                                class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none">
-                                                {{ $page.props.auth.user.name }}
-
-                                                <svg class="-me-0.5 ms-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                    fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </template>
-
-                                    <template #content>
-                                        <DropdownLink :href="route('profile.index')">Profiil</DropdownLink>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Logi välja
-                                        </DropdownLink>
-                                    </template>
-                                </Dropdown>
-                            </div>
-                        </div>
-
-                        <div class="-me-2 flex items-center sm:hidden">
-                            <button @click="showingNavigationDropdown = !showingNavigationDropdown"
-                                class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none">
-                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path :class="{ hidden: showingNavigationDropdown, 'inline-flex': !showingNavigationDropdown }"
-                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                    <path :class="{ hidden: !showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
-                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
+            <transition name="slide">
+                <div v-if="menuOpen" class="fixed inset-0 z-40" style="background-color: #e7f0e4">
+                    <div class="flex flex-col pt-24 px-8 space-y-6">
+                        <Link :href="route('dashboard')"
+                            class="text-xl py-3 hover:opacity-80" style="color: #275342">
+                            Avaleht
+                        </Link>
+                        <Link href="/pets"
+                            class="text-xl py-3 hover:opacity-80" style="color: #275342">
+                            Lemmikud
+                        </Link>
+                        <Link :href="route('profile.index')"
+                            class="text-xl py-3 hover:opacity-80" style="color: #275342">
+                            Profiil
+                        </Link>
+                        <button @click="logout"
+                            class="text-xl py-3 hover:opacity-80 text-left" style="color: #275342">
+                            Logi välja
+                        </button>
                     </div>
                 </div>
-
-                <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
-                    <div class="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div class="border-t border-gray-200 pb-1 pt-4">
-                        <div class="px-4">
-                            <div class="text-base font-medium text-gray-800">
-                                {{ $page.props.auth.user.name }}
-                            </div>
-                            <div class="text-sm font-medium text-gray-500">
-                                {{ $page.props.auth.user.email }}
-                            </div>
-                        </div>
-
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.index')">
-                                Profiil
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Logi välja
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            </transition>
 
             <header class="bg-[#E7F0E4]" v-if="$slots.header">
-                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 pt-20">
                     <slot name="header" />
                 </div>
             </header>
 
             <main>
                 <slot />
-
-                <div class="flex justify-center items-center h-full flex-col p-5 gap-5">
-                    <div class="flex justify-center items-center pt-3 pb-3 gap-5 flex-col w-full">
-                        <div class="flex flex-row justify-between items- w-full pt-2 pb-2">
-                            <h5 class="text-[#275342] text-[20px]">Lemmikute nimekiri</h5>
-
-                            <Link :href="route('pets.index')">
-                                <button class="text-[#275342] text-[16px] h-full">
-                                    Vaata kõiki
-                                </button>
-                            </Link>
-                        </div>
-                        <div class="p-5">
-                            <div v-if="pets && pets.length">
-                                <PetContent
-                                v-for="pet in pets"
-                                :key="pet.id"
-                                :pet="pet"
-                                class="mb-4"
-                                />
-                            </div>
-                            <p v-else>Lemmikloomi ei leitud</p>
-                        </div>
-
-
-                        <Link :href="route('pets.create')">
-                        <button class="text-[#275342] text-[16px] h-full">
-                            Lisa uus lemmik
-                        </button>
-                        </Link>
-
-                    </div>
-                </div>
             </main>
         </div>
     </div>
 </template>
+
+<style scoped>
+.slide-enter-active,
+.slide-leave-active {
+    transition: transform 0.3s ease;
+}
+.slide-enter-from {
+    transform: translateX(-100%);
+}
+.slide-leave-to {
+    transform: translateX(-100%);
+}
+</style>

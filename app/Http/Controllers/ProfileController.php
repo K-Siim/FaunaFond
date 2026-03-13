@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -68,4 +70,35 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function settings()
+{
+    return Inertia::render('Profile/Settings');
+}
+
+
+
+
+public function editPassword()
+{
+    return Inertia::render('Profile/ChangePassword');
+}
+
+public function updatePassword(Request $request)
+{
+    $request->validate([
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
+
+    $request->user()->update([
+        'password' => Hash::make($request->password),
+    ]);
+
+    return redirect()->route('profile.settings')->with('success', 'Salasõna muudetud!');
+}
+
+
+
+
+
 }
