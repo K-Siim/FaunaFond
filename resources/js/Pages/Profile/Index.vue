@@ -75,7 +75,7 @@ const logout = () => {
                             Avaleht
                         </Link>
                         <Link
-                            href="/lemmikud"
+                            href="/pets"
                             class="text-xl py-3 hover:opacity-80"
                             style="color: #275342"
                         >
