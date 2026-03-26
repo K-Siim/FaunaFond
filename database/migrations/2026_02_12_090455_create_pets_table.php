@@ -15,7 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name');
+            $table->string('chip')->nullable();
+            $table->string('breed')->nullable();
             $table->string('species')->nullable();
+            $table->string('gender')->nullable();
+            $table->decimal('weight', 8, 2)->nullable();
+            $table->date('dob');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
