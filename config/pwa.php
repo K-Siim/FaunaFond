@@ -4,7 +4,7 @@ return [
     'install-button' => true, // Show or hide the install button globally.
 
     'manifest' => [
-        'name' => 'Laravel PWA',
+        'name' => 'Faunafond',
         'short_name' => 'LPT',
         'background_color' => '#6777ef',
         'display' => 'fullscreen',
@@ -12,9 +12,9 @@ return [
         'theme_color' => '#6777ef',
         'icons' => [
             [
-                'src' => 'logo.png',
+                'src' => 'Logo.png',
                 'sizes' => '512x512',
-                'type' => 'image/png',
+                'type' => 'image/jpg',
             ],
         ],
     ],
