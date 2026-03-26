@@ -31,15 +31,14 @@ class PetController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'chip' => 'nullable|string|max:15',
-            'species' => 'required|string|max:255',
-            'breed' => 'nullable|string|max:255',
-            'gender' => 'nullable|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'chip' => 'nullable|digits_between:1,15',
+            'species' => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'breed' => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'gender' => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'weight' => 'nullable|numeric|decimal:0,2|min:0',
             'dob' => 'required|date',
-            'weight' => 'nullable|numeric',
-            'image' => 'nullable|string',
-        ]);
+            'image'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',        ]);
 
         $data['user_id'] = Auth::id();
 
@@ -61,14 +60,14 @@ class PetController extends Controller
         $this->authorizePetOwner($pet);
 
         $data = $request->validate([
-            'name' => 'required|string',
-            'chip' => 'nullable|string',
-            'species' => 'required|string',
-            'breed' => 'nullable|string',
-            'gender' => 'nullable|string',
+            'name' => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'chip' => 'nullable|digits_between:1,15',
+            'species' => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'breed' => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'gender' => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'weight' => 'nullable|numeric|decimal:0,2|min:0',
             'dob' => 'required|date',
-            'weight' => 'nullable|numeric',
-            'image' => 'nullable|string',
+            'image'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         $pet->update($data);
