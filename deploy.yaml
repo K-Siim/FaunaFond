@@ -4,6 +4,9 @@ import:
 config:
   repository: 'https://github.com/K-Siim/FaunaFond'
   keep_releases: 2
+  shared_files:
+    - .env
+    - database/database.sqlite
 
 hosts:
   stage:
@@ -25,6 +28,7 @@ tasks:
     - 'deploy:vendors'
     - 'npm:production'
     - 'artisan:storage:link'
+    - 'artisan:migrate'
     - 'artisan:optimize:clear'
     - 'artisan:optimize'
     - 'deploy:publish'
