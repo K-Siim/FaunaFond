@@ -35,7 +35,7 @@ class PetController extends Controller
             'chip' => 'nullable|digits_between:1,15',
             'species' => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
             'breed' => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
-            'gender' => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'gender' => 'nullable|string|in:isane,emane',
             'weight' => 'nullable|numeric|decimal:0,2|min:0',
             'dob' => 'required|date',
             'image'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',        ]);
