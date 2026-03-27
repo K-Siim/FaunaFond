@@ -53,10 +53,27 @@ function submit() {
 
     <div class="flex justify-center p-6">
       <div class="w-full max-w-md">
-        <div class="p-6 space-y-6 bg-transparent">
+        <div class="space-y-6 bg-transparent">
 
           <form @submit.prevent="submit" class="space-y-6">
+            <div class="space-y-2">
+              <Input
+                type="file"
+                accept="image/*"
+                @change="handleImage"
+              />
 
+              <div v-if="preview">
+                <img
+                  :src="preview"
+                  class="w-32 h-32 object-cover rounded-xl border mt-2"
+                />
+              </div>
+
+              <p v-if="form.errors.image" class="text-sm text-red-500">
+                {{ form.errors.image }}
+              </p>
+            </div>
             <div class="space-y-2">
               <Input
                 v-model="form.name"
@@ -100,7 +117,7 @@ function submit() {
 
             <div class="space-y-2">
               <Select v-model="form.gender">
-                <SelectTrigger>
+                <SelectTrigger class="h-12 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
                   <SelectValue placeholder="Vali sugu" />
                 </SelectTrigger>
                 <SelectContent>
@@ -130,33 +147,14 @@ function submit() {
                 step="0.1"
                 placeholder="Kaal (kg)"
               />
-            </div>
-
-            <div class="space-y-2">
-              <Input
-                type="file"
-                accept="image/*"
-                @change="handleImage"
-              />
-
-              <div v-if="preview">
-                <img
-                  :src="preview"
-                  class="w-32 h-32 object-cover rounded-xl border mt-2"
-                />
-              </div>
-
-              <p v-if="form.errors.image" class="text-sm text-red-500">
-                {{ form.errors.image }}
-              </p>
-            </div>
-
+            </div>         
             <Button
               type="submit"
-              class="w-full"
+              class="w-full text-[#FFFDF5]"
+              variant="default"
               :disabled="form.processing"
             >
-              Salvesta lemmik
+              LISA LEMMIK
             </Button>
 
           </form>

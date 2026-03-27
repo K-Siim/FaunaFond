@@ -1,9 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import PetContent from '@/Components/PetInfo/PetContent.vue';
-import { Link } from '@inertiajs/vue3';
-
-import { Head } from '@inertiajs/vue3'
+import { Link, Head } from '@inertiajs/vue3';
 
 const props = defineProps({
   pets: Array,
@@ -18,7 +16,7 @@ const props = defineProps({
       <h2 class="text-xl font-semibold leading-tight text-gray-800">
         Tere, Kasutaja!
       </h2>
-      <div class="flex justify-center items-center h-full flex-col p-5 gap-5">
+      <div class="flex justify-center items-center h-full flex-col gap-5">
                     <div class="flex justify-center items-center pt-3 pb-3 gap-5 flex-col w-full">
                         <div class="flex flex-row justify-between items- w-full pt-2 pb-2">
                             <h5 class="text-[#275342] text-[20px]">Lemmikute nimekiri</h5>
@@ -29,7 +27,8 @@ const props = defineProps({
                                 </button>
                             </Link>
                         </div>
-                        <div class="p-5">
+                        
+                        <div class="w-full max-w-md rounded-lg">
                             <div v-if="pets && pets.length">
                                 <PetContent
                                 v-for="pet in pets"
