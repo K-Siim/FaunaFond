@@ -6,7 +6,7 @@
 
        
         @PwaHead
-
+        
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
        
