@@ -51,7 +51,7 @@ class PetController extends Controller
     {
         $this->authorizePetOwner($pet);
         return Inertia::render('Pets/Show', [
-            'pet' => $pet->load(['vetVisits', 'vaccines', 'medications'])
+            'pet' => $pet->load(['vetVisits', 'vaccines', 'medications', 'vetVisits.files']),
         ]);
     }
 

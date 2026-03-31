@@ -56,6 +56,29 @@ function formatDate(dateStr) {
     const d = new Date(dateStr);
     return d.toLocaleDateString('et-EE', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
+
+const pendingFiles = ref({});
+
+function uploadFiles(e, visit) {
+    pendingFiles.value[visit.id] = Array.from(e.target.files);
+}
+
+function removePendingFile(visitId, index) {
+    pendingFiles.value[visitId].splice(index, 1);
+}
+
+const uploadForm = useForm({ files: [] });
+
+function submitFiles(visit) {
+    uploadForm.files = pendingFiles.value[visit.id];
+    uploadForm.post(route('vet-visits.upload-files', { pet: props.pet.id, vetVisit: visit.id }), {
+        forceFormData: true,
+        preserveScroll: true,
+        onSuccess: () => {
+            pendingFiles.value[visit.id] = [];
+        },
+    });
+}
 </script>
 
 <template>
@@ -178,13 +201,75 @@ function formatDate(dateStr) {
                             </button>
 
                             <div v-if="expandedVisitId === visit.id" class="px-4 pb-4 border-t border-gray-100">
-                                <p class="text-sm text-gray-600 whitespace-pre-wrap mt-3 leading-relaxed">
-                                    {{ visit.log || 'Logi puudub.' }}
-                                </p>
-                                <div class="flex justify-end mt-3">
-                                    <button @click="deleteVisit(visit.id)" class="text-xs text-red-400 hover:text-red-600 transition">Kustuta</button>
-                                </div>
-                            </div>
+    <p class="text-sm text-gray-600 whitespace-pre-wrap mt-3 leading-relaxed">
+        {{ visit.log || 'Logi puudub.' }}
+    </p>
+
+    <!-- Olemasolevad PDF-id -->
+    <div v-if="visit.files && visit.files.length" class="mt-3 flex flex-col gap-2">
+        <p class="text-xs text-gray-500 font-medium">Dokumendid</p>
+        <a
+            v-for="file in visit.files"
+            :key="file.id"
+            :href="route('vet-visit-files.download', file.id)"
+            class="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 rounded-lg px-3 py-2 transition"
+        >
+            <span class="text-red-400">📄</span>
+            <span class="text-xs text-gray-700 truncate">{{ file.original_name }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 ml-auto" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- PDF upload -->
+    <div class="mt-3">
+        <label class="flex items-center justify-center gap-2 border-2 border-dashed border-gray-200 rounded-xl py-3 cursor-pointer hover:border-[#2D5A3D] transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+            </svg>
+            <span class="text-xs text-gray-500">Lisa PDF</span>
+            <input
+                type="file"
+                multiple
+                accept=".pdf"
+                class="hidden"
+                @change="(e) => uploadFiles(e, visit)"
+            />
+        </label>
+
+        <!-- Valitud failid preview -->
+        <div v-if="pendingFiles[visit.id] && pendingFiles[visit.id].length" class="mt-2 flex flex-col gap-1">
+            <div
+                v-for="(file, index) in pendingFiles[visit.id]"
+                :key="index"
+                class="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-1.5"
+            >
+                <span class="text-xs text-gray-600 truncate max-w-[180px]">📄 {{ file.name }}</span>
+                <button @click="removePendingFile(visit.id, index)" class="text-gray-400 hover:text-red-500 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <button
+                @click="submitFiles(visit)"
+                class="mt-1 w-full text-xs bg-[#275342] text-white py-2 rounded-lg hover:bg-[#1e3f31] transition"
+            >
+                Lae üles
+            </button>
+        </div>
+    </div>
+
+    <div class="flex justify-end mt-3">
+        <button @click="deleteVisit(visit.id)" class="text-xs text-red-400 hover:text-red-600 transition">Kustuta</button>
+    </div>
+</div>
                         </div>
                     </div>
                 </div>
