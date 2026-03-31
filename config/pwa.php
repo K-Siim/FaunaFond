@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'install-button' => true, // Show or hide the install button globally.
+    'install-button' => false, // Show or hide the install button globally.
 
     'manifest' => [
         'name' => 'Faunafond',
