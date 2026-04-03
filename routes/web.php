@@ -50,8 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/pets/{pet}/medications/{medication}',   [MedicationController::class, 'update'])  ->name('medications.update');
     Route::delete('/pets/{pet}/medications/{medication}',[MedicationController::class, 'destroy']) ->name('medications.destroy');
 
+    // Vet Visit file upload route
+    Route::get('/vet-visit-files/{file}/download', [VetVisitController::class, 'download'])->name('vet-visit-files.download');
+    Route::post('/pets/{pet}/vet-visits/{vetVisit}/files', [VetVisitController::class, 'uploadFiles'])->name('vet-visits.upload-files');
 
-    
-});
+    });
 
 require __DIR__.'/auth.php';

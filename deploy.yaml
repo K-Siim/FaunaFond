@@ -1,0 +1,40 @@
+import: 
+  - recipe/laravel.php
+
+config:
+  repository: 'https://github.com/K-Siim/FaunaFond'
+  keep_releases: 2
+  shared_files:
+    - .env
+    - database/database.sqlite
+
+hosts:
+  stage:
+    hostname: 'ta24siim.itmajakas.ee'
+    http_user: virt137763
+    remote_user: virt137763
+    deploy_path: '~/domeenid/www.ta24siim.itmajakas.ee/faunafond'
+tasks:
+  npm:production:
+  - run: 'cd {{release_path}} && npm ci'
+  - run: 'cd {{release_path}} && npx vite build'
+
+
+  opcache:clear:
+    - run: killall php84-cgi || true
+
+  deploy:
+    - 'deploy:prepare'
+    - 'deploy:vendors'
+    - 'npm:production'
+    - 'artisan:storage:link'
+    - 'artisan:migrate'
+    - 'artisan:optimize:clear'
+    - 'artisan:optimize'
+    - 'deploy:publish'
+
+after:
+  deploy:failed: deploy:unlock
+
+before:
+  deploy:success: opcache:clear

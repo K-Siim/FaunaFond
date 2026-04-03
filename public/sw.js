@@ -15,13 +15,6 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-    const url = event.request.url;
-
-    // Ära intercepti auth päringuid – lase brauser teha redirect
-    if (url.includes('/auth/') || url.includes('/login') || url.includes('/sanctum')) {
-        return;
-    }
-
     if (event.request.mode === 'navigate') {
         event.respondWith(
             fetch(event.request)
