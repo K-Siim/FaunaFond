@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/pets/{pet}/medications',               [MedicationController::class, 'store'])   ->name('medications.store');
     Route::put('/pets/{pet}/medications/{medication}',   [MedicationController::class, 'update'])  ->name('medications.update');
     Route::delete('/pets/{pet}/medications/{medication}',[MedicationController::class, 'destroy']) ->name('medications.destroy');
+
+
+    
 });
 
 require __DIR__.'/auth.php';
