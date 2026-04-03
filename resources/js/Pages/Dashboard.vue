@@ -8,6 +8,7 @@ import { Head } from "@inertiajs/vue3";
 const props = defineProps({
     pets: Array,
 });
+
 </script>
 
 <template>
@@ -16,7 +17,7 @@ const props = defineProps({
     <AuthenticatedLayout :pets="pets">
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Tere, Kasutaja!
+                Tere, {{ $page.props.auth.user.name }}!
             </h2>
             <div class="flex justify-center items-center h-full flex-col p-5 gap-5">
                 <div class="flex justify-center items-center pt-3 pb-3 gap-5 flex-col w-full">
