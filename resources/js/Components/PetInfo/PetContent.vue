@@ -33,33 +33,34 @@
 <script>
 import { Link } from '@inertiajs/vue3'
 export default {
-  props: {
-    pet: {
-      type: Object,
-      required: true,
+    props: {
+        pet: {
+            type: Object,
+            required: true,
+        },
     },
-  },
-  methods: {
-    formatDate(date) {
-      if (!date) return ''
-      const d = new Date(date)
-      return `${String(d.getDate()).padStart(2, '0')}.${String(
-        d.getMonth() + 1
-      ).padStart(2, '0')}.${d.getFullYear()}`
+    methods: {
+        formatDate(date) {
+            if (!date) return "";
+            const d = new Date(date);
+            return `${String(d.getDate()).padStart(2, "0")}.${String(
+                d.getMonth() + 1,
+            ).padStart(2, "0")}.${d.getFullYear()}`;
+        },
+        calculateAge(date) {
+            if (!date) return "";
+            const dob = new Date(date);
+            const now = new Date();
+            let age = now.getFullYear() - dob.getFullYear();
+            if (
+                now.getMonth() < dob.getMonth() ||
+                (now.getMonth() === dob.getMonth() &&
+                    now.getDate() < dob.getDate())
+            ) {
+                age--;
+            }
+            return age;
+        },
     },
-    calculateAge(date) {
-      if (!date) return ''
-      const dob = new Date(date)
-      const now = new Date()
-      let age = now.getFullYear() - dob.getFullYear()
-      if (
-        now.getMonth() < dob.getMonth() ||
-        (now.getMonth() === dob.getMonth() && now.getDate() < dob.getDate())
-      ) {
-        age--
-      }
-      return age
-    },
-  },
-}
+};
 </script>
