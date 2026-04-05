@@ -33,7 +33,6 @@ const props = defineProps({
           >
             <Link :href="route('pets.show', pet.id)" class="">
               <div class="flex items-center justify-between">
-
                 <div>
                     <h4 class="text-lg font-bold">{{ pet.name }}</h4>
                     <p><strong>Liik:</strong> {{ pet.species }}</p>
@@ -44,7 +43,6 @@ const props = defineProps({
                     <p><strong>Kiip:</strong> {{ pet.chip }}</p>
                     <p><strong>Pilt:</strong> {{ pet.image }}</p>
                 </div>
-
               </div>
             </Link>
 

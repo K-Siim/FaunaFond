@@ -2,8 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import PetContent from "@/Components/PetInfo/PetContent.vue";
 import PwaInstallButton from "@/Components/PwaInstallButton.vue";
-import { Link } from "@inertiajs/vue3";
-import { Head } from "@inertiajs/vue3";
+import { Link, Head } from "@inertiajs/vue3";
 
 const props = defineProps({
     pets: Array,
