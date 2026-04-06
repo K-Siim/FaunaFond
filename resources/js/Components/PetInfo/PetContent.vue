@@ -4,8 +4,8 @@
       
       <div class="w-1/3 h-fit flex justify-center">
         <img
-          v-if="pet?.image"
-          :src="pet.image"
+          v-if="pet?.photo_url?.thumb"
+          :src="pet.photo_url.thumb"
           alt="Pet Image"
           class="w-28 h-28 rounded-2xl object-cover"
         />
