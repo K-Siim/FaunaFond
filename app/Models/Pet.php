@@ -30,17 +30,19 @@ class Pet extends Model implements HasMedia
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-            ->width(120)
-            ->height(120)
-            ->fit(Fit::Crop, 120, 120)
-            ->optimize()
+            ->width(150)
+            ->height(150)
+            ->fit(Fit::Crop, 150, 150)
+            ->quality(80)
+            ->format('webp')
             ->nonQueued();
 
         $this->addMediaConversion('medium')
-            ->width(400)
-            ->height(400)
-            ->fit(Fit::Contain, 400, 400)
-            ->optimize()
+            ->width(600)
+            ->height(600)
+            ->fit(Fit::Contain, 600, 600)
+            ->quality(85)
+            ->format('webp')
             ->nonQueued();
     }
 
@@ -61,16 +63,19 @@ class Pet extends Model implements HasMedia
 
     public function vetVisits()
     {
-        return $this->hasMany(VetVisit::class)->orderBy('visit_date', 'desc');
+        return $this->hasMany(VetVisit::class)
+            ->orderBy('visit_date', 'desc');
     }
 
     public function vaccines()
     {
-        return $this->hasMany(Vaccine::class)->orderBy('administered_date', 'desc');
+        return $this->hasMany(Vaccine::class)
+            ->orderBy('administered_date', 'desc');
     }
 
     public function medications()
     {
-        return $this->hasMany(Medication::class)->orderBy('start_date', 'desc');
+        return $this->hasMany(Medication::class)
+            ->orderBy('start_date', 'desc');
     }
 }
