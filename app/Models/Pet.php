@@ -27,6 +27,17 @@ class Pet extends Model implements HasMedia
 
     protected $appends = ['photo_url'];
 
+    /**
+     * MEDIA COLLECTION
+     */
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('pet-photos')
+            ->useDisk('public');
+    }
+
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
@@ -37,15 +48,17 @@ class Pet extends Model implements HasMedia
             ->format('webp')
             ->nonQueued();
 
+       
         $this->addMediaConversion('medium')
-            ->width(600)
-            ->height(600)
-            ->fit(Fit::Contain, 600, 600)
-            ->quality(85)
+            ->width(1200)
+            ->height(1200)
+            ->fit(Fit::Contain, 1200, 1200)
+            ->quality(90)
             ->format('webp')
             ->nonQueued();
     }
 
+    
     public function getPhotoUrlAttribute(): array
     {
         $media = $this->getFirstMedia('pet-photos');
