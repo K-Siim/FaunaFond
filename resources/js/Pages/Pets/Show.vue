@@ -127,19 +127,17 @@ function deleteFile(fileId) {
             >
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-col gap-2">
-                        <div
-                            class="flex flex-row justify-between items-start gap-4"
-                        >
+                        <div class="flex flex-row justify-between items-center gap-4">
                             <img
                                 :src="
                                     pet.photo_url?.medium ||
                                     '/images/default-pet.png'
                                 "
                                 alt="Lemmiku pilt"
-                                class="w-32 h-32 object-cover rounded-xl border"
+                                class="w-60 h-60 object-cover rounded-xl border"
                             />
-                            <div class="flex flex-col justify-start w-2/3">
-                                <div class="w-full flex justify-end gap-2">
+                            <div class="flex flex-col justify-start h-32 w-2/3">
+                                <div class="w-full h-1/2 flex items-start justify-end gap-2">
                                     <Link
                                         :href="`/pets/${pet.id}/edit`"
                                         class="flex justify-center items-center border border-[#275342] text-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition w-8 h-8"
@@ -183,7 +181,7 @@ function deleteFile(fileId) {
                                     </button>
                                 </div>
                                 <p
-                                    class="text-2xl font-bold text-gray-800 w-full"
+                                    class="text-2xl h-1/2 font-bold text-gray-800 w-full"
                                 >
                                     {{ pet.name }}
                                 </p>
@@ -206,7 +204,7 @@ function deleteFile(fileId) {
                             {{ formatDate(pet?.dob) }}
                         </p>
                         <p class="flex flex-row justify-between">
-                            <strong>Kaal:</strong> {{ pet.weight }}
+                            <strong>Kaal:</strong> {{ pet.weight }} kg
                         </p>
                         <div class="flex flex-col justify-center items-center">
                             <p class="flex flex-row justify-between">
