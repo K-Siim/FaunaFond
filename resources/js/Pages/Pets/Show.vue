@@ -103,11 +103,13 @@ function submitFiles(visit) {
                         <p class="flex flex-row justify-between"><strong>Liik:</strong> {{ pet.species }}</p>
                         <p class="flex flex-row justify-between"><strong>Tõug:</strong> {{ pet.breed }}</p>
                         <p class="flex flex-row justify-between"><strong>Sugu:</strong> {{ pet.gender }}</p>
-                        <p class="flex flex-row justify-between"><strong>Vanus:</strong> {{ formatDate(pet?.dob) }}</p>
+                        <p class="flex flex-row justify-between"><strong>Sünnikuupäev:</strong> {{ formatDate(pet?.dob) }}</p>
                         <p class="flex flex-row justify-between"><strong>Kaal:</strong> {{ pet.weight }}</p>
                         <div class="flex flex-col justify-center items-center">
                             <p class="flex flex-row justify-between"><strong>Kirjeldus</strong></p>
-                            <p class="text-sm text-gray-600">{{ pet.description }}</p>
+                            <p class="text-sm text-gray-600">
+                                {{ pet.description || 'Kirjeldus puudub' }}
+                            </p>
                         </div>
                     </div>
                 </div>

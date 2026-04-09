@@ -38,15 +38,13 @@ const props = defineProps({
             {{ pet.species }}
           </h3>
 
-          <div class="bg-white p-4 rounded shadow mb-3">
+          <div class="bg-[#FFFDF5] p-4 rounded-2xl shadow mb-3">
             <Link :href="route('pets.show', pet.id)">
               <div>
                 <h4 class="text-lg font-bold">{{ pet.name }}</h4>
-                <p><strong>Tõug:</strong> {{ pet.breed }}</p>
-                <p><strong>Sugu:</strong> {{ pet.gender }}</p>
+                <p><strong>Liik:</strong> {{ pet.species }}</p>
                 <p><strong>Sünnikuupäev:</strong> {{ pet.dob }}</p>
-                <p><strong>Kaal:</strong> {{ pet.weight }}</p>
-                <p><strong>Kiip:</strong> {{ pet.chip }}</p>
+                <p><strong>Kaal:</strong> {{ pet.weight }} kg</p>
               </div>
             </Link>
           </div>

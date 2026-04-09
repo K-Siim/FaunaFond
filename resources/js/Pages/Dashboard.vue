@@ -31,7 +31,7 @@ const props = defineProps({
                         </Link>
                     </div>
                     
-                    <div class=" rounded-2xl w-full max-w-md mx-auto mt-20">
+                    <div class=" rounded-2xl w-full max-w-md mx-auto">
                         <div v-if="pets && pets.length">
                             <div v-for="pet in pets" :key="pet.id">
                                 <Link :href="route('pets.show', pet.id)" class="w-full">

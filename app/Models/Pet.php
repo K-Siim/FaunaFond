@@ -22,6 +22,7 @@ class Pet extends Model implements HasMedia
         'gender',
         'dob',
         'weight',
+        'description',
     ];
 
     protected $appends = ['photo_url'];
