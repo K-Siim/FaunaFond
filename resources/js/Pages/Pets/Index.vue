@@ -14,18 +14,19 @@ const props = defineProps({
 
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="text-xl font-semibold leading-tight text-gray-800">
+      <h2 class="text-2xl font-semibold leading-tight text-[#275342]">
         Minu lemmikud
       </h2>
-    </template>
-
-    <div class="p-6 flex flex-col p-6 justify-center items-center w-full">
-      <div class="flex justify-between items-center mb-4 w-full">
-        <h3 class="text-lg font-semibold">Lemmikute nimekiri</h3>
-        <Link href="/pets/create" class="text-green-600 font-medium pl-2 pr-2 border border-green-600 rounded-lg hover:bg-green-600 hover:text-white transition">
+          <div class="flex justify-center items-center h-full w-full flex-col p-5 gap-5">
+      <div class="flex flex-row justify-between items- w-full pt-2 pb-2">
+        <h5 class="text-[#275342] text-xl font-semibold">
+          Lemmikute nimekiri
+        </h5>        
+        <Link href="/pets/create" class="text-green-600 font-medium pl-2 pr-2 border border-green-600 rounded-full hover:bg-green-600 hover:text-white transition">
           +
         </Link>
       </div>
+      
       <div v-if="pets.length" class="flex flex-col justify-center items-center  w-full max-w-md mx-auto">
         <div
           v-for="(pet, index) in pets"
@@ -67,5 +68,6 @@ const props = defineProps({
       </div>
       <p v-else>Lemmikloomi ei leitud</p>
     </div>
+    </template>
   </AuthenticatedLayout>
 </template>
