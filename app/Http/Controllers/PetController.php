@@ -40,6 +40,7 @@ class PetController extends Controller
             'gender'  => 'nullable|string|in:isane,emane',
             'weight'  => 'nullable|numeric|decimal:0,2|min:0',
             'dob'     => 'required|date',
+            'description' => 'nullable|string|max:1000',
             'image'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
@@ -83,6 +84,7 @@ class PetController extends Controller
             'gender'  => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
             'weight'  => 'nullable|numeric|decimal:0,2|min:0',
             'dob'     => 'required|date',
+            'description' => 'nullable|string|max:1000',
             'image'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
