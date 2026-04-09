@@ -22,7 +22,7 @@ const props = defineProps({
         <h5 class="text-[#275342] text-xl font-semibold">
           Lemmikute nimekiri
         </h5>        
-        <Link href="/pets/create" class="text-green-600 font-medium pl-2 pr-2 border border-green-600 rounded-full hover:bg-green-600 hover:text-white transition">
+        <Link href="/pets/create" class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition">
           +
         </Link>
       </div>

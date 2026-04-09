@@ -31,9 +31,9 @@ const props = defineProps({
                         </Link>
                     </div>
                     <div class="w-full flex justify-end">
-                        <Link href="/pets/create" class="text-[#275342] font-medium pl-2 pr-2 border border-green-600 rounded-xl hover:bg-green-600 hover:text-white transition">
+                        <Link href="/pets/create" class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition">
                         +
-                        </Link>                        
+                        </Link>                     
                     </div>
 
                     

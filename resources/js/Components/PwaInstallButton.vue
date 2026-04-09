@@ -4,8 +4,8 @@
     @click="installPwa"
     class="flex items-center gap-2 px-4 py-3 bg-[#275342] text-white rounded-full shadow-lg hover:bg-[#1e3f31] transition-all"
   >
-    <span>📲</span>
-    <span class="text-sm font-medium">Installi äpp</span>
+    <span class="text-lg">📲</span>
+    <span class="text-lg font-medium">Installi äpp</span>
   </button>
 </template>
 
