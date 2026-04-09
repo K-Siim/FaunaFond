@@ -19,17 +19,18 @@ const props = defineProps({
       </h2>
     </template>
 
-    <div class="p-6">
-      <div class="flex justify-between items-center mb-4">
+    <div class="p-6 flex flex-col p-6 justify-center items-center w-full">
+      <div class="flex justify-between items-center mb-4 w-full">
         <h3 class="text-lg font-semibold">Lemmikute nimekiri</h3>
         <Link href="/pets/create" class="text-green-600 font-medium pl-2 pr-2 border border-green-600 rounded-lg hover:bg-green-600 hover:text-white transition">
           +
         </Link>
       </div>
-      <div v-if="pets.length">
+      <div v-if="pets.length" class="flex flex-col justify-center items-center  w-full max-w-md mx-auto">
         <div
           v-for="(pet, index) in pets"
           :key="pet.id"
+          class="w-full max-w-lg"
         >
           <h3
             v-if="index === 0 || pet.species !== pets[index - 1].species"
@@ -38,7 +39,7 @@ const props = defineProps({
             {{ pet.species }}
           </h3>
 
-          <div class="bg-[#FFFDF5] p-4 rounded-2xl shadow mb-3">
+          <div class="bg-[#FFFDF5] p-6 rounded-2xl shadow mb-3">
             <Link :href="route('pets.show', pet.id)">
               <div>
                 <h4 class="text-lg font-bold">{{ pet.name }}</h4>
