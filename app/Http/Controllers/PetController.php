@@ -35,26 +35,24 @@ class PetController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name'    => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
-            'chip'    => 'nullable|digits_between:1,15',
-            'species' => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
-            'breed'   => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
-            'gender'  => 'nullable|string|in:isane,emane',
-            'weight'  => 'nullable|numeric|decimal:0,2|min:0',
-            'dob'     => 'required|date',
+            'name'        => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'chip'        => 'nullable|digits_between:1,15',
+            'species'     => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'breed'       => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'gender'      => 'nullable|string|in:isane,emane',
+            'weight'      => 'nullable|numeric|decimal:0,2|min:0',
+            'dob'         => 'required|date',
             'description' => 'nullable|string|max:1000',
-            'image'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         $data['user_id'] = Auth::id();
 
-        // Eemalda image valideeritud andmetest — Spatie haldab eraldi
         $imageFile = $request->file('image');
         unset($data['image']);
 
         $pet = Pet::create($data);
 
-        // Kui pilt on olemas, lisa Spatie kaudu
         if ($imageFile) {
             $pet->addMedia($imageFile)
                 ->toMediaCollection('pet-photos');
@@ -70,7 +68,7 @@ class PetController extends Controller
         return Inertia::render('Pets/Show', [
             'pet' => $pet
                 ->load(['vetVisits', 'vaccines', 'medications', 'vetVisits.files'])
-                ->append('photo_url'), 
+                ->append('photo_url'),
         ]);
     }
 
@@ -79,15 +77,15 @@ class PetController extends Controller
         $this->authorizePetOwner($pet);
 
         $data = $request->validate([
-            'name'    => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
-            'chip'    => 'nullable|digits_between:1,15',
-            'species' => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
-            'breed'   => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
-            'gender'  => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
-            'weight'  => 'nullable|numeric|decimal:0,2|min:0',
-            'dob'     => 'required|date',
+            'name'        => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'chip'        => 'nullable|digits_between:1,15',
+            'species'     => 'required|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'breed'       => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
+            'gender'      => 'nullable|string|in:isane,emane',
+            'weight'      => 'nullable|numeric|decimal:0,2|min:0',
+            'dob'         => 'required|date',
             'description' => 'nullable|string|max:1000',
-            'image'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         $imageFile = $request->file('image');
@@ -95,9 +93,8 @@ class PetController extends Controller
 
         $pet->update($data);
 
-        // Kui uus pilt on saadetud, asenda vana
         if ($imageFile) {
-            $pet->clearMediaCollection('pet-photos'); // kustuta vana
+            $pet->clearMediaCollection('pet-photos');
             $pet->addMedia($imageFile)
                 ->toMediaCollection('pet-photos');
         }
@@ -109,10 +106,19 @@ class PetController extends Controller
     {
         $this->authorizePetOwner($pet);
 
-        // Spatie kustutab meedia automaatselt koos petiga
         $pet->delete();
 
         return redirect()->route('pets.index');
+    }
+
+    public function edit(Pet $pet)
+    {
+        $this->authorizePetOwner($pet);
+        
+
+        return Inertia::render('Pets/Edit', [
+            'pet' => $pet->append('photo_url'),
+        ]);
     }
 
     private function authorizePetOwner(Pet $pet)
