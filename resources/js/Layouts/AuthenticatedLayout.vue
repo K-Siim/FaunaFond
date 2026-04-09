@@ -18,9 +18,8 @@ const props = defineProps({
 </script>
 
 <template>
-    <div>
-        <div class="min-h-screen bg-[#E7F0E4]">
-
+    <div class=" bg-[#E7F0E4] pt-10">
+        <div class=" min-h-screen max-w-[90rem] mx-auto relative">
             <button
                 @click="toggleMenu"
                 class="absolute top-6 left-6 z-50 p-2"

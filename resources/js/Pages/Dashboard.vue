@@ -15,7 +15,7 @@ const props = defineProps({
 
     <AuthenticatedLayout :pets="pets">
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            <h2 class="text-xl font-semibold leading-tight text-[#275342]">
                 Tere, {{ $page.props.auth.user.name }}!
             </h2>
             <div class="flex justify-center items-center h-full flex-col p-5 gap-5">
@@ -25,11 +25,17 @@ const props = defineProps({
                             Lemmikute nimekiri
                         </h5>
                         <Link :href="route('pets.index')">
-                            <button class="text-[#275342] text-[16px] h-full">
+                            <button class="text-[#275342] text-[20px] h-full">
                                 Vaata kõiki
                             </button>
                         </Link>
                     </div>
+                    <div class="w-full flex justify-end">
+                        <Link href="/pets/create" class="text-green-600 font-medium pl-2 pr-2 border border-green-600 rounded-xl hover:bg-green-600 hover:text-white transition">
+                        +
+                        </Link>                        
+                    </div>
+
                     
                     <div class=" rounded-2xl w-full max-w-md mx-auto">
                         <div v-if="pets && pets.length">
@@ -41,12 +47,6 @@ const props = defineProps({
                         </div>
                         <p v-else>Lemmikloomi ei leitud</p>
                     </div>
-                                        
-                    <Link :href="route('pets.create')">
-                        <button class="text-[#275342] text-[16px] h-full">
-                            Lisa loom
-                        </button>
-                    </Link>
                 </div>
             </div>
         </template>

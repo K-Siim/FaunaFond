@@ -126,8 +126,8 @@ function deleteFile(fileId) {
                 class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto mt-20"
             >
                 <div class="flex flex-col gap-6">
-                    <div class="flex flex-col gap-2">
-                        <div class="flex flex-row justify-between items-center gap-4">
+                    <div class="flex flex-col gap-2 text-[#275342]">
+                        <div class="flex flex-row justify-between items-center h-full gap-4">
                             <img
                                 :src="
                                     pet.photo_url?.medium ||
@@ -136,8 +136,8 @@ function deleteFile(fileId) {
                                 alt="Lemmiku pilt"
                                 class="w-60 h-60 object-cover rounded-xl border"
                             />
-                            <div class="flex flex-col justify-start h-32 w-2/3">
-                                <div class="w-full h-1/2 flex items-start justify-end gap-2">
+                            <div class="flex flex-col justify-start h-60 w-2/3">
+                                <div class="w-full h-1/3 flex justify-start items-start justify-end gap-2">
                                     <Link
                                         :href="`/pets/${pet.id}/edit`"
                                         class="flex justify-center items-center border border-[#275342] text-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition w-8 h-8"
@@ -181,7 +181,7 @@ function deleteFile(fileId) {
                                     </button>
                                 </div>
                                 <p
-                                    class="text-2xl h-1/2 font-bold text-gray-800 w-full"
+                                    class="text-2xl h-2/3 font-bold text-[#275342] w-full"
                                 >
                                     {{ pet.name }}
                                 </p>
@@ -210,7 +210,7 @@ function deleteFile(fileId) {
                             <p class="flex flex-row justify-between">
                                 <strong>Kirjeldus</strong>
                             </p>
-                            <p class="text-sm text-gray-600">
+                            <p class="text-md">
                                 {{ pet.description || "Kirjeldus puudub" }}
                             </p>
                         </div>
@@ -223,24 +223,24 @@ function deleteFile(fileId) {
             >
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-row justify-between items-center">
-                        <h3 class="text-base font-semibold text-[#275342]">
+                        <h3 class="text-lg font-semibold text-[#275342]">
                             Meditsiiniline info
                         </h3>
                         <button
                             @click="showMedicalModal = true"
-                            class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
+                            class="text-[#275342] text-xl font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
                         >
                             +
                         </button>
                     </div>
 
                     <div class="flex flex-col gap-3">
-                        <h4 class="text-sm font-medium text-gray-700">
+                        <h4 class="text-md font-medium text-[#275342]">
                             Vaktsiinid
                         </h4>
                         <p
                             v-if="!pet.vaccines || pet.vaccines.length === 0"
-                            class="text-sm text-gray-400 text-center py-4"
+                            class="text-md text-[#275342] text-center py-4"
                         >
                             Vaktsiine pole veel lisatud.
                         </p>
@@ -257,11 +257,11 @@ function deleteFile(fileId) {
                                     class="flex flex-col items-start text-left"
                                 >
                                     <span
-                                        class="text-sm font-semibold text-gray-800"
+                                        class="text-md font-semibold text-[#275342]"
                                         >{{ vaccine.name }}</span
                                     >
                                     <span
-                                        class="text-xs text-gray-400 mt-0.5"
+                                        class="text-md text-[#275342] mt-0.5"
                                         >{{
                                             formatDate(
                                                 vaccine.administered_date,
@@ -271,7 +271,7 @@ function deleteFile(fileId) {
                                 </div>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="w-5 h-5 text-gray-400 transition-transform duration-200"
+                                    class="w-5 h-5 text-[#275342] transition-transform duration-200"
                                     :class="
                                         expandedVaccineId === vaccine.id
                                             ? 'rotate-180'
@@ -294,7 +294,7 @@ function deleteFile(fileId) {
                                 class="px-4 pb-4 border-t border-gray-100"
                             >
                                 <div
-                                    class="mt-3 space-y-1 text-sm text-gray-600"
+                                    class="mt-3 space-y-1 text-sm text-[#275342]"
                                 >
                                     <p v-if="vaccine.expiry_date">
                                         <strong>Aegub:</strong>
@@ -318,14 +318,14 @@ function deleteFile(fileId) {
                     </div>
 
                     <div class="flex flex-col gap-3 mt-4">
-                        <h4 class="text-sm font-medium text-gray-700">
+                        <h4 class="text-md font-medium text-[#275342]">
                             Ravimid
                         </h4>
                         <p
                             v-if="
                                 !pet.medications || pet.medications.length === 0
                             "
-                            class="text-sm text-gray-400 text-center py-4"
+                            class="text-md text-[#275342] text-center py-4"
                         >
                             Ravimeid pole veel lisatud.
                         </p>
@@ -342,10 +342,10 @@ function deleteFile(fileId) {
                                     class="flex flex-col items-start text-left"
                                 >
                                     <span
-                                        class="text-sm font-semibold text-gray-800"
+                                        class="text-sm font-semibold text-[#275342]"
                                         >{{ medication.name }}</span
                                     >
-                                    <span class="text-xs text-gray-400 mt-0.5"
+                                    <span class="text-xs text-[#275342] mt-0.5"
                                         >{{ medication.dose_amount
                                         }}{{ medication.dose_unit }} ·
                                         {{ medication.frequency_per_day }}x
@@ -354,7 +354,7 @@ function deleteFile(fileId) {
                                 </div>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="w-5 h-5 text-gray-400 transition-transform duration-200"
+                                    class="w-5 h-5 text-[#275342] transition-transform duration-200"
                                     :class="
                                         expandedMedicationId === medication.id
                                             ? 'rotate-180'
@@ -377,7 +377,7 @@ function deleteFile(fileId) {
                                 class="px-4 pb-4 border-t border-gray-100"
                             >
                                 <div
-                                    class="mt-3 space-y-1 text-sm text-gray-600"
+                                    class="mt-3 space-y-1 text-sm text-[#275342]"
                                 >
                                     <p>
                                         <strong>Algas:</strong>
@@ -407,7 +407,7 @@ function deleteFile(fileId) {
             >
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-row justify-between items-center">
-                        <h3 class="text-base font-semibold text-gray-800">
+                        <h3 class="text-base text-lg font-semibold text-[#275342]">
                             Meeldetuletused
                         </h3>
                         <Link
@@ -417,7 +417,7 @@ function deleteFile(fileId) {
                         >
                     </div>
                     <div class="flex flex-col gap-4">
-                        <p class="text-sm text-gray-400 text-center py-4">
+                        <p class="text-md text-[#275342] text-center py-4">
                             Meeldetuletusi pole veel lisatud.
                         </p>
                     </div>
@@ -429,7 +429,7 @@ function deleteFile(fileId) {
             >
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-row justify-between items-center">
-                        <h3 class="text-base font-semibold text-gray-800">
+                        <h3 class="text-base text-lg font-semibold text-[#275342]">
                             Arstivisiitide logi
                         </h3>
                         <button
@@ -445,7 +445,7 @@ function deleteFile(fileId) {
                             v-if="
                                 !pet.vet_visits || pet.vet_visits.length === 0
                             "
-                            class="text-sm text-gray-400 text-center py-4"
+                            class="text-md text-[#275342] text-center py-4"
                         >
                             Arstivisiite pole veel lisatud.
                         </p>
@@ -462,11 +462,11 @@ function deleteFile(fileId) {
                                     class="flex flex-col items-start text-left"
                                 >
                                     <span
-                                        class="text-sm font-semibold text-gray-800"
+                                        class="text-sm font-semibold text-[#275342]"
                                         >{{ visit.clinic_name }}</span
                                     >
                                     <span
-                                        class="text-xs text-gray-400 mt-0.5"
+                                        class="text-xs text-[#275342] mt-0.5"
                                         >{{
                                             formatDate(visit.visit_date)
                                         }}</span
@@ -474,7 +474,7 @@ function deleteFile(fileId) {
                                 </div>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="w-5 h-5 text-gray-400 transition-transform duration-200"
+                                    class="w-5 h-5 text-[#275342] transition-transform duration-200"
                                     :class="
                                         expandedVisitId === visit.id
                                             ? 'rotate-180'
@@ -497,7 +497,7 @@ function deleteFile(fileId) {
                                 class="px-4 pb-4 border-t border-gray-100"
                             >
                                 <p
-                                    class="text-sm text-gray-600 whitespace-pre-wrap mt-3 leading-relaxed"
+                                    class="text-sm text-[#275342] whitespace-pre-wrap mt-3 leading-relaxed"
                                 >
                                     {{ visit.log || "Logi puudub." }}
                                 </p>
@@ -514,13 +514,13 @@ function deleteFile(fileId) {
                                                 file.id,
                                             )
                                         "
-                                        class="text-xs text-gray-700 truncate hover:underline flex-1"
+                                        class="text-xs text-[#275342] truncate hover:underline flex-1"
                                     >
                                         {{ file.original_name }}
                                     </a>
                                     <button
                                         @click="deleteFile(file.id)"
-                                        class="text-gray-400 hover:text-red-500 transition ml-auto"
+                                        class="text-[#275342] hover:text-red-500 transition ml-auto"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -544,7 +544,7 @@ function deleteFile(fileId) {
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
-                                            class="w-4 h-4 text-gray-400"
+                                            class="w-4 h-4 text-[#275342]"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             stroke="currentColor"
@@ -556,7 +556,7 @@ function deleteFile(fileId) {
                                                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
                                             />
                                         </svg>
-                                        <span class="text-xs text-gray-500"
+                                        <span class="text-xs text-[#275342]"
                                             >Lisa PDF</span
                                         >
                                         <input
@@ -584,7 +584,7 @@ function deleteFile(fileId) {
                                             class="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-1.5"
                                         >
                                             <span
-                                                class="text-xs text-gray-600 truncate max-w-[180px]"
+                                                class="text-xs text-[#275342] truncate max-w-[180px]"
                                                 >📄 {{ file.name }}</span
                                             >
                                             <button
@@ -594,7 +594,7 @@ function deleteFile(fileId) {
                                                         index,
                                                     )
                                                 "
-                                                class="text-gray-400 hover:text-red-500 transition"
+                                                class="text-[#275342] hover:text-red-500 transition"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -644,10 +644,10 @@ function deleteFile(fileId) {
         <div
             class="bg-white rounded-2xl p-6 w-80 shadow-xl flex flex-col gap-4"
         >
-            <h2 class="text-lg font-semibold text-gray-800 text-center">
+            <h2 class="text-lg font-semibold text-[#275342] text-center">
                 Kustuta lemmik
             </h2>
-            <p class="text-sm text-gray-500 text-center">
+            <p class="text-sm text-[#275342] text-center">
                 Kas oled kindel, et soovid
                 <strong>{{ pet.name }}</strong> kustutada? Seda tegevust ei saa
                 tagasi võtta.
@@ -655,7 +655,7 @@ function deleteFile(fileId) {
             <div class="flex gap-3 mt-2">
                 <button
                     @click="showDeleteModal = false"
-                    class="flex-1 py-2 rounded-xl border border-gray-300 text-gray-600 text-sm hover:bg-gray-50 transition"
+                    class="flex-1 py-2 rounded-xl border border-gray-300 text-[#275342] text-sm hover:bg-gray-50 transition"
                 >
                     Ei
                 </button>

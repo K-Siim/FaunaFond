@@ -49,13 +49,15 @@ const props = defineProps({
                     class="w-32 h-32 object-cover rounded-xl border"
                   />
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col w-2/3">
                   <h4 class="text-lg font-bold pb-2">{{ pet.name }}</h4>
-                  <p> {{ pet.species }}</p>
-                  <p class="text-md">
-                    {{ pet.formatted_dob }} ({{ pet.age }})
-                  </p>
-                  <p> {{ pet.weight }} kg</p>                  
+                  <div class="flex flex-col h-full justify-center">
+                    <p> {{ pet.species }}</p>
+                    <p class="text-md">
+                      {{ pet.formatted_dob }} ({{ pet.age }})
+                    </p>
+                    <p> {{ pet.weight }} kg</p>                         
+                  </div>
                 </div>
 
               </div>
