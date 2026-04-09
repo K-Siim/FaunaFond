@@ -224,7 +224,7 @@ function deleteFile(fileId) {
                         </h3>
                         <button
                             @click="showMedicalModal = true"
-                            class="text-[#275342] text-xl font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
+                            class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition"
                         >
                             +
                         </button>
@@ -408,7 +408,7 @@ function deleteFile(fileId) {
                         </h3>
                         <Link
                             href="/pets/create"
-                            class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
+                            class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition"
                             >+</Link
                         >
                     </div>
@@ -430,7 +430,7 @@ function deleteFile(fileId) {
                         </h3>
                         <button
                             @click="showVetModal = true"
-                            class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none"
+                            class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition"
                         >
                             +
                         </button>
