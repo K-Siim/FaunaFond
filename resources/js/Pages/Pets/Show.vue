@@ -201,7 +201,7 @@ function deleteFile(fileId) {
                         </p>
                         <p class="flex flex-row justify-between">
                             <strong>Sünnikuupäev:</strong>
-                            {{ formatDate(pet?.dob) }}
+                            {{ pet.formatted_dob }} ({{ pet.age }})
                         </p>
                         <p class="flex flex-row justify-between">
                             <strong>Kaal:</strong> {{ pet.weight }} kg

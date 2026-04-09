@@ -20,7 +20,7 @@ class PetController extends Controller
             ->orderBy('species')
             ->orderBy('name')
             ->get()
-            ->append('photo_url');
+            ->append(['photo_url', 'formatted_dob', 'age']);
 
         return Inertia::render('Pets/Index', [
             'pets' => $pets,
@@ -65,10 +65,11 @@ class PetController extends Controller
     {
         $this->authorizePetOwner($pet);
 
+        
         return Inertia::render('Pets/Show', [
             'pet' => $pet
                 ->load(['vetVisits', 'vaccines', 'medications', 'vetVisits.files'])
-                ->append('photo_url'),
+                ->append(['photo_url', 'formatted_dob', 'age']),
         ]);
     }
 
@@ -117,7 +118,7 @@ class PetController extends Controller
         
 
         return Inertia::render('Pets/Edit', [
-            'pet' => $pet->append('photo_url'),
+            'pet' => $pet->append(['photo_url', 'formatted_dob', 'age']),
         ]);
     }
 

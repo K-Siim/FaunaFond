@@ -52,7 +52,9 @@ const props = defineProps({
                 <div class="flex flex-col">
                   <h4 class="text-lg font-bold pb-2">{{ pet.name }}</h4>
                   <p> {{ pet.species }}</p>
-                  <p> {{ pet.dob }}</p>
+                  <p class="text-md">
+                    {{ pet.formatted_dob }} ({{ pet.age }})
+                  </p>
                   <p> {{ pet.weight }} kg</p>                  
                 </div>
 

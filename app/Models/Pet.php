@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;
@@ -25,7 +25,7 @@ class Pet extends Model implements HasMedia
         'description',
     ];
 
-    protected $appends = ['photo_url'];
+    protected $appends = ['photo_url', 'formatted_dob', 'age'];
 
     /**
      * MEDIA COLLECTION
@@ -36,7 +36,6 @@ class Pet extends Model implements HasMedia
             ->addMediaCollection('pet-photos')
             ->useDisk('public');
     }
-
 
     public function registerMediaConversions(?Media $media = null): void
     {
@@ -72,6 +71,20 @@ class Pet extends Model implements HasMedia
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getFormattedDobAttribute()
+    {
+        return $this->dob
+            ? Carbon::parse($this->dob)->format('d.m.Y')
+            : null;
+    }
+
+    public function getAgeAttribute()
+    {
+        return $this->dob
+            ? Carbon::parse($this->dob)->age
+            : null;
     }
 
     public function vetVisits()

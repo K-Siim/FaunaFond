@@ -52,6 +52,5 @@ const props = defineProps({
         </template>
     </AuthenticatedLayout>
 
-    <!-- PWA install nupp - fixed paremasse alumisse nurka -->
     <PwaInstallButton class="fixed bottom-6 right-6 z-50" />
 </template>
