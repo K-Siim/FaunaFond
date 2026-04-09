@@ -44,7 +44,7 @@ const props = defineProps({
               <div class="flex flex-row justify-start gap-2">
                 <div>
                   <img
-                    :src="pet.image_url"
+                    :src="pet.photo_url?.medium || '/images/default-pet.png'"
                     :alt="pet.name"
                     class="w-32 h-32 object-cover rounded-xl border"
                   />
