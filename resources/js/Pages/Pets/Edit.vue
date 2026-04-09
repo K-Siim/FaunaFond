@@ -46,6 +46,9 @@ function submit() {
     _method: 'PUT',
   })).post(`/pets/${props.pet.id}`, {
     forceFormData: true,
+    onSuccess: () => {
+      window.location.href = `/pets/${props.pet.id}`;
+    },
   });
 }
 </script>
