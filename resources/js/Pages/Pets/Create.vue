@@ -1,9 +1,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
-
 import { Input } from '@/Components/ui/input';
+import {Textarea} from '@/Components/ui/textarea';
 import { Label } from '@/Components/ui/label';
 import { Button } from '@/Components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from '@/Components/ui/select';
@@ -16,6 +16,7 @@ const form = useForm({
   gender: '',
   dob: '',
   weight: '',
+  description: '',
   image: null,
 });
 
@@ -147,7 +148,15 @@ function submit() {
                 step="0.1"
                 placeholder="Kaal (kg)"
               />
-            </div>         
+            </div>     
+            
+            <div>
+              <Textarea
+                v-model="form.description"
+                placeholder="Kirjeldus"
+                class="h-24 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+              </Textarea>
+            </div>
             <Button
               type="submit"
               class="w-full text-[#FFFDF5]"

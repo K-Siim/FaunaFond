@@ -89,6 +89,34 @@ function submitFiles(visit) {
 
             <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto mt-20">
                 <div class="flex flex-col gap-6">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex flex-row justify-between items-start gap-4">
+                            <img :src="pet.image" alt="Lemmiku pilt" class="w-32 h-32 object-cover rounded-xl border">
+                            <div class="flex flex-col justify-start w-2/3">
+                                <div class="w-full flex justify-end">
+                                    <Link :href="route('pets.edit', pet.id)" class="text-green-700 font-medium flex justify-center items-center border border-green-700 rounded-full hover:bg-green-700 hover:text-white transition w-5 h-5 leading-none">+</Link>                                
+                                </div>
+                                <p class="text-2xl font-bold text-gray-800 w-full ">{{ pet.name }}</p>
+                            </div>
+                        </div>
+                        <p class="flex flex-row justify-between"><strong>Kiip:</strong> {{ pet.chip }}</p>
+                        <p class="flex flex-row justify-between"><strong>Liik:</strong> {{ pet.species }}</p>
+                        <p class="flex flex-row justify-between"><strong>Tõug:</strong> {{ pet.breed }}</p>
+                        <p class="flex flex-row justify-between"><strong>Sugu:</strong> {{ pet.gender }}</p>
+                        <p class="flex flex-row justify-between"><strong>Sünnikuupäev:</strong> {{ formatDate(pet?.dob) }}</p>
+                        <p class="flex flex-row justify-between"><strong>Kaal:</strong> {{ pet.weight }}</p>
+                        <div class="flex flex-col justify-center items-center">
+                            <p class="flex flex-row justify-between"><strong>Kirjeldus</strong></p>
+                            <p class="text-sm text-gray-600">
+                                {{ pet.description || 'Kirjeldus puudub' }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
+                <div class="flex flex-col gap-6">
                     <div class="flex flex-row justify-between items-center">
                         <h3 class="text-base font-semibold text-[#275342]">Meditsiiniline info</h3>
                         <button

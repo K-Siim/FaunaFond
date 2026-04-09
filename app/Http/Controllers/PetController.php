@@ -17,6 +17,8 @@ class PetController extends Controller
     public function index()
     {
         $pets = Auth::user()->pets()
+            ->orderBy('species')
+            ->orderBy('name')
             ->get()
             ->append('photo_url');
 
@@ -40,6 +42,7 @@ class PetController extends Controller
             'gender'  => 'nullable|string|in:isane,emane',
             'weight'  => 'nullable|numeric|decimal:0,2|min:0',
             'dob'     => 'required|date',
+            'description' => 'nullable|string|max:1000',
             'image'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
@@ -67,7 +70,7 @@ class PetController extends Controller
         return Inertia::render('Pets/Show', [
             'pet' => $pet
                 ->load(['vetVisits', 'vaccines', 'medications', 'vetVisits.files'])
-                ->append('photo_url'), // ← photo_url kaasas
+                ->append('photo_url'), 
         ]);
     }
 
@@ -83,6 +86,7 @@ class PetController extends Controller
             'gender'  => 'nullable|string|max:255|regex:/^[A-Z][a-zA-Z\s]*$/',
             'weight'  => 'nullable|numeric|decimal:0,2|min:0',
             'dob'     => 'required|date',
+            'description' => 'nullable|string|max:1000',
             'image'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 

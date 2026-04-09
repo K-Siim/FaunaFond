@@ -30,17 +30,18 @@ const props = defineProps({
                             </button>
                         </Link>
                     </div>
-                    <div class="p-5">
+                    
+                    <div class=" rounded-2xl w-full max-w-md mx-auto">
                         <div v-if="pets && pets.length">
-                            <PetContent
-                                v-for="pet in pets"
-                                :key="pet.id"
-                                :pet="pet"
-                                class="mb-4"
-                            />
+                            <div v-for="pet in pets" :key="pet.id">
+                                <Link :href="route('pets.show', pet.id)" class="w-full">
+                                    <PetContent :pet="pet" class="mb-4" />
+                                </Link>
+                            </div>
                         </div>
                         <p v-else>Lemmikloomi ei leitud</p>
                     </div>
+                                        
                     <Link :href="route('pets.create')">
                         <button class="text-[#275342] text-[16px] h-full">
                             Lisa loom
