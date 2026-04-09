@@ -17,6 +17,8 @@ class PetController extends Controller
     public function index()
     {
         $pets = Auth::user()->pets()
+            ->orderBy('species')
+            ->orderBy('name')
             ->get()
             ->append('photo_url');
 

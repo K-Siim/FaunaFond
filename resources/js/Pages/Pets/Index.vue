@@ -1,10 +1,12 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
 
 const props = defineProps({
   pets: Array,
 });
+
 </script>
 
 <template>
@@ -24,32 +26,32 @@ const props = defineProps({
           +
         </Link>
       </div>
-
-        <div v-if="pets.length">
-          <div
-              v-for="pet in pets"
-              :key="pet.id"
-              class="bg-white p-4 rounded shadow mb-3"
+      <div v-if="pets.length">
+        <div
+          v-for="(pet, index) in pets"
+          :key="pet.id"
+        >
+          <h3
+            v-if="index === 0 || pet.species !== pets[index - 1].species"
+            class="text-xl font-bold text-[#275342] mt-4 mb-2"
           >
-            <Link :href="route('pets.show', pet.id)" class="">
-              <div class="flex items-center justify-between">
-                <div>
-                    <h4 class="text-lg font-bold">{{ pet.name }}</h4>
-                    <p><strong>Liik:</strong> {{ pet.species }}</p>
-                    <p><strong>Tõug:</strong> {{ pet.breed }}</p>
-                    <p><strong>Sugu:</strong> {{ pet.gender }}</p>
-                    <p><strong>Sünnikuupäev:</strong> {{ pet.dob }}</p>
-                    <p><strong>Kaal:</strong> {{ pet.weight }}</p>
-                    <p><strong>Kiip:</strong> {{ pet.chip }}</p>
-                    <p><strong>Pilt:</strong> {{ pet.image }}</p>
-                </div>
+            {{ pet.species }}
+          </h3>
+
+          <div class="bg-white p-4 rounded shadow mb-3">
+            <Link :href="route('pets.show', pet.id)">
+              <div>
+                <h4 class="text-lg font-bold">{{ pet.name }}</h4>
+                <p><strong>Tõug:</strong> {{ pet.breed }}</p>
+                <p><strong>Sugu:</strong> {{ pet.gender }}</p>
+                <p><strong>Sünnikuupäev:</strong> {{ pet.dob }}</p>
+                <p><strong>Kaal:</strong> {{ pet.weight }}</p>
+                <p><strong>Kiip:</strong> {{ pet.chip }}</p>
               </div>
             </Link>
-
           </div>
         </div>
-
-
+      </div>
       <p v-else>Lemmikloomi ei leitud</p>
     </div>
   </AuthenticatedLayout>
