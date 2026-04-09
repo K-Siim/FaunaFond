@@ -15,13 +15,13 @@ const props = defineProps({
 
     <AuthenticatedLayout :pets="pets">
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-[#275342]">
+            <h2 class="text-2xl font-semibold leading-tight text-[#275342]">
                 Tere, {{ $page.props.auth.user.name }}!
             </h2>
             <div class="flex justify-center items-center h-full flex-col p-5 gap-5">
                 <div class="flex justify-center items-center pt-3 pb-3 gap-5 flex-col w-full">
                     <div class="flex flex-row justify-between items- w-full pt-2 pb-2">
-                        <h5 class="text-[#275342] text-[20px]">
+                        <h5 class="text-[#275342] text-xl font-semibold">
                             Lemmikute nimekiri
                         </h5>
                         <Link :href="route('pets.index')">
@@ -31,7 +31,7 @@ const props = defineProps({
                         </Link>
                     </div>
                     <div class="w-full flex justify-end">
-                        <Link href="/pets/create" class="text-green-600 font-medium pl-2 pr-2 border border-green-600 rounded-xl hover:bg-green-600 hover:text-white transition">
+                        <Link href="/pets/create" class="text-[#275342] font-medium pl-2 pr-2 border border-green-600 rounded-xl hover:bg-green-600 hover:text-white transition">
                         +
                         </Link>                        
                     </div>

@@ -119,12 +119,8 @@ function deleteFile(fileId) {
     <Head :title="pet.name" />
 
     <AuthenticatedLayout>
-        <div
-            class="flex flex-col gap-10 p-6 justify-center items-center w-full"
-        >
-            <section
-                class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto mt-20"
-            >
+        <div class="flex flex-col gap-10 p-6 justify-center items-center w-full">
+            <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto mt-20">
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-col gap-2 text-[#275342]">
                         <div class="flex flex-row justify-between items-center h-full gap-4">

@@ -19,11 +19,11 @@
       
       <div class="w-2/3 pl-6 flex flex-col gap-2 text-[#275342]">
         <h2 class="text-xl font-semibold">{{ pet?.name }}</h2>
-        <p class="text-md">{{ pet?.species }}</p>
-        <p class="text-md">
+        <p class="text-lg">{{ pet?.species }}</p>
+        <p class="text-lg">
           {{ pet.formatted_dob }} ({{ pet.age }})
         </p>
-        <p class="text-md">{{ pet?.weight }} kg</p>
+        <p class="text-lg">{{ pet?.weight }} kg</p>
       </div>
 
     </div>
