@@ -41,11 +41,21 @@ const props = defineProps({
 
           <div class="bg-[#FFFDF5] p-6 rounded-2xl shadow mb-3">
             <Link :href="route('pets.show', pet.id)">
-              <div>
-                <h4 class="text-lg font-bold">{{ pet.name }}</h4>
-                <p><strong>Liik:</strong> {{ pet.species }}</p>
-                <p><strong>Sünnikuupäev:</strong> {{ pet.dob }}</p>
-                <p><strong>Kaal:</strong> {{ pet.weight }} kg</p>
+              <div class="flex flex-row justify-start gap-2">
+                <div>
+                  <img
+                    :src="pet.image_url"
+                    :alt="pet.name"
+                    class="w-32 h-32 object-cover rounded-xl border"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <h4 class="text-lg font-bold pb-2">{{ pet.name }}</h4>
+                  <p> {{ pet.species }}</p>
+                  <p> {{ pet.dob }}</p>
+                  <p> {{ pet.weight }} kg</p>                  
+                </div>
+
               </div>
             </Link>
           </div>
