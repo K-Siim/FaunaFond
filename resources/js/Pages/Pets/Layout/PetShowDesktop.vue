@@ -57,13 +57,13 @@ const stats = computed(() => ({
                     />
                     <div class="space-y-3">
                         <div class="flex items-center gap-3">
-                            <h1 class="text-3xl font-semibold tracking-tight text-[#275342]">
+                            <h1 class="text-3xl font-semibold tracking-tight text-[#275342] ">
                                 {{ pet.name }}
                             </h1>
-                            <Badge class="border border-[#275342] bg-transparent text-[#275342] rounded-full">
+                            <Badge class="border border-[#275342] bg-transparent text-[#275342] rounded-full px-4 py-1.5 ">
                                 {{ pet.species || "Liik puudub" }}
                             </Badge>
-                            <Badge class="border border-[#275342] bg-transparent text-[#275342] rounded-full">
+                            <Badge class="border border-[#275342] bg-transparent text-[#275342] rounded-full px-4 py-1.5 ">
                                 {{ pet.gender || "Sugu puudub" }}
                             </Badge>
                         </div>
