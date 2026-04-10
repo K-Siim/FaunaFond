@@ -4,8 +4,6 @@ import { Head, useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import VetVisitLogModal from "@/Components/VetVisitLogModal.vue";
 import MedicalRecordModal from "@/Components/MedicalRecordModal.vue";
-import PetShowMobile from "@/Components/pets/PetShowMobile.vue";
-import PetShowDesktop from "@/Components/pets/PetShowDesktop.vue";
 import PetShowMobile from "./Layout/PetShowMobile.vue";
 import PetShowDesktop from "./Layout/PetShowDesktop.vue";
 
