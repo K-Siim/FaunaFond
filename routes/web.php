@@ -64,10 +64,12 @@ Route::middleware('auth')->group(function () {
     // Reminder routes
     Route::post('/pets/{pet}/reminders', [ReminderController::class, 'store'])
         ->name('reminders.store');
-    Route::put('/pets/{pet}/reminders/{reminder}', [ReminderController::class, 'update'])
-        ->name('reminders.update');
+    
     Route::delete('/pets/{pet}/reminders/{reminder}', [ReminderController::class, 'destroy'])
         ->name('reminders.destroy');
-});
+    
+    Route::post('/pets/{pet}/reminders/{reminder}/notify', [ReminderController::class, 'markNotified'])
+        ->name('reminders.markNotified');
+    });
 
 require __DIR__ . '/auth.php';

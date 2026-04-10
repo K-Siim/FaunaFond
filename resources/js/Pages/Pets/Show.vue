@@ -4,11 +4,23 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
 import VetVisitLogModal from "@/Components/VetVisitLogModal.vue";
 import MedicalRecordModal from "@/Components/MedicalRecordModal.vue";
-import AddReminderModal from '@/Components/AddReminderModal.vue';
+import RemindersModal from '@/Components/RemindersModal.vue';
 import FlashMessage from '@/Components/FlashMessage.vue';
 
 const props = defineProps({
     pet: Object,
+    vaccineNames: {
+        type: Array,
+        default: () => [],
+    },
+    medicationNames: {
+        type: Array,
+        default: () => [],
+    },
+    clinicNames: {
+        type: Array,
+        default: () => [],
+    },
 });
 
 const showVetModal = ref(false);
@@ -70,6 +82,21 @@ function deleteMedication(medicationId) {
     );
 }
 
+function deleteReminder(reminderId) {
+    if (!confirm("Kustuta see meeldetuletus?")) return;
+    deleteForm.delete(
+        route("reminders.destroy", { pet: props.pet.id, reminder: reminderId }),
+        { preserveScroll: true },
+    );
+}
+
+function markReminderAsNotified(reminderId) {
+    deleteForm.post(
+        route("reminders.markNotified", { pet: props.pet.id, reminder: reminderId }),
+        { preserveScroll: true },
+    );
+}
+
 function formatDate(dateStr) {
     if (!dateStr) return "";
     const d = new Date(dateStr);
@@ -78,6 +105,33 @@ function formatDate(dateStr) {
         month: "2-digit",
         year: "numeric",
     });
+}
+
+function getReminderIcon(type) {
+    const icons = {
+        vaktsiin: '💉',
+        ravim: '💊',
+        arstivisiit: '🏥',
+    };
+    return icons[type] || '🔔';
+}
+
+function getReminderTypeColor(type) {
+    const colors = {
+        vaktsiin: 'bg-blue-50 border-l-4 border-blue-500',
+        ravim: 'bg-yellow-50 border-l-4 border-yellow-500',
+        arstivisiit: 'bg-green-50 border-l-4 border-green-500',
+    };
+    return colors[type] || 'bg-gray-50 border-l-4 border-gray-300';
+}
+
+function getReminderTypeLabel(type) {
+    const labels = {
+        vaktsiin: 'Vaktsiin',
+        ravim: 'Ravim',
+        arstivisiit: 'Arstivisiit',
+    };
+    return labels[type] || type;
 }
 
 const pendingFiles = ref({});
@@ -125,6 +179,12 @@ function deleteFile(fileId) {
         preserveScroll: true,
     });
 }
+
+function handleReminderModalClose() {
+    showReminderModal.value = false;
+    // Refresh the page data to show new reminders
+    location.reload();
+}
 </script>
 
 <template>
@@ -132,6 +192,7 @@ function deleteFile(fileId) {
 
     <AuthenticatedLayout>
         <div class="flex flex-col gap-10 p-6 justify-center items-center w-full">
+            <!-- Pet Info Section -->
             <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto mt-20">
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-col gap-2 text-[#275342]">
@@ -226,6 +287,7 @@ function deleteFile(fileId) {
                 </div>
             </section>
 
+            <!-- Medical Info Section -->
             <section
                 class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto"
             >
@@ -242,6 +304,7 @@ function deleteFile(fileId) {
                         </button>
                     </div>
 
+                    <!-- Vaccines Section -->
                     <div class="flex flex-col gap-3">
                         <h4 class="text-md font-medium text-[#275342]">
                             Vaktsiinid
@@ -325,6 +388,7 @@ function deleteFile(fileId) {
                         </div>
                     </div>
 
+                    <!-- Medications Section -->
                     <div class="flex flex-col gap-3 mt-4">
                         <h4 class="text-md font-medium text-[#275342]">
                             Ravimid
@@ -410,8 +474,8 @@ function deleteFile(fileId) {
                 </div>
             </section>
 
+            <!-- Reminders Section -->
             <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
-
                 <div class="fixed top-4 right-4 flex flex-col gap-2">
                     <FlashMessage
                         v-for="(msg, index) in messages"
@@ -429,32 +493,69 @@ function deleteFile(fileId) {
 
                         <button
                             @click="showReminderModal = true"
-                            class="text-[#275342] text-lg font-bold px-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white"
-                        >+
+                            class="text-[#275342] text-lg font-bold px-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition"
+                        >
+                            +
                         </button>
                     </div>
 
-                    <div v-if="!$page.props.pet.reminders || $page.props.pet.reminders.length === 0">
+                    <!-- Empty State -->
+                    <div v-if="!pet.reminders || pet.reminders.length === 0">
                         <p class="text-center text-[#275342] py-4">
                             Meeldetuletusi pole veel lisatud.
                         </p>
                     </div>
 
+                    <!-- Reminders List -->
                     <div v-else class="flex flex-col gap-3">
                         <div
-                            v-for="reminder in $page.props.pet.reminders"
+                            v-for="reminder in pet.reminders"
                             :key="reminder.id"
-                            class="p-3 rounded-xl bg-green-100"
+                            :class="['p-4 rounded-xl flex items-start justify-between', getReminderTypeColor(reminder.type)]"
                         >
-                            <p class="font-semibold">{{ reminder.title }}</p>
-                            <p class="text-sm">{{ reminder.date }} {{ reminder.time }}</p>
+                            <!-- Left Content -->
+                            <div class="flex items-start gap-3 flex-1">
+                                <span class="text-2xl">{{ getReminderIcon(reminder.type) }}</span>
+                                <div class="flex-1">
+                                    <div class="flex items-baseline gap-2 mb-1">
+                                        <p class="font-semibold text-sm text-[#275342]">{{ reminder.name }}</p>
+                                        <span class="text-xs px-2 py-0.5 bg-white bg-opacity-60 rounded text-[#275342]">
+                                            {{ getReminderTypeLabel(reminder.type) }}
+                                        </span>
+                                    </div>
+                                    <p class="text-xs text-[#275342]">
+                                        {{ reminder.date }} · {{ reminder.time }}
+                                    </p>
+                                    <p v-if="reminder.notification_sent" class="text-xs text-green-600 font-medium mt-1">
+                                        ✓ Teavitatud
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Right Actions -->
+                            <div class="flex gap-2 ml-4">
+                                <button
+                                    v-if="!reminder.notification_sent"
+                                    @click="markReminderAsNotified(reminder.id)"
+                                    class="px-2 py-1 text-xs font-medium bg-white bg-opacity-70 text-[#275342] rounded hover:bg-opacity-100 transition"
+                                    title="Märgi teavitatuks"
+                                >
+                                    Märgi
+                                </button>
+                                <button
+                                    @click="deleteReminder(reminder.id)"
+                                    class="px-2 py-1 text-xs font-medium bg-white bg-opacity-70 text-red-600 rounded hover:bg-opacity-100 transition"
+                                    title="Kustuta meeldetuletus"
+                                >
+                                    Kustuta
+                                </button>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-
             </section>
 
+            <!-- Vet Visits Section -->
             <section
                 class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto"
             >
@@ -535,7 +636,7 @@ function deleteFile(fileId) {
                                 <div
                                     v-for="file in visit.files"
                                     :key="file.id"
-                                    class="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2"
+                                    class="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2 mt-3"
                                 >
                                     <span class="text-red-400">📄</span>
                                     <a
@@ -667,7 +768,7 @@ function deleteFile(fileId) {
         </div>
     </AuthenticatedLayout>
 
-    <!-- Kustutamise modal -->
+    <!-- Delete Pet Modal -->
     <div
         v-if="showDeleteModal"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
@@ -701,6 +802,7 @@ function deleteFile(fileId) {
         </div>
     </div>
 
+    <!-- Modals -->
     <VetVisitLogModal
         v-if="showVetModal"
         :pet-id="pet.id"
@@ -713,10 +815,13 @@ function deleteFile(fileId) {
         :pet-name="pet.name"
         @close="showMedicalModal = false"
     />
-    <AddReminderModal
+    <RemindersModal
         v-if="showReminderModal"
-        :pet-id="pet.id"
-        :pet-name="pet.name"
-        @close="showReminderModal = false"
+        :petId="pet.id"
+        :petName="pet.name"
+        :vaccineNames="vaccineNames"
+        :medicationNames="medicationNames"
+        :clinicNames="clinicNames"
+        @close="handleReminderModalClose"
     />
 </template>
