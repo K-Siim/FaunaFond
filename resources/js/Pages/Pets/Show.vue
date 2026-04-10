@@ -1,9 +1,11 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from 'vue';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link, useForm } from "@inertiajs/vue3";
+import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
 import VetVisitLogModal from "@/Components/VetVisitLogModal.vue";
 import MedicalRecordModal from "@/Components/MedicalRecordModal.vue";
+import AddReminderModal from '@/Components/AddReminderModal.vue';
+import FlashMessage from '@/Components/FlashMessage.vue';
 
 const props = defineProps({
     pet: Object,
@@ -12,10 +14,20 @@ const props = defineProps({
 const showVetModal = ref(false);
 const showMedicalModal = ref(false);
 const showDeleteModal = ref(false);
+const showReminderModal = ref(false);
 
 const expandedVisitId = ref(null);
 const expandedVaccineId = ref(null);
 const expandedMedicationId = ref(null);
+
+const messages = ref([]);
+const page = usePage();
+
+watch(() => page.props.flash.message, (msg) => {
+    if (msg && msg.message) {
+        messages.value.push(msg);
+    }
+});
 
 function toggleVisit(id) {
     expandedVisitId.value = expandedVisitId.value === id ? null : id;
@@ -398,26 +410,49 @@ function deleteFile(fileId) {
                 </div>
             </section>
 
-            <section
-                class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto"
-            >
+            <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
+
+                <div class="fixed top-4 right-4 flex flex-col gap-2">
+                    <FlashMessage
+                        v-for="(msg, index) in messages"
+                        :key="index"
+                        :message="msg.message"
+                        :type="msg.type"
+                    />
+                </div>
+
                 <div class="flex flex-col gap-6">
-                    <div class="flex flex-row justify-between items-center">
-                        <h3 class="text-base text-lg font-semibold text-[#275342]">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-[#275342]">
                             Meeldetuletused
                         </h3>
-                        <Link
-                            href="/pets/create"
-                            class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition"
-                            >+</Link
-                        >
+
+                        <button
+                            @click="showReminderModal = true"
+                            class="text-[#275342] text-lg font-bold px-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white"
+                        >+
+                        </button>
                     </div>
-                    <div class="flex flex-col gap-4">
-                        <p class="text-md text-[#275342] text-center py-4">
+
+                    <div v-if="!$page.props.pet.reminders || $page.props.pet.reminders.length === 0">
+                        <p class="text-center text-[#275342] py-4">
                             Meeldetuletusi pole veel lisatud.
                         </p>
                     </div>
+
+                    <div v-else class="flex flex-col gap-3">
+                        <div
+                            v-for="reminder in $page.props.pet.reminders"
+                            :key="reminder.id"
+                            class="p-3 rounded-xl bg-green-100"
+                        >
+                            <p class="font-semibold">{{ reminder.title }}</p>
+                            <p class="text-sm">{{ reminder.date }} {{ reminder.time }}</p>
+                        </div>
+                    </div>
+
                 </div>
+
             </section>
 
             <section
@@ -677,5 +712,11 @@ function deleteFile(fileId) {
         :pet-id="pet.id"
         :pet-name="pet.name"
         @close="showMedicalModal = false"
+    />
+    <AddReminderModal
+        v-if="showReminderModal"
+        :pet-id="pet.id"
+        :pet-name="pet.name"
+        @close="showReminderModal = false"
     />
 </template>

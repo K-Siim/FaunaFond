@@ -68,7 +68,7 @@ class PetController extends Controller
         
         return Inertia::render('Pets/Show', [
             'pet' => $pet
-                ->load(['vetVisits', 'vaccines', 'medications', 'vetVisits.files'])
+                ->load(['vetVisits', 'vaccines', 'medications', 'vetVisits.files', 'reminders'])
                 ->append(['photo_url', 'formatted_dob', 'age']),
         ]);
     }

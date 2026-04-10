@@ -7,6 +7,7 @@ use App\Http\Controllers\VetVisitController;
 use App\Http\Controllers\VaccineController;
 use App\Http\Controllers\MedicationController;
 use App\Http\Controllers\VetVisitFileController;
+use App\Http\Controllers\ReminderController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -59,6 +60,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/vet-visit-files/{file}/download', [VetVisitFileController::class, 'download'])->name('vet-visit-files.download');
     Route::delete('/vet-visit-files/{file}', [VetVisitFileController::class, 'destroy'])->name('vet-visit-files.destroy');
+
+    // Reminder routes
+    Route::post('/pets/{pet}/reminders', [ReminderController::class, 'store'])
+        ->name('reminders.store');
+    Route::put('/pets/{pet}/reminders/{reminder}', [ReminderController::class, 'update'])
+        ->name('reminders.update');
+    Route::delete('/pets/{pet}/reminders/{reminder}', [ReminderController::class, 'destroy'])
+        ->name('reminders.destroy');
 });
 
 require __DIR__ . '/auth.php';
