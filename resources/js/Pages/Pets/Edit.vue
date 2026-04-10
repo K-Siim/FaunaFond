@@ -26,7 +26,6 @@ const form = useForm({
 
 const preview = ref(props.pet.photo_url?.thumb || null);
 
-
 function capitalize(value) {
   if (!value) return '';
   return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
@@ -68,26 +67,29 @@ function submit() {
         <div class="space-y-6 bg-transparent">
 
           <form @submit.prevent="submit" class="space-y-6">
+
+            <!-- Foto -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Foto</Label>
               <Input
                 type="file"
                 accept="image/*"
                 @change="handleImage"
               />
-
               <div v-if="preview">
                 <img
                   :src="preview"
                   class="w-32 h-32 object-cover rounded-xl border mt-2"
                 />
               </div>
-
               <p v-if="form.errors.image" class="text-sm text-red-500">
                 {{ form.errors.image }}
               </p>
             </div>
 
+            <!-- Nimi -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Nimi</Label>
               <Input
                 v-model="form.name"
                 @input="form.name = capitalize(form.name)"
@@ -98,7 +100,9 @@ function submit() {
               </p>
             </div>
 
+            <!-- Kiip -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Kiip</Label>
               <Input
                 v-model="form.chip"
                 type="number"
@@ -109,7 +113,9 @@ function submit() {
               </p>
             </div>
 
+            <!-- Liik -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Liik</Label>
               <Input
                 v-model="form.species"
                 @input="form.species = capitalize(form.species)"
@@ -120,7 +126,9 @@ function submit() {
               </p>
             </div>
 
+            <!-- Tõug -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Tõug</Label>
               <Input
                 v-model="form.breed"
                 @input="form.breed = capitalize(form.breed)"
@@ -128,7 +136,9 @@ function submit() {
               />
             </div>
 
+            <!-- Sugu -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Sugu</Label>
               <Select v-model="form.gender">
                 <SelectTrigger class="h-12 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
                   <SelectValue placeholder="Vali sugu" />
@@ -143,7 +153,9 @@ function submit() {
               </p>
             </div>
 
+            <!-- Sünniaeg -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Sünniaeg</Label>
               <Input
                 v-model="form.dob"
                 type="date"
@@ -153,7 +165,9 @@ function submit() {
               </p>
             </div>
 
+            <!-- Kaal -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Kaal (kg)</Label>
               <Input
                 v-model="form.weight"
                 type="number"
@@ -162,12 +176,14 @@ function submit() {
               />
             </div>
 
-            <div>
+            <!-- Kirjeldus -->
+            <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Kirjeldus</Label>
               <Textarea
                 v-model="form.description"
                 placeholder="Kirjeldus"
-                class="h-24 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
-              </Textarea>
+                class="h-24 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+              />
             </div>
 
             <Button
