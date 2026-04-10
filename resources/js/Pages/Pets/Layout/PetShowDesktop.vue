@@ -53,7 +53,7 @@ const stats = computed(() => ({
                     <img
                         :src="pet.photo_url?.medium || '/images/default-pet.png'"
                         alt="Lemmiku pilt"
-                        class="h-28 w-28 rounded-2xl border border-[#275342]/30 object-cover"
+                        class="h-36 w-36 rounded-2xl border border-[#275342]/30 object-cover"
                     />
                     <div class="space-y-3">
                         <div class="flex items-center gap-3">
@@ -100,25 +100,25 @@ const stats = computed(() => ({
 
             <!-- Stats -->
             <div class="mb-8 grid grid-cols-4 gap-4">
-                <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
-                    <CardHeader class="pb-2">
-                        <CardDescription class="text-[#275342]/60">Vaktsiinid</CardDescription>
-                        <CardTitle class="text-3xl text-[#275342]">{{ stats.vaccines }}</CardTitle>
+                <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none ">
+                    <CardHeader class="pb-2 ">
+                        <CardDescription class="text-[#275342]/60 ">Vaktsiinid</CardDescription>
+                        <CardTitle class="text-3xl text-[#275342] ">{{ stats.vaccines }}</CardTitle>
                     </CardHeader>
                 </Card>
-                <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
+                <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none">
                     <CardHeader class="pb-2">
                         <CardDescription class="text-[#275342]/60">Ravimid</CardDescription>
                         <CardTitle class="text-3xl text-[#275342]">{{ stats.medications }}</CardTitle>
                     </CardHeader>
                 </Card>
-                <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
+                <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none">
                     <CardHeader class="pb-2">
                         <CardDescription class="text-[#275342]/60">Arstivisiidid</CardDescription>
                         <CardTitle class="text-3xl text-[#275342]">{{ stats.visits }}</CardTitle>
                     </CardHeader>
                 </Card>
-                <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
+                <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none">
                     <CardHeader class="pb-2">
                         <CardDescription class="text-[#275342]/60">Meeldetuletused</CardDescription>
                         <CardTitle class="text-3xl text-[#275342]">0</CardTitle>
@@ -130,11 +130,11 @@ const stats = computed(() => ({
             <div class="grid grid-cols-12 gap-6">
 
                 <!-- Left: visiidid -->
-                <div class="col-span-8">
-                    <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
+                <div class="col-span-8 ">
+                    <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none">
                         <CardHeader class="flex flex-row items-center justify-between space-y-0">
                             <div>
-                                <CardTitle class="text-[#275342]">Arstivisiitide logi</CardTitle>
+                                <CardTitle class="text-[#275342] ">Arstivisiitide logi</CardTitle>
                                 <CardDescription class="text-[#275342]/60">Visiidid, logid ja seotud PDF-failid</CardDescription>
                             </div>
                             <button
@@ -255,7 +255,7 @@ const stats = computed(() => ({
 
                 <!-- Right -->
                 <div class="col-span-4 space-y-6">
-                    <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
+                    <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none">
                         <CardHeader class="flex flex-row items-center justify-between space-y-0">
                             <div>
                                 <CardTitle class="text-[#275342]">Meditsiiniline info</CardTitle>
@@ -263,7 +263,7 @@ const stats = computed(() => ({
                             </div>
                             <button
                                 @click="$emit('open-medical-modal')"
-                                class="rounded-full border border-[#275342] px-4 py-1.5 text-sm text-[#275342] hover:bg-[#275342] hover:text-white transition"
+                                class="rounded-full border border-[#275342]/40 px-4 py-1.5 text-sm text-[#275342] hover:bg-[#275342] hover:text-white transition"
                             >
                                 Lisa
                             </button>
