@@ -124,19 +124,7 @@ function getReminderClasses(type) {
   return `${base} border-gray-300 bg-gray-50`;
 }
 
-function markAsNotified(reminder) {
-  if (!confirm('Märgi see meeldetuletus teavitatuks?')) return;
 
-  fetch(`/pets/${props.pet.id}/reminders/${reminder.id}/notify`, {
-    method: 'POST',
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-      'Content-Type': 'application/json',
-    },
-  })
-    .then(() => fetchReminders())
-    .catch(err => console.error('Error marking reminder:', err));
-}
 
 function deleteReminder(reminder) {
   if (!confirm('Oled kindel, et soovid kustutada selle meeldetuletuse?')) return;
@@ -249,14 +237,6 @@ function getTypeLabel(type) {
 
           <!-- Right actions -->
           <div class="flex gap-2 ml-4">
-            <button
-              v-if="!reminder.notification_sent"
-              @click="markAsNotified(reminder)"
-              class="px-2 py-1 text-xs font-medium bg-white bg-opacity-70 text-gray-700 rounded hover:bg-opacity-100 transition"
-              title="Märgi teavitatuks"
-            >
-              Märgi
-            </button>
             <button
               @click="deleteReminder(reminder)"
               class="px-2 py-1 text-xs font-medium bg-white bg-opacity-70 text-red-600 rounded hover:bg-opacity-100 transition"

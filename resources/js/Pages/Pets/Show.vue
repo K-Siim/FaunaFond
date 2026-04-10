@@ -90,11 +90,23 @@ function deleteReminder(reminderId) {
     );
 }
 
-function markReminderAsNotified(reminderId) {
-    deleteForm.post(
-        route("reminders.markNotified", { pet: props.pet.id, reminder: reminderId }),
-        { preserveScroll: true },
-    );
+function formatReminderText(reminder) {
+    const date = formatDate(reminder.date);
+    const time = reminder.time;
+
+    if (reminder.type === 'arstivisiit') {
+        return `Arstivisiidi kuupäev on – ${date} ${time}`;
+    }
+
+    if (reminder.type === 'vaktsiin') {
+        return `Vaktsiini kuupäev on – ${date} ${time}`;
+    }
+
+    if (reminder.type === 'ravim') {
+        return `Ravimi manustamise aeg on – ${date} ${time}`;
+    }
+
+    return `Meeldetuletus – ${date} ${time}`;
 }
 
 function formatDate(dateStr) {
@@ -118,20 +130,11 @@ function getReminderIcon(type) {
 
 function getReminderTypeColor(type) {
     const colors = {
-        vaktsiin: 'bg-blue-50 border-l-4 border-blue-500',
-        ravim: 'bg-yellow-50 border-l-4 border-yellow-500',
-        arstivisiit: 'bg-green-50 border-l-4 border-green-500',
+        vaktsiin: 'bg-[#FBF0BF]',
+        ravim: 'bg-[#DAF2D0]',
+        arstivisiit: 'bg-[#E3F2FD]',
     };
     return colors[type] || 'bg-gray-50 border-l-4 border-gray-300';
-}
-
-function getReminderTypeLabel(type) {
-    const labels = {
-        vaktsiin: 'Vaktsiin',
-        ravim: 'Ravim',
-        arstivisiit: 'Arstivisiit',
-    };
-    return labels[type] || type;
 }
 
 const pendingFiles = ref({});
@@ -513,42 +516,28 @@ function handleReminderModalClose() {
                             :key="reminder.id"
                             :class="['p-4 rounded-xl flex items-start justify-between', getReminderTypeColor(reminder.type)]"
                         >
-                            <!-- Left Content -->
-                            <div class="flex items-start gap-3 flex-1">
-                                <span class="text-2xl">{{ getReminderIcon(reminder.type) }}</span>
-                                <div class="flex-1">
-                                    <div class="flex items-baseline gap-2 mb-1">
-                                        <p class="font-semibold text-sm text-[#275342]">{{ reminder.name }}</p>
-                                        <span class="text-xs px-2 py-0.5 bg-white bg-opacity-60 rounded text-[#275342]">
-                                            {{ getReminderTypeLabel(reminder.type) }}
-                                        </span>
+                            <!-- Content -->
+                            <div class="flex items-center gap-4 flex-1">
+                                <span class="text-2xl w-1/4 h-full flex justify-center items-center">{{ getReminderIcon(reminder.type) }}</span>
+                                <div class="flex flex-row w-3/4">
+                                    <div class="flex flex-col items-baseline gap-2 mb-1">
+                                        <p class="font-bold text-lg text-[#275342]">{{ pet.name }}</p>
+                                        <div class="">
+                                            <p class="text-md text-[#275342] font-semibold leading-snug">
+                                                {{ formatReminderText(reminder) }}
+                                            </p>                                    
+                                        </div>                                    
                                     </div>
-                                    <p class="text-xs text-[#275342]">
-                                        {{ reminder.date }} · {{ reminder.time }}
-                                    </p>
-                                    <p v-if="reminder.notification_sent" class="text-xs text-green-600 font-medium mt-1">
-                                        ✓ Teavitatud
-                                    </p>
+                                    <div class="flex gap-2 ml-4">
+                                        <button
+                                            @click="deleteReminder(reminder.id)"
+                                            class="px-2 py-1 text-sm font-medium bg-red bg-opacity-70 text-red-600 rounded hover:bg-opacity-100 transition"
+                                            title="Kustuta meeldetuletus"
+                                        >
+                                        Kustuta
+                                        </button>
+                                    </div>    
                                 </div>
-                            </div>
-
-                            <!-- Right Actions -->
-                            <div class="flex gap-2 ml-4">
-                                <button
-                                    v-if="!reminder.notification_sent"
-                                    @click="markReminderAsNotified(reminder.id)"
-                                    class="px-2 py-1 text-xs font-medium bg-white bg-opacity-70 text-[#275342] rounded hover:bg-opacity-100 transition"
-                                    title="Märgi teavitatuks"
-                                >
-                                    Märgi
-                                </button>
-                                <button
-                                    @click="deleteReminder(reminder.id)"
-                                    class="px-2 py-1 text-xs font-medium bg-white bg-opacity-70 text-red-600 rounded hover:bg-opacity-100 transition"
-                                    title="Kustuta meeldetuletus"
-                                >
-                                    Kustuta
-                                </button>
                             </div>
                         </div>
                     </div>
