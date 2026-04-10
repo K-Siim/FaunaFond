@@ -518,7 +518,7 @@ function handleReminderModalClose() {
                         >
                             <!-- Content -->
                             <div class="flex items-center gap-4 flex-1">
-                                <span class="text-2xl w-1/4 h-full flex justify-center items-center">{{ getReminderIcon(reminder.type) }}</span>
+                                <span class="text-5xl w-1/4 h-full flex justify-center items-center">{{ getReminderIcon(reminder.type) }}</span>
                                 <div class="flex flex-row w-3/4">
                                     <div class="flex flex-col items-baseline gap-2 mb-1">
                                         <p class="font-bold text-lg text-[#275342]">{{ pet.name }}</p>
