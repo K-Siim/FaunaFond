@@ -70,7 +70,7 @@ function submit() {
 
             <!-- Foto -->
             <div class="space-y-2">
-              <Label class="text-gray-800 font-medium text-lg">Foto</Label>
+              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Foto</Label>
               <Input
                 type="file"
                 accept="image/*"
@@ -89,7 +89,7 @@ function submit() {
 
             <!-- Nimi -->
             <div class="space-y-2">
-              <Label class="text-gray-800 font-medium text-lg">Nimi</Label>
+              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Nimi</Label>
               <Input
                 v-model="form.name"
                 @input="form.name = capitalize(form.name)"
@@ -102,7 +102,7 @@ function submit() {
 
             <!-- Kiip -->
             <div class="space-y-2">
-              <Label class="text-gray-800 font-medium text-lg">Kiip</Label>
+              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Kiip</Label>
               <Input
                 v-model="form.chip"
                 type="number"
@@ -115,7 +115,7 @@ function submit() {
 
             <!-- Liik -->
             <div class="space-y-2">
-              <Label class="text-gray-800 font-medium text-lg">Liik</Label>
+              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Liik</Label>
               <Input
                 v-model="form.species"
                 @input="form.species = capitalize(form.species)"
@@ -128,7 +128,7 @@ function submit() {
 
             <!-- Tõug -->
             <div class="space-y-2">
-              <Label class="text-gray-800 font-medium text-lg">Tõug</Label>
+              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Tõug</Label>
               <Input
                 v-model="form.breed"
                 @input="form.breed = capitalize(form.breed)"
@@ -138,7 +138,7 @@ function submit() {
 
             <!-- Sugu -->
             <div class="space-y-2">
-              <Label class="text-gray-800 font-medium text-lg">Sugu</Label>
+              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Sugu</Label>
               <Select v-model="form.gender">
                 <SelectTrigger class="h-12 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
                   <SelectValue placeholder="Vali sugu" />
@@ -155,7 +155,7 @@ function submit() {
 
             <!-- Sünniaeg -->
             <div class="space-y-2">
-              <Label class="text-gray-800 font-medium text-lg">Sünniaeg</Label>
+              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Sünniaeg</Label>
               <Input
                 v-model="form.dob"
                 type="date"
@@ -167,7 +167,7 @@ function submit() {
 
             <!-- Kaal -->
             <div class="space-y-2">
-              <Label class="text-gray-800 font-medium text-lg">Kaal (kg)</Label>
+              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Kaal (kg)</Label>
               <Input
                 v-model="form.weight"
                 type="number"
@@ -178,12 +178,12 @@ function submit() {
 
             <!-- Kirjeldus -->
             <div class="space-y-2">
-              <Label class="text-gray-800 font-medium text-lg">Kirjeldus</Label>
+              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Kirjeldus</Label>
               <Textarea
                 v-model="form.description"
                 placeholder="Kirjeldus"
-                class="h-24 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-              />
+                class="h-24 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+              </Textarea>
             </div>
 
             <Button
