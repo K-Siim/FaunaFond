@@ -18,9 +18,19 @@
           <a href="#funktsioonid" class="text-[#0e2c20] no-underline text-[15px] font-medium opacity-80 hover:opacity-100 transition-opacity">Funktsioonid</a>
           <a href="#kuidas" class="text-[#0e2c20] no-underline text-[15px] font-medium opacity-80 hover:opacity-100 transition-opacity">Kuidas töötab</a>
         </div>
-        <Link :href="route('login')" class="hidden md:inline-flex items-center gap-2 bg-[#275342] text-[#fffdf5] font-semibold rounded-full px-[22px] py-2.5 text-sm no-underline shadow-[0_4px_16px_rgba(39,83,66,0.25)] hover:shadow-[0_6px_24px_rgba(39,83,66,0.35)] hover:-translate-y-px transition-all whitespace-nowrap">
-          Logi sisse
-        </Link>
+        <div class="hidden md:flex items-center gap-3">
+          <button
+            v-if="installPrompt"
+            @click="installApp"
+            class="inline-flex items-center gap-2 bg-[#275342] text-[#fffdf5] font-semibold rounded-full px-[22px] py-2.5 text-sm shadow-[0_4px_16px_rgba(39,83,66,0.25)] hover:shadow-[0_6px_24px_rgba(39,83,66,0.35)] hover:-translate-y-px transition-all whitespace-nowrap border-none cursor-pointer"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Laadi rakendus alla
+          </button>
+          <Link :href="route('login')" class="inline-flex items-center gap-2 bg-[#275342] text-[#fffdf5] font-semibold rounded-full px-[22px] py-2.5 text-sm no-underline shadow-[0_4px_16px_rgba(39,83,66,0.25)] hover:shadow-[0_6px_24px_rgba(39,83,66,0.35)] hover:-translate-y-px transition-all whitespace-nowrap">
+            Logi sisse
+          </Link>
+        </div>
         <button class="flex md:hidden flex-col gap-[5px] bg-transparent border-none cursor-pointer p-1 ml-auto" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen">
           <span class="block w-[22px] h-0.5 bg-[#0e2c20] rounded-sm"></span>
           <span class="block w-[22px] h-0.5 bg-[#0e2c20] rounded-sm"></span>
@@ -31,6 +41,14 @@
         <a href="#probleem" @click="mobileOpen = false" class="text-[#0e2c20] no-underline text-base font-medium">Probleem</a>
         <a href="#funktsioonid" @click="mobileOpen = false" class="text-[#0e2c20] no-underline text-base font-medium">Funktsioonid</a>
         <a href="#kuidas" @click="mobileOpen = false" class="text-[#0e2c20] no-underline text-base font-medium">Kuidas töötab</a>
+        <button
+          v-if="installPrompt"
+          @click="installApp"
+          class="inline-flex items-center justify-center gap-2 bg-[#275342] text-[#fffdf5] font-semibold rounded-full px-9 py-[18px] text-base border-none cursor-pointer"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Laadi rakendus alla
+        </button>
         <Link :href="route('login')" @click="mobileOpen = false" class="inline-flex items-center justify-center bg-[#275342] text-[#fffdf5] font-semibold rounded-full px-9 py-[18px] text-base no-underline">Logi sisse</Link>
       </div>
     </nav>
@@ -265,10 +283,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Link } from '@inertiajs/vue3'
 
 const mobileOpen = ref(false)
+const installPrompt = ref(null)
+
+onMounted(() => {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault()
+    installPrompt.value = e
+  })
+})
+
+async function installApp() {
+  if (!installPrompt.value) return
+  installPrompt.value.prompt()
+  const { outcome } = await installPrompt.value.userChoice
+  if (outcome === 'accepted') {
+    installPrompt.value = null
+  }
+}
 
 const problems = [
   {
