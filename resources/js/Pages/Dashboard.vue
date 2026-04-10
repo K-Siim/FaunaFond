@@ -7,7 +7,6 @@ import { Link, Head } from "@inertiajs/vue3";
 const props = defineProps({
     pets: Array,
 });
-
 </script>
 
 <template>
@@ -20,7 +19,7 @@ const props = defineProps({
             </h2>
             <div class="flex justify-center items-center h-full flex-col p-5 gap-5">
                 <div class="flex justify-center items-center pb-3 gap-5 flex-col w-full">
-                    <div class="flex flex-row justify-between items- w-full pt-2 pb-2">
+                    <div class="flex flex-row justify-between items-center w-full pt-2 pb-2">
                         <h5 class="text-[#275342] text-xl font-semibold">
                             Lemmikute nimekiri
                         </h5>
@@ -31,18 +30,22 @@ const props = defineProps({
                         </Link>
                     </div>
                     <div class="w-full flex justify-end">
-                        <Link href="/pets/create" class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition">
-                        +
-                        </Link>                     
+                        <Link
+                            href="/pets/create"
+                            class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition"
+                        >
+                            +
+                        </Link>
                     </div>
 
-                    
-                    <div class=" rounded-2xl w-full max-w-md mx-auto">
+                    <div class="w-full">
                         <div v-if="pets && pets.length">
-                            <div v-for="pet in pets" :key="pet.id">
-                                <Link :href="route('pets.show', pet.id)" class="w-full">
-                                    <PetContent :pet="pet" class="mb-4" />
-                                </Link>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div v-for="pet in pets" :key="pet.id">
+                                    <Link :href="route('pets.show', pet.id)" class="w-full">
+                                        <PetContent :pet="pet" />
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                         <p v-else>Lemmikloomi ei leitud</p>
