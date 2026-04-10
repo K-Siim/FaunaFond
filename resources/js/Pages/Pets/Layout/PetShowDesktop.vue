@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from "vue";
 import { Link } from "@inertiajs/vue3";
-
 import {
     Card,
     CardContent,
@@ -9,7 +8,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card";
-import { Button } from "@/Components/ui/button";
 import { Badge } from "@/Components/ui/badge";
 import { Separator } from "@/Components/ui/separator";
 import {
@@ -46,37 +44,30 @@ const stats = computed(() => ({
 </script>
 
 <template>
-    <div class="min-h-screen bg-background text-foreground">
-        <div class="mx-auto max-w-7xl px-6 py-8">
+    <div class="min-h-screen bg-[#E7F0E4] text-[#275342] pt-24 pb-12">
+        <div class="mx-auto max-w-7xl px-6">
+
             <!-- Header -->
             <div class="mb-8 flex items-start justify-between gap-6">
                 <div class="flex items-center gap-5">
                     <img
-                        :src="
-                            pet.photo_url?.medium || '/images/default-pet.png'
-                        "
+                        :src="pet.photo_url?.medium || '/images/default-pet.png'"
                         alt="Lemmiku pilt"
-                        class="h-28 w-28 rounded-2xl border border-border object-cover"
+                        class="h-28 w-28 rounded-2xl border border-[#275342]/30 object-cover"
                     />
-
                     <div class="space-y-3">
                         <div class="flex items-center gap-3">
-                            <h1 class="text-3xl font-semibold tracking-tight">
+                            <h1 class="text-3xl font-semibold tracking-tight text-[#275342]">
                                 {{ pet.name }}
                             </h1>
-
-                            <Badge variant="secondary">
+                            <Badge class="border border-[#275342] bg-transparent text-[#275342] rounded-full">
                                 {{ pet.species || "Liik puudub" }}
                             </Badge>
-
-                            <Badge variant="outline">
+                            <Badge class="border border-[#275342] bg-transparent text-[#275342] rounded-full">
                                 {{ pet.gender || "Sugu puudub" }}
                             </Badge>
                         </div>
-
-                        <div
-                            class="flex flex-wrap gap-2 text-sm text-muted-foreground"
-                        >
+                        <div class="flex flex-wrap gap-2 text-sm text-[#275342]/70">
                             <span>{{ pet.breed || "Tõug puudub" }}</span>
                             <span>•</span>
                             <span>{{ pet.formatted_dob }} ({{ pet.age }})</span>
@@ -85,201 +76,132 @@ const stats = computed(() => ({
                             <span v-if="pet.chip">•</span>
                             <span v-if="pet.chip">Kiip: {{ pet.chip }}</span>
                         </div>
-
-                        <p class="max-w-3xl text-sm text-muted-foreground">
+                        <p class="max-w-3xl text-sm text-[#275342]/70">
                             {{ pet.description || "Kirjeldus puudub" }}
                         </p>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2">
-                    <Button variant="outline" as-child>
-                        <Link :href="`/pets/${pet.id}/edit`">Muuda</Link>
-                    </Button>
-
-                    <Button
-                        variant="destructive"
+                <div class="flex items-center gap-2 mt-2">
+                    <Link
+                        :href="`/pets/${pet.id}/edit`"
+                        class="rounded-full border border-[#275342] px-4 py-1.5 text-sm text-[#275342] hover:bg-[#275342] hover:text-white transition"
+                    >
+                        Muuda
+                    </Link>
+                    <button
                         @click="$emit('confirm-delete')"
+                        class="rounded-full border border-red-400 px-4 py-1.5 text-sm text-red-400 hover:bg-red-400 hover:text-white transition"
                     >
                         Kustuta
-                    </Button>
+                    </button>
                 </div>
             </div>
 
             <!-- Stats -->
             <div class="mb-8 grid grid-cols-4 gap-4">
-                <Card class="rounded-2xl">
+                <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
                     <CardHeader class="pb-2">
-                        <CardDescription>Vaktsiinid</CardDescription>
-                        <CardTitle class="text-3xl">{{
-                            stats.vaccines
-                        }}</CardTitle>
+                        <CardDescription class="text-[#275342]/60">Vaktsiinid</CardDescription>
+                        <CardTitle class="text-3xl text-[#275342]">{{ stats.vaccines }}</CardTitle>
                     </CardHeader>
                 </Card>
-
-                <Card class="rounded-2xl">
+                <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
                     <CardHeader class="pb-2">
-                        <CardDescription>Ravimid</CardDescription>
-                        <CardTitle class="text-3xl">{{
-                            stats.medications
-                        }}</CardTitle>
+                        <CardDescription class="text-[#275342]/60">Ravimid</CardDescription>
+                        <CardTitle class="text-3xl text-[#275342]">{{ stats.medications }}</CardTitle>
                     </CardHeader>
                 </Card>
-
-                <Card class="rounded-2xl">
+                <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
                     <CardHeader class="pb-2">
-                        <CardDescription>Arstivisiidid</CardDescription>
-                        <CardTitle class="text-3xl">{{
-                            stats.visits
-                        }}</CardTitle>
+                        <CardDescription class="text-[#275342]/60">Arstivisiidid</CardDescription>
+                        <CardTitle class="text-3xl text-[#275342]">{{ stats.visits }}</CardTitle>
                     </CardHeader>
                 </Card>
-
-                <Card class="rounded-2xl">
+                <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
                     <CardHeader class="pb-2">
-                        <CardDescription>Meeldetuletused</CardDescription>
-                        <CardTitle class="text-3xl">0</CardTitle>
+                        <CardDescription class="text-[#275342]/60">Meeldetuletused</CardDescription>
+                        <CardTitle class="text-3xl text-[#275342]">0</CardTitle>
                     </CardHeader>
                 </Card>
             </div>
 
             <!-- Main grid -->
             <div class="grid grid-cols-12 gap-6">
-                <!-- Left -->
+
+                <!-- Left: visiidid -->
                 <div class="col-span-8">
-                    <Card class="rounded-2xl">
-                        <CardHeader
-                            class="flex flex-row items-center justify-between space-y-0"
-                        >
+                    <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
+                        <CardHeader class="flex flex-row items-center justify-between space-y-0">
                             <div>
-                                <CardTitle>Arstivisiitide logi</CardTitle>
-                                <CardDescription>
-                                    Visiidid, logid ja seotud PDF-failid
-                                </CardDescription>
+                                <CardTitle class="text-[#275342]">Arstivisiitide logi</CardTitle>
+                                <CardDescription class="text-[#275342]/60">Visiidid, logid ja seotud PDF-failid</CardDescription>
                             </div>
-
-                            <Button @click="$emit('open-vet-modal')">
+                            <button
+                                @click="$emit('open-vet-modal')"
+                                class="rounded-full border border-[#275342] px-4 py-1.5 text-sm text-[#275342] hover:bg-[#275342] hover:text-white transition"
+                            >
                                 Lisa visiit
-                            </Button>
+                            </button>
                         </CardHeader>
-
                         <CardContent>
                             <div
-                                v-if="
-                                    !pet.vet_visits ||
-                                    pet.vet_visits.length === 0
-                                "
-                                class="rounded-xl border border-dashed border-border p-10 text-center text-sm text-muted-foreground"
+                                v-if="!pet.vet_visits || pet.vet_visits.length === 0"
+                                class="rounded-xl border border-dashed border-[#275342]/30 p-10 text-center text-sm text-[#275342]/60"
                             >
                                 Arstivisiite pole veel lisatud.
                             </div>
 
-                            <Accordion
-                                v-else
-                                type="single"
-                                collapsible
-                                class="space-y-3"
-                            >
+                            <Accordion v-else type="single" collapsible class="space-y-3">
                                 <AccordionItem
                                     v-for="visit in pet.vet_visits"
                                     :key="visit.id"
                                     :value="String(visit.id)"
-                                    class="rounded-xl border px-4"
+                                    class="rounded-xl border border-[#275342]/20 px-4 bg-white"
                                 >
-                                    <AccordionTrigger
-                                        class="hover:no-underline"
-                                    >
-                                        <div
-                                            class="flex flex-col items-start text-left"
-                                        >
-                                            <span class="font-medium">
-                                                {{ visit.clinic_name }}
-                                            </span>
-                                            <span
-                                                class="text-xs text-muted-foreground"
-                                            >
-                                                {{
-                                                    formatDate(visit.visit_date)
-                                                }}
-                                            </span>
+                                    <AccordionTrigger class="hover:no-underline text-[#275342]">
+                                        <div class="flex flex-col items-start text-left">
+                                            <span class="font-medium text-[#275342]">{{ visit.clinic_name }}</span>
+                                            <span class="text-xs text-[#275342]/60">{{ formatDate(visit.visit_date) }}</span>
                                         </div>
                                     </AccordionTrigger>
-
                                     <AccordionContent>
                                         <div class="space-y-5">
-                                            <p
-                                                class="whitespace-pre-wrap text-sm leading-relaxed text-muted-foreground"
-                                            >
-                                                {{
-                                                    visit.log || "Logi puudub."
-                                                }}
+                                            <p class="whitespace-pre-wrap text-sm leading-relaxed text-[#275342]/80">
+                                                {{ visit.log || "Logi puudub." }}
                                             </p>
 
-                                            <Separator />
+                                            <Separator class="bg-[#275342]/10" />
 
                                             <div class="space-y-3">
-                                                <p class="text-sm font-medium">
-                                                    Failid
-                                                </p>
-
-                                                <div
-                                                    v-if="visit.files?.length"
-                                                    class="space-y-2"
-                                                >
+                                                <p class="text-sm font-medium text-[#275342]">Failid</p>
+                                                <div v-if="visit.files?.length" class="space-y-2">
                                                     <div
                                                         v-for="file in visit.files"
                                                         :key="file.id"
-                                                        class="flex items-center justify-between rounded-lg border bg-muted/40 px-3 py-2"
+                                                        class="flex items-center justify-between rounded-lg border border-[#275342]/20 bg-[#E7F0E4]/40 px-3 py-2"
                                                     >
                                                         <a
-                                                            :href="
-                                                                route(
-                                                                    'vet-visit-files.download',
-                                                                    file.id,
-                                                                )
-                                                            "
-                                                            class="truncate text-sm hover:underline"
+                                                            :href="route('vet-visit-files.download', file.id)"
+                                                            class="truncate text-sm text-[#275342] hover:underline"
                                                         >
-                                                            {{
-                                                                file.original_name
-                                                            }}
+                                                            {{ file.original_name }}
                                                         </a>
-
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="sm"
-                                                            @click="
-                                                                $emit(
-                                                                    'delete-file',
-                                                                    file.id,
-                                                                )
-                                                            "
+                                                        <button
+                                                            @click="$emit('delete-file', file.id)"
+                                                            class="text-xs text-red-400 hover:text-red-600 transition ml-4"
                                                         >
                                                             Kustuta
-                                                        </Button>
+                                                        </button>
                                                     </div>
                                                 </div>
-
-                                                <p
-                                                    v-else
-                                                    class="text-sm text-muted-foreground"
-                                                >
-                                                    Faile pole lisatud.
-                                                </p>
+                                                <p v-else class="text-sm text-[#275342]/60">Faile pole lisatud.</p>
                                             </div>
 
-                                            <div
-                                                class="rounded-xl border border-dashed border-border p-4"
-                                            >
-                                                <div
-                                                    class="flex items-center justify-between"
-                                                >
-                                                    <label
-                                                        class="cursor-pointer"
-                                                    >
-                                                        <span
-                                                            class="inline-flex rounded-md border px-3 py-2 text-sm hover:bg-accent"
-                                                        >
+                                            <div class="rounded-xl border border-dashed border-[#275342]/30 p-4">
+                                                <div class="flex items-center justify-between">
+                                                    <label class="cursor-pointer">
+                                                        <span class="inline-flex rounded-full border border-[#275342] px-3 py-1.5 text-sm text-[#275342] hover:bg-[#275342] hover:text-white transition">
                                                             Lisa PDF
                                                         </span>
                                                         <input
@@ -287,86 +209,41 @@ const stats = computed(() => ({
                                                             multiple
                                                             accept=".pdf"
                                                             class="hidden"
-                                                            @change="
-                                                                $emit(
-                                                                    'upload-files',
-                                                                    $event,
-                                                                    visit,
-                                                                )
-                                                            "
+                                                            @change="$emit('upload-files', $event, visit)"
                                                         />
                                                     </label>
-
-                                                    <Button
-                                                        v-if="
-                                                            pendingFiles[
-                                                                visit.id
-                                                            ]?.length
-                                                        "
-                                                        size="sm"
-                                                        @click="
-                                                            $emit(
-                                                                'submit-files',
-                                                                visit,
-                                                            )
-                                                        "
+                                                    <button
+                                                        v-if="pendingFiles[visit.id]?.length"
+                                                        @click="$emit('submit-files', visit)"
+                                                        class="rounded-full bg-[#275342] px-3 py-1.5 text-sm text-white hover:bg-[#1e3f31] transition"
                                                     >
                                                         Lae üles
-                                                    </Button>
+                                                    </button>
                                                 </div>
-
-                                                <div
-                                                    v-if="
-                                                        pendingFiles[visit.id]
-                                                            ?.length
-                                                    "
-                                                    class="mt-3 space-y-2"
-                                                >
+                                                <div v-if="pendingFiles[visit.id]?.length" class="mt-3 space-y-2">
                                                     <div
-                                                        v-for="(
-                                                            file, index
-                                                        ) in pendingFiles[
-                                                            visit.id
-                                                        ]"
+                                                        v-for="(file, index) in pendingFiles[visit.id]"
                                                         :key="index"
-                                                        class="flex items-center justify-between rounded-lg bg-muted px-3 py-2"
+                                                        class="flex items-center justify-between rounded-lg bg-[#E7F0E4] px-3 py-2"
                                                     >
-                                                        <span
-                                                            class="truncate text-xs"
-                                                        >
-                                                            {{ file.name }}
-                                                        </span>
-
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="sm"
-                                                            @click="
-                                                                $emit(
-                                                                    'remove-pending-file',
-                                                                    visit.id,
-                                                                    index,
-                                                                )
-                                                            "
+                                                        <span class="truncate text-xs text-[#275342]">{{ file.name }}</span>
+                                                        <button
+                                                            @click="$emit('remove-pending-file', visit.id, index)"
+                                                            class="text-xs text-red-400 hover:text-red-600 transition ml-4"
                                                         >
                                                             Eemalda
-                                                        </Button>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="flex justify-end">
-                                                <Button
-                                                    variant="destructive"
-                                                    size="sm"
-                                                    @click="
-                                                        $emit(
-                                                            'delete-visit',
-                                                            visit.id,
-                                                        )
-                                                    "
+                                                <button
+                                                    @click="$emit('delete-visit', visit.id)"
+                                                    class="text-xs text-red-400 hover:text-red-600 transition"
                                                 >
                                                     Kustuta visiit
-                                                </Button>
+                                                </button>
                                             </div>
                                         </div>
                                     </AccordionContent>
@@ -378,180 +255,92 @@ const stats = computed(() => ({
 
                 <!-- Right -->
                 <div class="col-span-4 space-y-6">
-                    <Card class="rounded-2xl">
-                        <CardHeader
-                            class="flex flex-row items-center justify-between space-y-0"
-                        >
+                    <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
+                        <CardHeader class="flex flex-row items-center justify-between space-y-0">
                             <div>
-                                <CardTitle>Meditsiiniline info</CardTitle>
-                                <CardDescription
-                                    >Vaktsiinid ja ravimid</CardDescription
-                                >
+                                <CardTitle class="text-[#275342]">Meditsiiniline info</CardTitle>
+                                <CardDescription class="text-[#275342]/60">Vaktsiinid ja ravimid</CardDescription>
                             </div>
-
-                            <Button
-                                variant="outline"
+                            <button
                                 @click="$emit('open-medical-modal')"
+                                class="rounded-full border border-[#275342] px-4 py-1.5 text-sm text-[#275342] hover:bg-[#275342] hover:text-white transition"
                             >
                                 Lisa
-                            </Button>
+                            </button>
                         </CardHeader>
-
                         <CardContent class="space-y-6">
+                            <!-- Vaktsiinid -->
                             <div>
-                                <div
-                                    class="mb-3 flex items-center justify-between"
-                                >
-                                    <h3 class="text-sm font-medium">
-                                        Vaktsiinid
-                                    </h3>
-                                    <Badge variant="secondary">{{
-                                        stats.vaccines
-                                    }}</Badge>
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="text-sm font-medium text-[#275342]">Vaktsiinid</h3>
+                                    <Badge class="border border-[#275342]/30 bg-transparent text-[#275342] rounded-full text-xs">
+                                        {{ stats.vaccines }}
+                                    </Badge>
                                 </div>
-
-                                <div
-                                    v-if="
-                                        !pet.vaccines ||
-                                        pet.vaccines.length === 0
-                                    "
-                                    class="text-sm text-muted-foreground"
-                                >
+                                <p v-if="!pet.vaccines || pet.vaccines.length === 0" class="text-sm text-[#275342]/60">
                                     Vaktsiine pole veel lisatud.
-                                </div>
-
+                                </p>
                                 <div v-else class="space-y-2">
                                     <div
                                         v-for="vaccine in pet.vaccines"
                                         :key="vaccine.id"
-                                        class="rounded-xl border p-3"
+                                        class="rounded-xl border border-[#275342]/20 bg-white p-3"
                                     >
-                                        <div
-                                            class="flex items-start justify-between gap-3"
-                                        >
+                                        <div class="flex items-start justify-between gap-3">
                                             <div>
-                                                <p class="font-medium">
-                                                    {{ vaccine.name }}
-                                                </p>
-                                                <p
-                                                    class="text-xs text-muted-foreground"
-                                                >
-                                                    {{
-                                                        formatDate(
-                                                            vaccine.administered_date,
-                                                        )
-                                                    }}
-                                                </p>
-                                                <p
-                                                    v-if="vaccine.expiry_date"
-                                                    class="mt-1 text-xs text-muted-foreground"
-                                                >
-                                                    Aegub:
-                                                    {{
-                                                        formatDate(
-                                                            vaccine.expiry_date,
-                                                        )
-                                                    }}
+                                                <p class="font-medium text-[#275342]">{{ vaccine.name }}</p>
+                                                <p class="text-xs text-[#275342]/60">{{ formatDate(vaccine.administered_date) }}</p>
+                                                <p v-if="vaccine.expiry_date" class="mt-1 text-xs text-[#275342]/60">
+                                                    Aegub: {{ formatDate(vaccine.expiry_date) }}
                                                 </p>
                                             </div>
-
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                @click="
-                                                    $emit(
-                                                        'delete-vaccine',
-                                                        vaccine.id,
-                                                    )
-                                                "
+                                            <button
+                                                @click="$emit('delete-vaccine', vaccine.id)"
+                                                class="text-xs text-red-400 hover:text-red-600 transition"
                                             >
                                                 Kustuta
-                                            </Button>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <Separator />
+                            <Separator class="bg-[#275342]/10" />
 
+                            <!-- Ravimid -->
                             <div>
-                                <div
-                                    class="mb-3 flex items-center justify-between"
-                                >
-                                    <h3 class="text-sm font-medium">Ravimid</h3>
-                                    <Badge variant="secondary">{{
-                                        stats.medications
-                                    }}</Badge>
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="text-sm font-medium text-[#275342]">Ravimid</h3>
+                                    <Badge class="border border-[#275342]/30 bg-transparent text-[#275342] rounded-full text-xs">
+                                        {{ stats.medications }}
+                                    </Badge>
                                 </div>
-
-                                <div
-                                    v-if="
-                                        !pet.medications ||
-                                        pet.medications.length === 0
-                                    "
-                                    class="text-sm text-muted-foreground"
-                                >
+                                <p v-if="!pet.medications || pet.medications.length === 0" class="text-sm text-[#275342]/60">
                                     Ravimeid pole veel lisatud.
-                                </div>
-
+                                </p>
                                 <div v-else class="space-y-2">
                                     <div
                                         v-for="medication in pet.medications"
                                         :key="medication.id"
-                                        class="rounded-xl border p-3"
+                                        class="rounded-xl border border-[#275342]/20 bg-white p-3"
                                     >
-                                        <div
-                                            class="flex items-start justify-between gap-3"
-                                        >
+                                        <div class="flex items-start justify-between gap-3">
                                             <div>
-                                                <p class="font-medium">
-                                                    {{ medication.name }}
+                                                <p class="font-medium text-[#275342]">{{ medication.name }}</p>
+                                                <p class="text-xs text-[#275342]/60">
+                                                    {{ medication.dose_amount }}{{ medication.dose_unit }} · {{ medication.frequency_per_day }}x päevas
                                                 </p>
-                                                <p
-                                                    class="text-xs text-muted-foreground"
-                                                >
-                                                    {{ medication.dose_amount
-                                                    }}{{ medication.dose_unit }}
-                                                    ·
-                                                    {{
-                                                        medication.frequency_per_day
-                                                    }}x päevas
-                                                </p>
-                                                <p
-                                                    class="mt-1 text-xs text-muted-foreground"
-                                                >
-                                                    {{
-                                                        formatDate(
-                                                            medication.start_date,
-                                                        )
-                                                    }}
-                                                    <span
-                                                        v-if="
-                                                            medication.end_date
-                                                        "
-                                                    >
-                                                        –
-                                                        {{
-                                                            formatDate(
-                                                                medication.end_date,
-                                                            )
-                                                        }}
-                                                    </span>
+                                                <p class="mt-1 text-xs text-[#275342]/60">
+                                                    {{ formatDate(medication.start_date) }}
+                                                    <span v-if="medication.end_date"> – {{ formatDate(medication.end_date) }}</span>
                                                 </p>
                                             </div>
-
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                @click="
-                                                    $emit(
-                                                        'delete-medication',
-                                                        medication.id,
-                                                    )
-                                                "
+                                            <button
+                                                @click="$emit('delete-medication', medication.id)"
+                                                class="text-xs text-red-400 hover:text-red-600 transition"
                                             >
                                                 Kustuta
-                                            </Button>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -559,16 +348,14 @@ const stats = computed(() => ({
                         </CardContent>
                     </Card>
 
-                    <Card class="rounded-2xl">
+                    <!-- Meeldetuletused -->
+                    <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
                         <CardHeader>
-                            <CardTitle>Meeldetuletused</CardTitle>
-                            <CardDescription>Pole veel lisatud</CardDescription>
+                            <CardTitle class="text-[#275342]">Meeldetuletused</CardTitle>
+                            <CardDescription class="text-[#275342]/60">Pole veel lisatud</CardDescription>
                         </CardHeader>
-
                         <CardContent>
-                            <div
-                                class="rounded-xl border border-dashed border-border p-6 text-sm text-muted-foreground"
-                            >
+                            <div class="rounded-xl border border-dashed border-[#275342]/30 p-6 text-center text-sm text-[#275342]/60">
                                 Meeldetuletusi pole veel lisatud.
                             </div>
                         </CardContent>
