@@ -3,10 +3,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { Input } from '@/Components/ui/input';
-import {Textarea} from '@/Components/ui/textarea';
+import { Textarea } from '@/Components/ui/textarea';
 import { Label } from '@/Components/ui/label';
 import { Button } from '@/Components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from '@/Components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 
 const form = useForm({
   name: '',
@@ -57,58 +57,68 @@ function submit() {
         <div class="space-y-6 bg-transparent">
 
           <form @submit.prevent="submit" class="space-y-6">
+
+            <!-- Foto -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Foto</Label>
               <Input
                 type="file"
                 accept="image/*"
                 @change="handleImage"
               />
-
               <div v-if="preview">
                 <img
                   :src="preview"
                   class="w-32 h-32 object-cover rounded-xl border mt-2"
                 />
               </div>
-
-              <p v-if="form.errors.image" class="text-sm text-red-500">
+              <p v-if="form.errors.image" class="text-lg text-red-500">
                 {{ form.errors.image }}
               </p>
             </div>
+
+            <!-- Nimi -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Nimi</Label>
               <Input
                 v-model="form.name"
                 @input="form.name = capitalize(form.name)"
                 placeholder="Nimi"
               />
-              <p v-if="form.errors.name" class="text-sm text-red-500">
+              <p v-if="form.errors.name" class="text-lg text-red-500">
                 {{ form.errors.name }}
               </p>
             </div>
 
+            <!-- Kiip -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Kiip</Label>
               <Input
                 v-model="form.chip"
                 type="number"
                 placeholder="Kiip"
               />
-              <p v-if="form.errors.chip" class="text-sm text-red-500">
+              <p v-if="form.errors.chip" class="text-lg text-red-500">
                 {{ form.errors.chip }}
               </p>
             </div>
 
+            <!-- Liik -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Liik</Label>
               <Input
                 v-model="form.species"
                 @input="form.species = capitalize(form.species)"
                 placeholder="Liik"
               />
-              <p v-if="form.errors.species" class="text-sm text-red-500">
+              <p v-if="form.errors.species" class="text-lg text-red-500">
                 {{ form.errors.species }}
               </p>
             </div>
 
+            <!-- Tõug -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Tõug</Label>
               <Input
                 v-model="form.breed"
                 @input="form.breed = capitalize(form.breed)"
@@ -116,9 +126,11 @@ function submit() {
               />
             </div>
 
+            <!-- Sugu -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Sugu</Label>
               <Select v-model="form.gender">
-                <SelectTrigger class="h-12 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                <SelectTrigger class="h-12 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-md shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
                   <SelectValue placeholder="Vali sugu" />
                 </SelectTrigger>
                 <SelectContent>
@@ -126,37 +138,44 @@ function submit() {
                   <SelectItem value="emane">Emane</SelectItem>
                 </SelectContent>
               </Select>
-              <p v-if="form.errors.gender" class="text-sm text-red-500">
+              <p v-if="form.errors.gender" class="text-lg text-red-500">
                 {{ form.errors.gender }}
               </p>
             </div>
 
+            <!-- Sünniaeg -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium">Sünniaeg</Label>
               <Input
                 v-model="form.dob"
                 type="date"
               />
-              <p v-if="form.errors.dob" class="text-sm text-red-500">
+              <p v-if="form.errors.dob" class="text-lg text-red-500">
                 {{ form.errors.dob }}
               </p>
             </div>
 
+            <!-- Kaal -->
             <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Kaal (kg)</Label>
               <Input
                 v-model="form.weight"
                 type="number"
                 step="0.1"
                 placeholder="Kaal (kg)"
               />
-            </div>     
-            
-            <div>
+            </div>
+
+            <!-- Kirjeldus -->
+            <div class="space-y-2">
+              <Label class="text-gray-800 font-medium text-lg">Kirjeldus</Label>
               <Textarea
                 v-model="form.description"
                 placeholder="Kirjeldus"
-                class="h-24 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
-              </Textarea>
+                class="h-24 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-lg shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+              />
             </div>
+
             <Button
               type="submit"
               class="w-full text-[#FFFDF5]"
