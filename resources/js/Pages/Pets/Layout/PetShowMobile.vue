@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from "vue";
-import { Link } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'; 
+import VetVisitLogModal from '@/Components/VetVisitLogModal.vue';
+import MedicalRecordModal from '@/Components/MedicalRecordModal.vue';
 
 const props = defineProps({
     pet: { type: Object, required: true },
@@ -20,6 +23,10 @@ defineEmits([
     "remove-pending-file",
     "submit-files",
 ]);
+
+const showDeleteModal = ref(false);
+const showVetModal = ref(false);
+const showMedicalModal = ref(false);
 
 const expandedVisitId = ref(null);
 const expandedVaccineId = ref(null);
