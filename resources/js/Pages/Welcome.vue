@@ -1,386 +1,878 @@
+<template>
+  <div class="ff-root">
+    <!-- NAV -->
+    <nav class="ff-nav">
+      <div class="ff-container ff-nav__inner">
+        <a href="#" class="ff-logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+          FaunaFond
+        </a>
+        <div class="ff-nav__links">
+          <a href="#probleem">Probleem</a>
+          <a href="#funktsioonid">Funktsioonid</a>
+          <a href="#kuidas">Kuidas töötab</a>
+        </div>
+        <a href="#" class="ff-btn ff-btn--primary ff-btn--sm">Logi sisse</a>
+        <button class="ff-nav__burger" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="ff-nav__mobile" :class="{ 'is-open': mobileOpen }">
+        <a href="#probleem" @click="mobileOpen = false">Probleem</a>
+        <a href="#funktsioonid" @click="mobileOpen = false">Funktsioonid</a>
+        <a href="#kuidas" @click="mobileOpen = false">Kuidas töötab</a>
+        <a href="#" class="ff-btn ff-btn--primary">Logi sisse</a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- HERO -->
+      <section class="ff-hero">
+        <div class="ff-hero__bg-blob"></div>
+        <div class="ff-container ff-hero__grid">
+          <div class="ff-hero__content">
+            <div class="ff-hero__eyebrow">
+              <span class="ff-dot"></span> Digitaalne tervisepass lemmikloomadele
+            </div>
+            <h1 class="ff-hero__heading">
+              Lemmiklooma tervis,<br>
+              <em>alati sinuga</em> kaasas.
+            </h1>
+            <p class="ff-hero__sub">
+              FaunaFond on mugav ja turvaline digitaalne tervisepass sinu lemmikloomale.
+              Unusta paberimajandus ja hoia vaktsiinid, ravimid ning arstivisiidid alati
+              käepärast ühes rakenduses.
+            </p>
+            <div class="ff-hero__actions">
+              <a href="#" class="ff-btn ff-btn--primary ff-btn--lg">Alusta tasuta</a>
+              <a href="#kuidas" class="ff-btn ff-btn--ghost ff-btn--lg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                Kuidas see töötab?
+              </a>
+            </div>
+          </div>
+
+          <!-- PHONE MOCKUP -->
+          <div class="ff-hero__visual" aria-hidden="true">
+            <div class="ff-mockup">
+              <div class="ff-mockup__notch"></div>
+              <div class="ff-mockup__screen">
+                <div class="ff-mockup__topbar">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                </div>
+                <h3 class="ff-mockup__greeting">Tere, Kasutaja 👋</h3>
+
+                <div class="ff-mockup__section">
+                  <div class="ff-mockup__section-header">
+                    <span>Lemmikute nimekiri</span>
+                    <span class="ff-mockup__link">Vaata kõiki</span>
+                  </div>
+                  <div class="ff-mockup__pet-card">
+                    <img src="https://storage.googleapis.com/banani-generated-images/generated-images/0820d631-bbf7-4358-8282-bfb610055f9c.jpg" alt="Milli-Malli" />
+                    <div>
+                      <strong>Milli-Malli</strong>
+                      <span>Kass · 17 aastat</span>
+                    </div>
+                  </div>
+                  <div class="ff-mockup__pet-card">
+                    <img src="https://storage.googleapis.com/banani-generated-images/generated-images/0692e44a-b94a-4066-9b45-00ffac9c27a2.jpg" alt="Lota" />
+                    <div>
+                      <strong>Lota</strong>
+                      <span>Koer · 1 aasta · 46 kg</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ff-mockup__section">
+                  <div class="ff-mockup__section-header">
+                    <span>Meeldetuletused</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                  </div>
+                  <div class="ff-alert ff-alert--red">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <span>"Milli-Malli" marutaudi vaktsiin aegub "4. jaanuaril 2026"</span>
+                  </div>
+                  <div class="ff-alert ff-alert--yellow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span>"Lota" vaktsineerimise kuupäev on "15. oktoober 2025"</span>
+                  </div>
+                  <div class="ff-alert ff-alert--blue">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>"Lota" arstivisiidi kuupäev on "15. oktoober 2025"</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROBLEM -->
+      <section class="ff-problem" id="probleem">
+        <div class="ff-container">
+          <div class="ff-section-header">
+            <p class="ff-section-label">Probleemid</p>
+            <h2>Miks vajad ühtset tervisepassi?</h2>
+            <p>Lemmiklooma tervise eest hoolitsemine nõuab omanikult täpsust. Killustatud info võib viia vigade ja asjatu stressini.</p>
+          </div>
+          <div class="ff-problem__grid">
+            <div v-for="p in problems" :key="p.title" class="ff-problem__card">
+              <div class="ff-problem__icon" v-html="p.icon"></div>
+              <h3>{{ p.title }}</h3>
+              <p>{{ p.desc }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURES -->
+      <section class="ff-features" id="funktsioonid">
+        <div class="ff-container">
+          <!-- Feature 1 -->
+          <div class="ff-feature-row">
+            <div class="ff-feature__content">
+              <div class="ff-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Mitme lemmiku haldus
+              </div>
+              <h2>Kõik sinu lemmikud ühes turvalises kohas</h2>
+              <p>Lisa rakendusse piiramatult lemmikloomi. Igal loomal on oma isiklik profiil, mis koondab olulised andmed kiibi numbrist kuni kaalu ja tõuni.</p>
+              <ul class="ff-feature__list">
+                <li v-for="item in feature1List" :key="item">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  {{ item }}
+                </li>
+              </ul>
+            </div>
+            <div class="ff-feature__visual">
+              <img
+                src="https://storage.googleapis.com/banani-generated-images/generated-images/41d03c18-68f1-4a97-8817-86175e272465.jpg"
+                alt="Lemmikud koos"
+                class="ff-feature__img"
+              />
+            </div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="ff-feature-row ff-feature-row--reverse" id="kuidas">
+            <div class="ff-feature__content">
+              <div class="ff-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                Terviselugu ja profiil
+              </div>
+              <h2>Täielik ülevaade meditsiinilisest ajaloost</h2>
+              <p>Jälgi vaktsineerimisi, ravimikuure ja arstivisiitide logi. Süsteem hoiatab sind lähenevatest tähtaegadest nutikate värvikoodidega meeldetuletuste abil.</p>
+              <ul class="ff-feature__list">
+                <li v-for="item in feature2List" :key="item">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  {{ item }}
+                </li>
+              </ul>
+            </div>
+            <div class="ff-feature__visual ff-feature__visual--mockup">
+              <div class="ff-mockup ff-mockup--sm">
+                <div class="ff-mockup__notch ff-mockup__notch--sm"></div>
+                <div class="ff-mockup__screen">
+                  <div class="ff-mockup__topbar">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  </div>
+                  <div class="ff-mockup__pet-header">
+                    <img src="https://storage.googleapis.com/banani-generated-images/generated-images/0820d631-bbf7-4358-8282-bfb610055f9c.jpg" alt="Milli-Malli" />
+                    <h3>Milli-Malli</h3>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  </div>
+                  <div class="ff-mockup__info-table">
+                    <div><span>Kiip</span><strong>****</strong></div>
+                    <div><span>Liik</span><strong>Kass</strong></div>
+                    <div><span>Tõug</span><strong>Segavereline</strong></div>
+                    <div><span>Sugu</span><strong>Emane</strong></div>
+                    <div><span>Vanus</span><strong>06.10.2008 (17)</strong></div>
+                  </div>
+                  <div class="ff-mockup__section" style="margin-top:16px">
+                    <div class="ff-mockup__section-header">
+                      <span>Meditsiiniline info</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                    </div>
+                    <div class="ff-mockup__med-block">
+                      <div class="ff-mockup__med-title">Vaktsiinid</div>
+                      <div class="ff-mockup__med-row">
+                        <span>💉 Eurican CHPPi2-L</span><span>16.02.2014</span>
+                      </div>
+                      <div class="ff-mockup__med-row">
+                        <span>💉 Rabisin</span><span>23.07.2015</span>
+                      </div>
+                      <div class="ff-mockup__med-title" style="margin-top:12px">Ravimid</div>
+                      <div class="ff-mockup__med-row">
+                        <span>💊 Thiamacare (10mg/ml)</span><span>5ml, 2x</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="ff-cta">
+        <div class="ff-cta__bg-pattern"></div>
+        <div class="ff-container ff-cta__inner">
+          <div class="ff-cta__paw" aria-hidden="true">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          </div>
+          <h2>Loo alus oma lemmiku paremale tervisele</h2>
+          <p>Liitu FaunaFondiga juba täna. Progressiivne veebirakendus töötab sujuvalt igas seadmes, tagades ligipääsu andmetele igal ajal ja igas kohas.</p>
+          <a href="#" class="ff-btn ff-btn--light ff-btn--lg">Loo tasuta konto &rarr;</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="ff-footer">
+      <div class="ff-container ff-footer__inner">
+        <a href="#" class="ff-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+          FaunaFond
+        </a>
+        <div class="ff-footer__links">
+          <a href="#">Privaatsuspoliitika</a>
+          <a href="#">Kasutustingimused</a>
+          <a href="#">Kontakt</a>
+        </div>
+      </div>
+      <div class="ff-container ff-footer__copy">
+        © 2024 FaunaFond. Kõik õigused kaitstud.
+      </div>
+    </footer>
+  </div>
+</template>
+
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { ref } from 'vue'
 
-defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
-    laravelVersion: {
-        type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
-    },
-});
+const mobileOpen = ref(false)
 
-function handleImageError() {
-    document.getElementById('screenshot-container')?.classList.add('!hidden');
-    document.getElementById('docs-card')?.classList.add('!row-span-1');
-    document.getElementById('docs-card-content')?.classList.add('!flex-row');
-    document.getElementById('background')?.classList.add('!hidden');
-}
+const problems = [
+  {
+    title: 'Killustatud andmed',
+    desc: 'Kliinikud haldavad andmeid eraldi infosüsteemides. Terviselugu on laiali ning puudub ühtne pilt lemmiku tervisest ja ajaloost.',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>`
+  },
+  {
+    title: 'Kadunud paberid',
+    desc: 'Paberkandjal vaktsineerimispassid kipuvad kaduma või ununema, piirates ligipääsu olulisele infole reisimisel või kolimisel.',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M10 10.3c.2-.4.5-.8.9-1a2.1 2.1 0 0 1 2.6.4c.3.4.5.8.5 1.3 0 1.3-2 2-2 2"/><path d="M12 17h.01"/></svg>`
+  },
+  {
+    title: 'Ununenud toimingud',
+    desc: 'Ilma automaatsete meeldetuletusteta on lihtne unustada vaktsiinide aegumist või ravimite õigeaegset manustamist.',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>`
+  }
+]
+
+const feature1List = [
+  'Detailne profiiliinfo ja pildid',
+  'Kiire ligipääs ja haldamine igast seadmest'
+]
+
+const feature2List = [
+  'Vaktsiinide ja ravimite andmebaas',
+  'Automaatsed värvikoodidega meeldetuletused',
+  'Arstivisiitide detailsed märkmed ja ajalugu'
+]
 </script>
 
-<template>
-    <Head title="Welcome" />
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-        <img
-            id="background"
-            class="absolute -left-20 top-0 max-w-[877px]"
-            src="https://laravel.com/assets/img/welcome/background.svg"
-        />
-        <div
-            class="relative flex min-h-screen flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white"
-        >
-            <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                <header
-                    class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3"
-                >
-                    <div class="flex lg:col-start-2 lg:justify-center">
-                        <svg
-                            class="h-12 w-auto text-white lg:h-16 lg:text-[#FF2D20]"
-                            viewBox="0 0 62 65"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z"
-                                fill="currentColor"
-                            />
-                        </svg>
-                    </div>
-                    <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end">
-                        <Link
-                            v-if="$page.props.auth.user"
-                            :href="route('dashboard')"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Dashboard
-                        </Link>
+<style scoped>
+/* ── TOKENS ─────────────────────────────────────────────── */
+.ff-root {
+  --bg:      #e8f0e5;
+  --fg:      #0e2c20;
+  --card:    #fffdf5;
+  --primary: #275342;
+  --primary-fg: #fffdf5;
+  --border:  rgba(39,83,66,.14);
+  --alert-r: #ffcbc7;
+  --alert-y: #fff6ca;
+  --alert-b: #d5eeff;
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 24px;
+  --r-xl: 36px;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
 
-                        <template v-else>
-                            <Link
-                                :href="route('login')"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                            >
-                                Log in
-                            </Link>
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-                            <Link
-                                v-if="canRegister"
-                                :href="route('register')"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                            >
-                                Register
-                            </Link>
-                        </template>
-                    </nav>
-                </header>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
 
-                <main class="mt-6">
-                    <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
-                        <a
-                            href="https://laravel.com/docs"
-                            id="docs-card"
-                            class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
-                        >
-                            <div
-                                id="screenshot-container"
-                                class="relative flex w-full flex-1 items-stretch"
-                            >
-                                <img
-                                    src="https://laravel.com/assets/img/welcome/docs-light.svg"
-                                    alt="Laravel documentation screenshot"
-                                    class="aspect-video h-full w-full flex-1 rounded-[10px] object-cover object-top drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden"
-                                    @error="handleImageError"
-                                />
-                                <img
-                                    src="https://laravel.com/assets/img/welcome/docs-dark.svg"
-                                    alt="Laravel documentation screenshot"
-                                    class="hidden aspect-video h-full w-full flex-1 rounded-[10px] object-cover object-top drop-shadow-[0px_4px_34px_rgba(0,0,0,0.25)] dark:block"
-                                />
-                                <div
-                                    class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"
-                                ></div>
-                            </div>
+/* ── CONTAINER ──────────────────────────────────────────── */
+.ff-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
 
-                            <div
-                                class="relative flex items-center gap-6 lg:items-end"
-                            >
-                                <div
-                                    id="docs-card-content"
-                                    class="flex items-start gap-6 lg:flex-col"
-                                >
-                                    <div
-                                        class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16"
-                                    >
-                                        <svg
-                                            class="size-5 sm:size-6"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                fill="#FF2D20"
-                                                d="M23 4a1 1 0 0 0-1.447-.894L12.224 7.77a.5.5 0 0 1-.448 0L2.447 3.106A1 1 0 0 0 1 4v13.382a1.99 1.99 0 0 0 1.105 1.79l9.448 4.728c.14.065.293.1.447.1.154-.005.306-.04.447-.105l9.453-4.724a1.99 1.99 0 0 0 1.1-1.789V4ZM3 6.023a.25.25 0 0 1 .362-.223l7.5 3.75a.251.251 0 0 1 .138.223v11.2a.25.25 0 0 1-.362.224l-7.5-3.75a.25.25 0 0 1-.138-.22V6.023Zm18 11.2a.25.25 0 0 1-.138.224l-7.5 3.75a.249.249 0 0 1-.329-.099.249.249 0 0 1-.033-.12V9.772a.251.251 0 0 1 .138-.224l7.5-3.75a.25.25 0 0 1 .362.224v11.2Z"
-                                            />
-                                            <path
-                                                fill="#FF2D20"
-                                                d="m3.55 1.893 8 4.048a1.008 1.008 0 0 0 .9 0l8-4.048a1 1 0 0 0-.9-1.785l-7.322 3.706a.506.506 0 0 1-.452 0L4.454.108a1 1 0 0 0-.9 1.785H3.55Z"
-                                            />
-                                        </svg>
-                                    </div>
+/* ── NAV ────────────────────────────────────────────────── */
+.ff-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(232,240,229,.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.ff-nav__inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.ff-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.ff-nav__links {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+}
+.ff-nav__links a {
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: .8;
+  transition: opacity .2s;
+}
+.ff-nav__links a:hover { opacity: 1; }
+.ff-nav__burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+}
+.ff-nav__burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--fg);
+  border-radius: 2px;
+}
+.ff-nav__mobile {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 32px 24px;
+  border-top: 1px solid var(--border);
+}
+.ff-nav__mobile.is-open { display: flex; }
+.ff-nav__mobile a {
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
 
-                                    <div class="pt-3 sm:pt-5 lg:pt-0">
-                                        <h2
-                                            class="text-xl font-semibold text-black dark:text-white"
-                                        >
-                                            Documentation
-                                        </h2>
+/* ── BUTTONS ────────────────────────────────────────────── */
+.ff-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  white-space: nowrap;
+}
+.ff-btn:hover { transform: translateY(-1px); }
+.ff-btn--primary {
+  background: var(--primary);
+  color: var(--primary-fg);
+  box-shadow: 0 4px 16px rgba(39,83,66,.25);
+}
+.ff-btn--primary:hover { box-shadow: 0 6px 24px rgba(39,83,66,.35); }
+.ff-btn--ghost {
+  background: transparent;
+  color: var(--fg);
+  border: 1.5px solid var(--border);
+}
+.ff-btn--light {
+  background: var(--card);
+  color: var(--fg);
+  box-shadow: 0 4px 20px rgba(0,0,0,.1);
+}
+.ff-btn--sm  { padding: 10px 22px; font-size: 14px; }
+.ff-btn--lg  { padding: 18px 36px; font-size: 16px; }
 
-                                        <p class="mt-4 text-sm/relaxed">
-                                            Laravel has wonderful documentation
-                                            covering every aspect of the
-                                            framework. Whether you are a
-                                            newcomer or have prior experience
-                                            with Laravel, we recommend reading
-                                            our documentation from beginning to
-                                            end.
-                                        </p>
-                                    </div>
-                                </div>
+/* ── HERO ───────────────────────────────────────────────── */
+.ff-hero {
+  position: relative;
+  padding: 96px 0 120px;
+  overflow: hidden;
+}
+.ff-hero__bg-blob {
+  position: absolute;
+  top: -100px;
+  right: -150px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(39,83,66,.12) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ff-hero__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  align-items: center;
+}
+.ff-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--primary);
+  opacity: .8;
+  margin-bottom: 20px;
+}
+.ff-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: inline-block;
+}
+.ff-hero__heading {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 60px);
+  line-height: 1.08;
+  letter-spacing: -.5px;
+  margin-bottom: 24px;
+}
+.ff-hero__heading em {
+  font-style: italic;
+  color: var(--primary);
+}
+.ff-hero__sub {
+  font-size: 18px;
+  line-height: 1.65;
+  opacity: .75;
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+.ff-hero__actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 
-                                <svg
-                                    class="size-6 shrink-0 stroke-[#FF2D20]"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                                    />
-                                </svg>
-                            </div>
-                        </a>
+/* ── PHONE MOCKUP ───────────────────────────────────────── */
+.ff-hero__visual {
+  display: flex;
+  justify-content: center;
+}
+.ff-mockup {
+  width: 300px;
+  background: var(--bg);
+  border: 10px solid var(--fg);
+  border-radius: 44px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(14,44,32,.2), 0 0 0 1px rgba(0,0,0,.05);
+  position: relative;
+  flex-shrink: 0;
+}
+.ff-mockup--sm {
+  width: 280px;
+}
+.ff-mockup__notch {
+  width: 100px;
+  height: 24px;
+  background: var(--fg);
+  border-radius: 0 0 18px 18px;
+  margin: 0 auto 4px;
+}
+.ff-mockup__notch--sm {
+  width: 80px;
+  height: 20px;
+}
+.ff-mockup__screen {
+  padding: 8px 16px 20px;
+  overflow: hidden;
+}
+.ff-mockup__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  color: var(--fg);
+}
+.ff-mockup__greeting {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.ff-mockup__section {
+  margin-bottom: 18px;
+}
+.ff-mockup__section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--fg);
+}
+.ff-mockup__link {
+  font-size: 11px;
+  opacity: .6;
+  font-weight: 500;
+  cursor: pointer;
+}
+.ff-mockup__pet-card {
+  background: var(--card);
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.ff-mockup__pet-card img {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.ff-mockup__pet-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ff-mockup__pet-card strong { font-size: 13px; }
+.ff-mockup__pet-card span   { font-size: 11px; opacity: .7; }
+.ff-alert {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.ff-alert svg { flex-shrink: 0; margin-top: 1px; }
+.ff-alert--red    { background: var(--alert-r); }
+.ff-alert--yellow { background: var(--alert-y); }
+.ff-alert--blue   { background: var(--alert-b); }
+.ff-mockup__pet-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+.ff-mockup__pet-header img {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.ff-mockup__pet-header h3 {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+.ff-mockup__pet-header svg { color: var(--primary); flex-shrink: 0; }
+.ff-mockup__info-table {
+  background: var(--card);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 11px;
+}
+.ff-mockup__info-table div {
+  display: flex;
+  justify-content: space-between;
+}
+.ff-mockup__info-table span { opacity: .7; }
+.ff-mockup__med-block {
+  background: var(--card);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  margin-top: 8px;
+}
+.ff-mockup__med-title {
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.ff-mockup__med-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  margin-bottom: 6px;
+  opacity: .85;
+}
 
-                        <a
-                            href="https://laracasts.com"
-                            class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
-                        >
-                            <div
-                                class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16"
-                            >
-                                <svg
-                                    class="size-5 sm:size-6"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <g fill="#FF2D20">
-                                        <path
-                                            d="M24 8.25a.5.5 0 0 0-.5-.5H.5a.5.5 0 0 0-.5.5v12a2.5 2.5 0 0 0 2.5 2.5h19a2.5 2.5 0 0 0 2.5-2.5v-12Zm-7.765 5.868a1.221 1.221 0 0 1 0 2.264l-6.626 2.776A1.153 1.153 0 0 1 8 18.123v-5.746a1.151 1.151 0 0 1 1.609-1.035l6.626 2.776ZM19.564 1.677a.25.25 0 0 0-.177-.427H15.6a.106.106 0 0 0-.072.03l-4.54 4.543a.25.25 0 0 0 .177.427h3.783c.027 0 .054-.01.073-.03l4.543-4.543ZM22.071 1.318a.047.047 0 0 0-.045.013l-4.492 4.492a.249.249 0 0 0 .038.385.25.25 0 0 0 .14.042h5.784a.5.5 0 0 0 .5-.5v-2a2.5 2.5 0 0 0-1.925-2.432ZM13.014 1.677a.25.25 0 0 0-.178-.427H9.101a.106.106 0 0 0-.073.03l-4.54 4.543a.25.25 0 0 0 .177.427H8.4a.106.106 0 0 0 .073-.03l4.54-4.543ZM6.513 1.677a.25.25 0 0 0-.177-.427H2.5A2.5 2.5 0 0 0 0 3.75v2a.5.5 0 0 0 .5.5h1.4a.106.106 0 0 0 .073-.03l4.54-4.543Z"
-                                        />
-                                    </g>
-                                </svg>
-                            </div>
+/* ── PROBLEM SECTION ────────────────────────────────────── */
+.ff-problem {
+  background: var(--card);
+  padding: 112px 0;
+}
+.ff-section-header {
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto 64px;
+}
+.ff-section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  opacity: .7;
+  margin-bottom: 12px;
+}
+.ff-section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 42px);
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+.ff-section-header p {
+  font-size: 17px;
+  opacity: .75;
+  line-height: 1.65;
+}
+.ff-problem__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.ff-problem__card {
+  background: var(--bg);
+  padding: 40px 36px;
+  border-radius: var(--r-lg);
+  transition: transform .2s;
+}
+.ff-problem__card:hover { transform: translateY(-4px); }
+.ff-problem__icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(39,83,66,.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+.ff-problem__card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.ff-problem__card p {
+  font-size: 14px;
+  opacity: .75;
+  line-height: 1.6;
+}
 
-                            <div class="pt-3 sm:pt-5">
-                                <h2
-                                    class="text-xl font-semibold text-black dark:text-white"
-                                >
-                                    Laracasts
-                                </h2>
+/* ── FEATURES ───────────────────────────────────────────── */
+.ff-features {
+  padding: 48px 0;
+}
+.ff-feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 80px 0;
+}
+.ff-feature-row + .ff-feature-row {
+  border-top: 1px solid var(--border);
+}
+.ff-feature-row--reverse .ff-feature__content { order: 1; }
+.ff-feature-row--reverse .ff-feature__visual   { order: -1; }
+.ff-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(39,83,66,.1);
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.ff-feature__content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 40px);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.ff-feature__content p {
+  font-size: 17px;
+  opacity: .75;
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+.ff-feature__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ff-feature__list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.ff-feature__list li svg { color: var(--primary); flex-shrink: 0; }
+.ff-feature__img {
+  width: 100%;
+  border-radius: var(--r-xl);
+  object-fit: cover;
+  box-shadow: 0 24px 48px rgba(14,44,32,.12);
+  aspect-ratio: 4/3;
+}
+.ff-feature__visual--mockup {
+  display: flex;
+  justify-content: center;
+}
 
-                                <p class="mt-4 text-sm/relaxed">
-                                    Laracasts offers thousands of video
-                                    tutorials on Laravel, PHP, and JavaScript
-                                    development. Check them out, see for
-                                    yourself, and massively level up your
-                                    development skills in the process.
-                                </p>
-                            </div>
+/* ── CTA ────────────────────────────────────────────────── */
+.ff-cta {
+  background: var(--primary);
+  color: var(--primary-fg);
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.ff-cta__bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,.06) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(255,255,255,.05) 0%, transparent 40%);
+  pointer-events: none;
+}
+.ff-cta__inner { position: relative; max-width: 700px; margin: 0 auto; }
+.ff-cta__paw {
+  opacity: .12;
+  margin-bottom: 24px;
+}
+.ff-cta__paw svg { display: block; margin: 0 auto; }
+.ff-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 50px);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.ff-cta p {
+  font-size: 18px;
+  opacity: .85;
+  line-height: 1.65;
+  margin-bottom: 40px;
+}
 
-                            <svg
-                                class="size-6 shrink-0 self-center stroke-[#FF2D20]"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                                />
-                            </svg>
-                        </a>
+/* ── FOOTER ─────────────────────────────────────────────── */
+.ff-footer {
+  background: var(--card);
+  padding: 56px 0 28px;
+}
+.ff-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.ff-footer__links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.ff-footer__links a {
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 14px;
+  opacity: .7;
+  transition: opacity .2s;
+}
+.ff-footer__links a:hover { opacity: 1; }
+.ff-footer__copy {
+  text-align: center;
+  font-size: 13px;
+  opacity: .5;
+  padding-top: 24px;
+}
 
-                        <a
-                            href="https://laravel-news.com"
-                            class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
-                        >
-                            <div
-                                class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16"
-                            >
-                                <svg
-                                    class="size-5 sm:size-6"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <g fill="#FF2D20">
-                                        <path
-                                            d="M8.75 4.5H5.5c-.69 0-1.25.56-1.25 1.25v4.75c0 .69.56 1.25 1.25 1.25h3.25c.69 0 1.25-.56 1.25-1.25V5.75c0-.69-.56-1.25-1.25-1.25Z"
-                                        />
-                                        <path
-                                            d="M24 10a3 3 0 0 0-3-3h-2V2.5a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2V20a3.5 3.5 0 0 0 3.5 3.5h17A3.5 3.5 0 0 0 24 20V10ZM3.5 21.5A1.5 1.5 0 0 1 2 20V3a.5.5 0 0 1 .5-.5h14a.5.5 0 0 1 .5.5v17c0 .295.037.588.11.874a.5.5 0 0 1-.484.625L3.5 21.5ZM22 20a1.5 1.5 0 1 1-3 0V9.5a.5.5 0 0 1 .5-.5H21a1 1 0 0 1 1 1v10Z"
-                                        />
-                                        <path
-                                            d="M12.751 6.047h2a.75.75 0 0 1 .75.75v.5a.75.75 0 0 1-.75.75h-2A.75.75 0 0 1 12 7.3v-.5a.75.75 0 0 1 .751-.753ZM12.751 10.047h2a.75.75 0 0 1 .75.75v.5a.75.75 0 0 1-.75.75h-2A.75.75 0 0 1 12 11.3v-.5a.75.75 0 0 1 .751-.753ZM4.751 14.047h10a.75.75 0 0 1 .75.75v.5a.75.75 0 0 1-.75.75h-10A.75.75 0 0 1 4 15.3v-.5a.75.75 0 0 1 .751-.753ZM4.75 18.047h7.5a.75.75 0 0 1 .75.75v.5a.75.75 0 0 1-.75.75h-7.5A.75.75 0 0 1 4 19.3v-.5a.75.75 0 0 1 .75-.753Z"
-                                        />
-                                    </g>
-                                </svg>
-                            </div>
-
-                            <div class="pt-3 sm:pt-5">
-                                <h2
-                                    class="text-xl font-semibold text-black dark:text-white"
-                                >
-                                    Laravel News
-                                </h2>
-
-                                <p class="mt-4 text-sm/relaxed">
-                                    Laravel News is a community driven portal
-                                    and newsletter aggregating all of the latest
-                                    and most important news in the Laravel
-                                    ecosystem, including new package releases
-                                    and tutorials.
-                                </p>
-                            </div>
-
-                            <svg
-                                class="size-6 shrink-0 self-center stroke-[#FF2D20]"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                                />
-                            </svg>
-                        </a>
-
-                        <div
-                            class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800"
-                        >
-                            <div
-                                class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16"
-                            >
-                                <svg
-                                    class="size-5 sm:size-6"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <g fill="#FF2D20">
-                                        <path
-                                            d="M16.597 12.635a.247.247 0 0 0-.08-.237 2.234 2.234 0 0 1-.769-1.68c.001-.195.03-.39.084-.578a.25.25 0 0 0-.09-.267 8.8 8.8 0 0 0-4.826-1.66.25.25 0 0 0-.268.181 2.5 2.5 0 0 1-2.4 1.824.045.045 0 0 0-.045.037 12.255 12.255 0 0 0-.093 3.86.251.251 0 0 0 .208.214c2.22.366 4.367 1.08 6.362 2.118a.252.252 0 0 0 .32-.079 10.09 10.09 0 0 0 1.597-3.733ZM13.616 17.968a.25.25 0 0 0-.063-.407A19.697 19.697 0 0 0 8.91 15.98a.25.25 0 0 0-.287.325c.151.455.334.898.548 1.328.437.827.981 1.594 1.619 2.28a.249.249 0 0 0 .32.044 29.13 29.13 0 0 0 2.506-1.99ZM6.303 14.105a.25.25 0 0 0 .265-.274 13.048 13.048 0 0 1 .205-4.045.062.062 0 0 0-.022-.07 2.5 2.5 0 0 1-.777-.982.25.25 0 0 0-.271-.149 11 11 0 0 0-5.6 2.815.255.255 0 0 0-.075.163c-.008.135-.02.27-.02.406.002.8.084 1.598.246 2.381a.25.25 0 0 0 .303.193 19.924 19.924 0 0 1 5.746-.438ZM9.228 20.914a.25.25 0 0 0 .1-.393 11.53 11.53 0 0 1-1.5-2.22 12.238 12.238 0 0 1-.91-2.465.248.248 0 0 0-.22-.187 18.876 18.876 0 0 0-5.69.33.249.249 0 0 0-.179.336c.838 2.142 2.272 4 4.132 5.353a.254.254 0 0 0 .15.048c1.41-.01 2.807-.282 4.117-.802ZM18.93 12.957l-.005-.008a.25.25 0 0 0-.268-.082 2.21 2.21 0 0 1-.41.081.25.25 0 0 0-.217.2c-.582 2.66-2.127 5.35-5.75 7.843a.248.248 0 0 0-.09.299.25.25 0 0 0 .065.091 28.703 28.703 0 0 0 2.662 2.12.246.246 0 0 0 .209.037c2.579-.701 4.85-2.242 6.456-4.378a.25.25 0 0 0 .048-.189 13.51 13.51 0 0 0-2.7-6.014ZM5.702 7.058a.254.254 0 0 0 .2-.165A2.488 2.488 0 0 1 7.98 5.245a.093.093 0 0 0 .078-.062 19.734 19.734 0 0 1 3.055-4.74.25.25 0 0 0-.21-.41 12.009 12.009 0 0 0-10.4 8.558.25.25 0 0 0 .373.281 12.912 12.912 0 0 1 4.826-1.814ZM10.773 22.052a.25.25 0 0 0-.28-.046c-.758.356-1.55.635-2.365.833a.25.25 0 0 0-.022.48c1.252.43 2.568.65 3.893.65.1 0 .2 0 .3-.008a.25.25 0 0 0 .147-.444c-.526-.424-1.1-.917-1.673-1.465ZM18.744 8.436a.249.249 0 0 0 .15.228 2.246 2.246 0 0 1 1.352 2.054c0 .337-.08.67-.23.972a.25.25 0 0 0 .042.28l.007.009a15.016 15.016 0 0 1 2.52 4.6.25.25 0 0 0 .37.132.25.25 0 0 0 .096-.114c.623-1.464.944-3.039.945-4.63a12.005 12.005 0 0 0-5.78-10.258.25.25 0 0 0-.373.274c.547 2.109.85 4.274.901 6.453ZM9.61 5.38a.25.25 0 0 0 .08.31c.34.24.616.561.8.935a.25.25 0 0 0 .3.127.631.631 0 0 1 .206-.034c2.054.078 4.036.772 5.69 1.991a.251.251 0 0 0 .267.024c.046-.024.093-.047.141-.067a.25.25 0 0 0 .151-.23A29.98 29.98 0 0 0 15.957.764a.25.25 0 0 0-.16-.164 11.924 11.924 0 0 0-2.21-.518.252.252 0 0 0-.215.076A22.456 22.456 0 0 0 9.61 5.38Z"
-                                        />
-                                    </g>
-                                </svg>
-                            </div>
-
-                            <div class="pt-3 sm:pt-5">
-                                <h2
-                                    class="text-xl font-semibold text-black dark:text-white"
-                                >
-                                    Vibrant Ecosystem
-                                </h2>
-
-                                <p class="mt-4 text-sm/relaxed">
-                                    Laravel's robust library of first-party
-                                    tools and libraries, such as
-                                    <a
-                                        href="https://forge.laravel.com"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white dark:focus-visible:ring-[#FF2D20]"
-                                        >Forge</a
-                                    >,
-                                    <a
-                                        href="https://vapor.laravel.com"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Vapor</a
-                                    >,
-                                    <a
-                                        href="https://nova.laravel.com"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Nova</a
-                                    >,
-                                    <a
-                                        href="https://envoyer.io"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Envoyer</a
-                                    >, and
-                                    <a
-                                        href="https://herd.laravel.com"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Herd</a
-                                    >
-                                    help you take your projects to the next
-                                    level. Pair them with powerful open source
-                                    libraries like
-                                    <a
-                                        href="https://laravel.com/docs/billing"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Cashier</a
-                                    >,
-                                    <a
-                                        href="https://laravel.com/docs/dusk"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Dusk</a
-                                    >,
-                                    <a
-                                        href="https://laravel.com/docs/broadcasting"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Echo</a
-                                    >,
-                                    <a
-                                        href="https://laravel.com/docs/horizon"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Horizon</a
-                                    >,
-                                    <a
-                                        href="https://laravel.com/docs/sanctum"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Sanctum</a
-                                    >,
-                                    <a
-                                        href="https://laravel.com/docs/telescope"
-                                        class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
-                                        >Telescope</a
-                                    >, and more.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-
-                <footer
-                    class="py-16 text-center text-sm text-black dark:text-white/70"
-                >
-                    Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
-                </footer>
-            </div>
-        </div>
-    </div>
-</template>
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ff-hero__grid,
+  .ff-feature-row,
+  .ff-feature-row--reverse {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .ff-feature-row--reverse .ff-feature__content,
+  .ff-feature-row--reverse .ff-feature__visual { order: unset; }
+  .ff-hero__visual { display: none; }
+  .ff-problem__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+  .ff-container { padding: 0 20px; }
+  .ff-nav__links { display: none; }
+  .ff-nav__inner > .ff-btn { display: none; }
+  .ff-nav__burger { display: flex; }
+  .ff-problem__grid { grid-template-columns: 1fr; }
+  .ff-hero { padding: 64px 0 80px; }
+}
+</style>
