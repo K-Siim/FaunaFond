@@ -9,15 +9,15 @@ const props = defineProps({
 
 const emit = defineEmits(['close']);
 
-const treatmentType = ref('vaktsiin'); 
+const treatmentType = ref('vaktsiin');
 
 const today = new Date();
 const date1Month = ref(today.getMonth());
 const date1Year = ref(today.getFullYear());
 const date2Month = ref(today.getMonth());
 const date2Year = ref(today.getFullYear());
-const date1 = ref(null); 
-const date2 = ref(null); 
+const date1 = ref(null);
+const date2 = ref(null);
 const showDate1Calendar = ref(true);
 const showDate2Calendar = ref(true);
 
@@ -119,7 +119,8 @@ const medicationForm = useForm({
     name: '',
     dose_amount: '',
     dose_unit: 'ml',
-    frequency_per_day: '',
+    frequency_amount: '',
+    frequency_unit: 'päevas',
     start_date: '',
     end_date: '',
 });
@@ -131,38 +132,25 @@ watch(treatmentType, () => {
     date2.value = null;
 });
 
+function formatDate(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+}
+
 function submit() {
     if (treatmentType.value === 'vaktsiin') {
-        if (date1.value) {
-            const y = date1.value.getFullYear();
-            const m = String(date1.value.getMonth() + 1).padStart(2, '0');
-            const d = String(date1.value.getDate()).padStart(2, '0');
-            vaccineForm.administered_date = `${y}-${m}-${d}`;
-        }
-        if (date2.value) {
-            const y = date2.value.getFullYear();
-            const m = String(date2.value.getMonth() + 1).padStart(2, '0');
-            const d = String(date2.value.getDate()).padStart(2, '0');
-            vaccineForm.expiry_date = `${y}-${m}-${d}`;
-        }
+        if (date1.value) vaccineForm.administered_date = formatDate(date1.value);
+        if (date2.value) vaccineForm.expiry_date = formatDate(date2.value);
 
         vaccineForm.post(route('vaccines.store', { pet: props.petId }), {
             preserveScroll: true,
             onSuccess: () => emit('close'),
         });
     } else {
-        if (date1.value) {
-            const y = date1.value.getFullYear();
-            const m = String(date1.value.getMonth() + 1).padStart(2, '0');
-            const d = String(date1.value.getDate()).padStart(2, '0');
-            medicationForm.start_date = `${y}-${m}-${d}`;
-        }
-        if (date2.value) {
-            const y = date2.value.getFullYear();
-            const m = String(date2.value.getMonth() + 1).padStart(2, '0');
-            const d = String(date2.value.getDate()).padStart(2, '0');
-            medicationForm.end_date = `${y}-${m}-${d}`;
-        }
+        if (date1.value) medicationForm.start_date = formatDate(date1.value);
+        if (date2.value) medicationForm.end_date = formatDate(date2.value);
 
         medicationForm.post(route('medications.store', { pet: props.petId }), {
             preserveScroll: true,
@@ -200,9 +188,20 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                     <p v-if="currentForm.errors.name" class="text-red-500 text-xs -mt-2">{{ currentForm.errors.name }}</p>
 
                     <template v-if="treatmentType === 'ravim'">
-                        <div class="flex justify-between gap-3 w-full">
-                            <input v-model="medicationForm.dose_amount" type="number" step="1" placeholder="Annus" class="flex w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
-                            <select v-model="medicationForm.dose_unit" class="w-1/2 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40">
+
+                        <!-- Doos -->
+                        <div class="flex gap-3 w-full">
+                            <input
+                                v-model="medicationForm.dose_amount"
+                                type="number"
+                                step="1"
+                                placeholder="Annus"
+                                class="flex w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"
+                            />
+                            <select
+                                v-model="medicationForm.dose_unit"
+                                class="w-1/2 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"
+                            >
                                 <option value="ml">ml</option>
                                 <option value="mg">mg</option>
                                 <option value="g">g</option>
@@ -211,10 +210,29 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                         </div>
                         <p v-if="medicationForm.errors.dose_amount" class="text-red-500 text-xs -mt-2">{{ medicationForm.errors.dose_amount }}</p>
 
-                        <input v-model="medicationForm.frequency_per_day" type="number" min="1" placeholder="Mitu korda päevas" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
-                        <p v-if="medicationForm.errors.frequency_per_day" class="text-red-500 text-xs -mt-2">{{ medicationForm.errors.frequency_per_day }}</p>
+                        <!-- Sagedus -->
+                        <div class="flex gap-3 w-full">
+                            <input
+                                v-model="medicationForm.frequency_amount"
+                                type="number"
+                                min="1"
+                                placeholder="Mitu korda"
+                                class="flex w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"
+                            />
+                            <select
+                                v-model="medicationForm.frequency_unit"
+                                class="w-1/2 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"
+                            >
+                                <option value="päevas">päevas</option>
+                                <option value="nädalas">nädalas</option>
+                                <option value="kuus">kuus</option>
+                            </select>
+                        </div>
+                        <p v-if="medicationForm.errors.frequency_amount" class="text-red-500 text-xs -mt-2">{{ medicationForm.errors.frequency_amount }}</p>
+
                     </template>
 
+                    <!-- Date1 picker -->
                     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
                         <div class="px-4 pt-3 pb-1"><p class="text-xs text-gray-500">{{ date1Label }}</p></div>
                         <div class="flex items-center justify-between px-4 pb-3">
@@ -256,7 +274,7 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                         </div>
                     </div>
 
-                    <!-- Date2 picker (expiry_date or end_date) -->
+                    <!-- Date2 picker -->
                     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
                         <div class="px-4 pt-3 pb-1"><p class="text-xs text-gray-500">{{ date2Label }}</p></div>
                         <div class="flex items-center justify-between px-4 pb-3">
@@ -298,7 +316,7 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                         </div>
                     </div>
 
-                    <!-- VACCINE-SPECIFIC FIELD: Batch number -->
+                    <!-- Partii number (ainult vaktsiin) -->
                     <input v-if="treatmentType === 'vaktsiin'" v-model="vaccineForm.batch_number" type="text" placeholder="Partii number (valikuline)" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
 
                     <button @click="submit" :disabled="currentForm.processing" class="w-full bg-[#2D5A3D] text-white font-semibold tracking-widest text-sm py-4 rounded-xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60">

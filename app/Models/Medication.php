@@ -10,15 +10,16 @@ class Medication extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pet_id',
-        'user_id',
-        'name',
-        'dose_amount',
-        'dose_unit',
-        'frequency_per_day',
-        'start_date',
-        'end_date',
-    ];
+    'pet_id',
+    'user_id',
+    'name',
+    'dose_amount',
+    'dose_unit',
+    'frequency_amount',
+    'frequency_unit',
+    'start_date',
+    'end_date',
+];
 
     protected $casts = [
         'start_date' => 'date',

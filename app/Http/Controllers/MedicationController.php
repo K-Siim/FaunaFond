@@ -15,7 +15,8 @@ class MedicationController extends Controller
             'name' => 'required|string|max:255',
             'dose_amount' => 'required|numeric|min:0',
             'dose_unit' => 'required|string|max:50',
-            'frequency_per_day' => 'required|integer|min:1',
+            'frequency_amount' => 'required|integer|min:1',
+            'frequency_unit' => 'required|in:päevas,nädalas,kuus',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
@@ -38,7 +39,8 @@ class MedicationController extends Controller
             'name' => 'required|string|max:255',
             'dose_amount' => 'required|numeric|min:0',
             'dose_unit' => 'required|string|max:50',
-            'frequency_per_day' => 'required|integer|min:1',
+            'frequency_amount' => 'required|integer|min:1',
+            'frequency_unit' => 'required|in:päevas,nädalas,kuus',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
