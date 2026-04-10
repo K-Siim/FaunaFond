@@ -44,7 +44,7 @@ const stats = computed(() => ({
 </script>
 
 <template>
-    <div class="min-h-screen bg-[#E7F0E4] text-[#275342] pt-24 pb-12">
+    <div class="min-h-screen bg-[#E7F0E4] text-[#275342] pt-36 pb-20">
         <div class="mx-auto max-w-7xl px-6">
 
             <!-- Header -->
