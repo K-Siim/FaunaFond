@@ -104,4 +104,11 @@ class Pet extends Model implements HasMedia
         return $this->hasMany(Medication::class)
             ->orderBy('start_date', 'desc');
     }
+
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class)
+            ->orderBy('reminder_date')
+            ->orderBy('reminder_time');
+    }
 }
