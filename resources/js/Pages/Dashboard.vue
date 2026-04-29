@@ -1,11 +1,14 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import PetContent from "@/Components/PetInfo/PetContent.vue";
+import RemindersSection from "@/Components/RemindersSection.vue";
 import PwaInstallButton from "@/Components/PwaInstallButton.vue";
 import { Link, Head } from "@inertiajs/vue3";
 
 const props = defineProps({
-    pets: Array,
+    reminders:              Array,
+    vaccineExpiryReminders: Array,
+    pets:                   Array,  
 });
 </script>
 
@@ -50,6 +53,11 @@ const props = defineProps({
                         </div>
                         <p v-else>Lemmikloomi ei leitud</p>
                     </div>
+                    <RemindersSection
+                        :reminders="reminders"
+                        :vaccine-expiry-reminders="vaccineExpiryReminders"
+                        :pets="pets"
+                    />
                 </div>
             </div>
         </template>
