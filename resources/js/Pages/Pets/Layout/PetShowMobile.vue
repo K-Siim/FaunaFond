@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
+import RemindersSection from "@/Components/RemindersSection.vue";
 
 const props = defineProps({
     pet: { type: Object, required: true },
@@ -156,15 +157,12 @@ function toggleMedication(id) {
 
         <!-- Meeldetuletused -->
         <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
-            <div class="flex flex-col gap-6">
-                <div class="flex flex-row justify-between items-center">
-                    <h3 class="text-base text-lg font-semibold text-[#275342]">Meeldetuletused</h3>
-                    <button class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition">+</button>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <p class="text-md text-[#275342] text-center py-4">Meeldetuletusi pole veel lisatud.</p>
-                </div>
-            </div>
+            <RemindersSection
+                :pet-id="pet.id"
+                :reminders="pet.reminders ?? []"
+                :vaccine-expiry-reminders="vaccineExpiryReminders"
+                :format-date="formatDate"
+            />
         </section>
 
         <!-- Arstivisiidid -->
