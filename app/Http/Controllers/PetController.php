@@ -70,7 +70,7 @@ class PetController extends Controller
             'vetVisits.files',
             'vaccines',
             'medications',
-            'reminders',
+            'reminders.pet',
         ]);
 
         $pet->append(['photo_url', 'formatted_dob', 'age']);
