@@ -65,11 +65,38 @@ class PetController extends Controller
     {
         $this->authorizePetOwner($pet);
 
-        
+        $pet->load([
+            'vetVisits',
+            'vetVisits.files',
+            'vaccines',
+            'medications',
+            'reminders',
+        ]);
+
+        $pet->append(['photo_url', 'formatted_dob', 'age']);
+
+        $vaccineExpiryReminders = $pet->vaccines
+            ->filter(function ($v) {
+                if (!$v->expiry_date) return false;
+                $days = now()->startOfDay()->diffInDays(
+                    \Carbon\Carbon::parse($v->expiry_date)->startOfDay(), false
+                );
+                return $days <= 14;
+            })
+            ->map(fn ($v) => [
+                'id'         => 'auto_' . $v->id,
+                'pet_name'   => $pet->name,
+                'name'       => $v->name,
+                'end_date'   => \Carbon\Carbon::parse($v->expiry_date)->format('d.m.Y'),
+                'is_expired' => \Carbon\Carbon::parse($v->expiry_date)->isPast(),
+            ])
+            ->values();
+
         return Inertia::render('Pets/Show', [
             'pet' => $pet
                 ->load(['vetVisits', 'vaccines', 'medications', 'vetVisits.files'])
                 ->append(['photo_url', 'formatted_dob', 'age']),
+            'vaccineExpiryReminders' => $vaccineExpiryReminders,
         ]);
     }
 
