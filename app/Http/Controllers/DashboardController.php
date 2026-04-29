@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $pets = Pet::where('user_id', auth()->id())->get()->append('photo_url');
 
         $reminders = Reminder::with('pet')
-            ->where('user_id', auth()->id())  // ← was $user->id
+            ->where('user_id', auth()->id())
             ->orderBy('reminder_date')
             ->orderBy('reminder_time')
             ->get();
