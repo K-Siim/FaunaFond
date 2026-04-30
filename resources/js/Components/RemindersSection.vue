@@ -176,7 +176,7 @@ function isNight(time) {
                 <div
                     v-for="r in visibleExpiries()"
                     :key="r.id"
-                    class="bg-[#FFCBC7] text-[#275342] border border-red-100 rounded-2xl overflow-hidden shadow-sm"
+                    class="bg-[#FFCBC7] hover:bg-[#FFA8B0] text-[#275342] border border-red-100 rounded-2xl overflow-hidden shadow-sm"
                 >
                     <div class="w-full flex items-center justify-between text-[#275342] px-3 py-3">
                         <div class="flex items-center gap-3 min-w-0">
@@ -184,12 +184,11 @@ function isNight(time) {
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-md font-semibold ">{{ r.pet_name }}</span>
                                 <span class="text-md mt-0.5">
-                                    "{{ r.name }}" {{ r.is_expired ? 'aegus' : 'aegub' }}
-                                    <strong>"{{ r.end_date }}"</strong>
+                                    {{ r.name }} {{ r.is_expired ? 'aegus' : 'aegub' }}
+                                    <strong>{{ r.end_date }}</strong>
                                 </span>
                             </div>
                         </div>
-                        <button @click="dismissExpiry(r.id)" class=" hover:text-red-500 transition flex-shrink-0 text-xl leading-none ml-2">×</button>
                     </div>
                 </div>
 
@@ -208,9 +207,9 @@ function isNight(time) {
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-md font-semibold">{{ r.pet?.name }}</span>
                                 <span class="text-md mt-0.5">
-                                    "{{ r.name }}" — vaktsineerimine
-                                    <strong>"{{ fmt(r.reminder_date) }}"</strong>
-                                    <span v-if="r.reminder_time"> kell <strong>"{{ r.reminder_time }}"</strong></span>
+                                    {{ r.name }} — vaktsineerimine
+                                    <strong>{{ fmt(r.reminder_date) }}</strong>
+                                    <span v-if="r.reminder_time"> kell <strong>{{ r.reminder_time }}</strong></span>
                                 </span>
                             </div>
                         </div>
@@ -241,9 +240,9 @@ function isNight(time) {
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-md font-semibold ">{{ r.pet?.name }}</span>
                                 <span class="text-md mt-0.5">
-                                    "{{ r.name }}" — arstivisiit
-                                    <strong>"{{ fmt(r.reminder_date) }}"</strong>
-                                    <span v-if="r.reminder_time"> kell <strong>"{{ r.reminder_time }}"</strong></span>
+                                    {{ r.name }} — arstivisiit
+                                    <strong>{{ fmt(r.reminder_date) }}</strong>
+                                    <span v-if="r.reminder_time"> kell <strong>{{ r.reminder_time }}</strong></span>
                                 </span>
                             </div>
                         </div>
@@ -277,8 +276,8 @@ function isNight(time) {
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-md font-semibold">{{ r.pet?.name }}</span>
                                 <span class="text-md  mt-0.5">
-                                    "{{ r.name }}" — kellaaeg
-                                    <strong>"{{ r.reminder_time || fmt(r.reminder_date) }}"</strong>
+                                    {{ r.name }} — kellaaeg
+                                    <strong>{{ r.reminder_time || fmt(r.reminder_date) }}</strong>
                                 </span>
                             </div>
                         </div>
@@ -309,8 +308,8 @@ function isNight(time) {
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-md font-semibold">{{ r.pet_name }}</span>
                                 <span class="text-md  mt-0.5">
-                                    "{{ r.name }}" — kellaaeg
-                                    <strong>"{{ r.reminder_time }}"</strong>
+                                    {{ r.name }} — kellaaeg
+                                    <strong>{{ r.reminder_time }}</strong>
                                 </span>
                             </div>
                         </div>
