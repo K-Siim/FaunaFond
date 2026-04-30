@@ -105,7 +105,7 @@ function toggleMedication(id) {
                         Vaktsiine pole veel lisatud.
                     </p>
                     <div v-for="vaccine in pet.vaccines" :key="vaccine.id" class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
-                        <button class="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition" @click="toggleVaccine(vaccine.id)">
+                        <button class="w-full flex items-center justify-between px-3 py-3 hover:bg-gray-50 transition" @click="toggleVaccine(vaccine.id)">
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-md font-semibold text-[#275342]">{{ vaccine.name }}</span>
                                 <span class="text-md text-[#275342] mt-0.5">{{ formatDate(vaccine.administered_date) }}</span>
@@ -132,7 +132,7 @@ function toggleMedication(id) {
                         Ravimeid pole veel lisatud.
                     </p>
                     <div v-for="medication in pet.medications" :key="medication.id" class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
-                        <button class="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition" @click="toggleMedication(medication.id)">
+                        <button class="w-full flex items-center justify-between px-3 py-3 hover:bg-gray-50 transition" @click="toggleMedication(medication.id)">
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-sm font-semibold text-[#275342]">{{ medication.name }}</span>
                                 <span class="text-xs text-[#275342] mt-0.5">{{ medication.dose_amount }}{{ medication.dose_unit }} · {{ medication.frequency_per_day }}x päevas</span>
@@ -156,7 +156,7 @@ function toggleMedication(id) {
         </section>
 
         <!-- Meeldetuletused -->
-        <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
+        <section class="bg-[#FFFDF5] rounded-2xl w-full max-w-md mx-auto">
             <RemindersSection
                 :pet-id="pet.id"
                 :reminders="pet.reminders ?? []"
