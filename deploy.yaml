@@ -4,10 +4,9 @@ import:
 config:
   repository: 'https://github.com/K-Siim/FaunaFond'
   keep_releases: 2
-  shared_files:
-    - .env
-    - database/database.sqlite
-
+  http_user: virt137763
+  writable_mode: chmod
+  
 hosts:
   stage:
     hostname: 'ta24siim.itmajakas.ee'
