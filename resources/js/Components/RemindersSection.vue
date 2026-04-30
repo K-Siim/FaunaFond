@@ -9,6 +9,7 @@ const props = defineProps({
     petId:                  { type: Number,   default: null },
     pets:                   { type: Array,    default: () => [] },
     formatDate:             { type: Function, default: null },
+    medicationTodayReminders: { type: Array, default: () => [] },
 });
 
 function fmt(dateStr) {
@@ -66,7 +67,10 @@ const vaccineReminders  = () => props.reminders.filter(r => r.type === "vaccine"
 const vetReminders      = () => props.reminders.filter(r => r.type === "vet_visit");
 const medicineReminders = () => props.reminders.filter(r => r.type === "medicine");
 const visibleExpiries   = () => props.vaccineExpiryReminders.filter(r => !dismissedExpiries.value.has(r.id));
-const hasAnyReminders   = () => visibleExpiries().length + props.reminders.length > 0;
+const hasAnyReminders = () =>
+    visibleExpiries().length +
+    props.reminders.length +
+    props.medicationTodayReminders.length > 0;
 
 function isNight(time) {
     if (!time) return false;
@@ -155,7 +159,7 @@ function isNight(time) {
                 <button
                     @click="submitReminder"
                     :disabled="reminderForm.processing"
-                    class="w-full bg-[#275342] text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-[#1e4234] transition disabled:opacity-60"
+                    class="w-full bg-[#275342] text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-[#FFF0AA] transition disabled:opacity-60"
                 >
                     Salvesta meeldetuletus
                 </button>
@@ -172,9 +176,9 @@ function isNight(time) {
                 <div
                     v-for="r in visibleExpiries()"
                     :key="r.id"
-                    class="bg-[#FFCBC7]  text-[#275342] border border-red-100 rounded-2xl overflow-hidden shadow-sm"
+                    class="bg-[#FFCBC7] text-[#275342] border border-red-100 rounded-2xl overflow-hidden shadow-sm"
                 >
-                    <div class="w-full flex items-center justify-between px-3 py-3">
+                    <div class="w-full flex items-center justify-between text-[#275342] px-3 py-3">
                         <div class="flex items-center gap-3 min-w-0">
                             <CircleAlert class=" flex-shrink-0" />
                             <div class="flex flex-col items-start text-left">
@@ -290,6 +294,28 @@ function isNight(time) {
                     </div>
                 </div>
 
+                <!-- Repeated medication reminders -->
+                <div
+                    v-for="r in medicationTodayReminders"
+                    :key="r.id"
+                    class="bg-[#DAF2D0] text-[#275342] border border-green-100 rounded-2xl overflow-hidden shadow-sm"
+                >
+                    <div class="w-full flex items-center justify-between px-3 py-3">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <component
+                                :is="isNight(r.reminder_time) ? Moon : Sun"
+                                class="flex-shrink-0"
+                            />
+                            <div class="flex flex-col items-start text-left">
+                                <span class="text-md font-semibold">{{ r.pet_name }}</span>
+                                <span class="text-md  mt-0.5">
+                                    "{{ r.name }}" — kellaaeg
+                                    <strong>"{{ r.reminder_time }}"</strong>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

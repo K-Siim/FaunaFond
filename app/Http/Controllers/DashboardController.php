@@ -34,10 +34,25 @@ class DashboardController extends Controller
                     ]);
             })->values();
 
+        $medicationTodayReminders = $pets->load('medications')
+            ->flatMap(function ($pet) {
+                return $pet->medications
+                    ->filter(fn ($m) => $m->shouldShowTodayReminder())
+                    ->map(fn ($m) => [
+                        'id'            => 'med_' . $m->id,
+                        'pet_name'      => $pet->name,
+                        'name'          => $m->name,
+                        'reminder_time' => $m->reminder_time,
+                        'dose_amount'   => $m->dose_amount,
+                        'dose_unit'     => $m->dose_unit,
+                    ]);
+            })->values();
+
         return Inertia::render('Dashboard', [
             'pets'                   => $pets,
             'reminders'              => $reminders,
             'vaccineExpiryReminders' => $vaccineExpiryReminders,
+            'medicationTodayReminders' => $medicationTodayReminders,
         ]);
     }
 }

@@ -4,9 +4,11 @@ import { Link } from "@inertiajs/vue3";
 import RemindersSection from "@/Components/RemindersSection.vue";
 
 const props = defineProps({
-    pet: { type: Object, required: true },
-    pendingFiles: { type: Object, required: true },
-    formatDate: { type: Function, required: true },
+    pet:                      { type: Object,   required: true },
+    pendingFiles:             { type: Object,   required: true },
+    formatDate:               { type: Function, required: true },
+    vaccineExpiryReminders:   { type: Array,    default: () => [] },
+    medicationTodayReminders: { type: Array,    default: () => [] },
 });
 
 defineEmits([
@@ -22,8 +24,8 @@ defineEmits([
     "submit-files",
 ]);
 
-const expandedVisitId = ref(null);
-const expandedVaccineId = ref(null);
+const expandedVisitId      = ref(null);
+const expandedVaccineId    = ref(null);
 const expandedMedicationId = ref(null);
 
 function toggleVisit(id) {
@@ -99,6 +101,7 @@ function toggleMedication(id) {
                     >+</button>
                 </div>
 
+                <!-- Vaccines -->
                 <div class="flex flex-col gap-3">
                     <h4 class="text-md font-medium text-[#275342]">Vaktsiinid</h4>
                     <p v-if="!pet.vaccines || pet.vaccines.length === 0" class="text-md text-[#275342] text-center py-4">
@@ -126,6 +129,7 @@ function toggleMedication(id) {
                     </div>
                 </div>
 
+                <!-- Medications -->
                 <div class="flex flex-col gap-3 mt-4">
                     <h4 class="text-md font-medium text-[#275342]">Ravimid</h4>
                     <p v-if="!pet.medications || pet.medications.length === 0" class="text-md text-[#275342] text-center py-4">
@@ -134,8 +138,11 @@ function toggleMedication(id) {
                     <div v-for="medication in pet.medications" :key="medication.id" class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
                         <button class="w-full flex items-center justify-between px-3 py-3 hover:bg-gray-50 transition" @click="toggleMedication(medication.id)">
                             <div class="flex flex-col items-start text-left">
-                                <span class="text-sm font-semibold text-[#275342]">{{ medication.name }}</span>
-                                <span class="text-xs text-[#275342] mt-0.5">{{ medication.dose_amount }}{{ medication.dose_unit }} · {{ medication.frequency_per_day }}x päevas</span>
+                                <span class="text-md font-semibold text-[#275342]">{{ medication.name }}</span>
+                                <span class="text-md text-[#275342] mt-0.5">
+                                    {{ medication.dose_amount }}{{ medication.dose_unit }} ·
+                                    {{ medication.frequency_amount }}x {{ medication.frequency_unit }}
+                                </span>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#275342] transition-transform duration-200" :class="expandedMedicationId === medication.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -145,6 +152,7 @@ function toggleMedication(id) {
                             <div class="mt-3 space-y-1 text-sm text-[#275342]">
                                 <p><strong>Algas:</strong> {{ formatDate(medication.start_date) }}</p>
                                 <p v-if="medication.end_date"><strong>Lõpeb:</strong> {{ formatDate(medication.end_date) }}</p>
+                                <p v-if="medication.reminder_time"><strong>Meeldetuletus:</strong> {{ medication.reminder_time }}</p>
                             </div>
                             <div class="flex justify-end mt-3">
                                 <button @click="$emit('delete-medication', medication.id)" class="text-xs text-red-400 hover:text-red-600 transition">Kustuta</button>
@@ -161,6 +169,7 @@ function toggleMedication(id) {
                 :pet-id="pet.id"
                 :reminders="pet.reminders ?? []"
                 :vaccine-expiry-reminders="vaccineExpiryReminders"
+                :medication-today-reminders="medicationTodayReminders"
                 :format-date="formatDate"
             />
         </section>
