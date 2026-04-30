@@ -172,7 +172,7 @@ function isNight(time) {
 
             <div v-else class="flex flex-col gap-3">
 
-                <!-- 1. AUTO vaccine expiry → RED -->
+                <!-- Vaccine expiry -->
                 <div
                     v-for="r in visibleExpiries()"
                     :key="r.id"
@@ -193,14 +193,14 @@ function isNight(time) {
                     </div>
                 </div>
 
-                <!-- 2. Vaccine reminders → YELLOW -->
+                <!-- Vaccine reminders -->
                 <div
                     v-for="r in vaccineReminders()"
                     :key="r.id"
                     class="bg-[#FFF6CA] text-[#275342] border border-yellow-100 rounded-2xl overflow-hidden shadow-sm"
                 >
                     <button
-                        class="w-full flex items-center justify-between px-3 py-3 hover:bg-yellow-100/50 transition"
+                        class="w-full flex items-center justify-between px-3 py-3 hover:bg-[#FFEEA1] transition"
                         @click="toggleReminder(r.id)"
                     >
                         <div class="flex items-center gap-3 min-w-0 ">
@@ -226,14 +226,14 @@ function isNight(time) {
                     </div>
                 </div>
 
-                <!-- 3. Vet visit reminders → BLUE -->
+                <!-- Vet visit reminders -->
                 <div
                     v-for="r in vetReminders()"
                     :key="r.id"
                     class="bg-[#D5EEFF] text-[#275342] border border-blue-100 rounded-2xl overflow-hidden shadow-sm"
                 >
                     <button
-                        class="w-full flex items-center justify-between px-3 py-3 hover:bg-blue-100/50 transition"
+                        class="w-full flex items-center justify-between px-3 py-3 hover:bg-[#B4E1FF] transition"
                         @click="toggleReminder(r.id)"
                     >
                         <div class="flex items-center gap-3 min-w-0">
@@ -259,14 +259,14 @@ function isNight(time) {
                     </div>
                 </div>
 
-                <!-- 4. Medicine reminders → GREEN -->
+                <!-- Medicine reminders -->
                 <div
                     v-for="r in medicineReminders()"
                     :key="r.id"
                     class="bg-[#DAF2D0] text-[#275342] border border-green-100 rounded-2xl overflow-hidden shadow-sm"
                 >
                     <button
-                        class="w-full flex items-center justify-between px-3 py-3 hover:bg-green-100/50 transition"
+                        class="w-full flex items-center justify-between px-3 py-3 hover:bg-[#C4EDB4] transition"
                         @click="toggleReminder(r.id)"
                     >
                         <div class="flex items-center gap-3 min-w-0">
