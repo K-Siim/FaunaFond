@@ -215,10 +215,10 @@
                     </div>
                     <div class="bg-[#fffdf5] rounded-xl p-3 px-3.5">
                       <div class="text-[11px] font-bold mb-2">Vaktsiinid</div>
-                      <div class="flex justify-between text-[10px] mb-1.5 opacity-85"><span>💉 Eurican CHPPi2-L</span><span>16.02.2014</span></div>
-                      <div class="flex justify-between text-[10px] mb-1.5 opacity-85"><span>💉 Rabisin</span><span>23.07.2015</span></div>
+                      <div class="flex justify-between text-[10px] mb-1.5 opacity-85"><span> Eurican CHPPi2-L</span><span>16.02.2014</span></div>
+                      <div class="flex justify-between text-[10px] mb-1.5 opacity-85"><span> Rabisin</span><span>23.07.2015</span></div>
                       <div class="text-[11px] font-bold mt-3 mb-2">Ravimid</div>
-                      <div class="flex justify-between text-[10px] opacity-85"><span>💊 Thiamacare (10mg/ml)</span><span>5ml, 2x</span></div>
+                      <div class="flex justify-between text-[10px] opacity-85"><span>Thiamacare (10mg/ml)</span><span>5ml, 2x</span></div>
                     </div>
                   </div>
                 </div>

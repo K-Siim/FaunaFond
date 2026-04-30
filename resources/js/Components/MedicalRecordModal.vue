@@ -123,6 +123,7 @@ const medicationForm = useForm({
     frequency_unit: 'päevas',
     start_date: '',
     end_date: '',
+    reminder_time: '',
 });
 
 watch(treatmentType, () => {
@@ -229,7 +230,17 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                             </select>
                         </div>
                         <p v-if="medicationForm.errors.frequency_amount" class="text-red-500 text-xs -mt-2">{{ medicationForm.errors.frequency_amount }}</p>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">
+                            Meeldetuletuse kellaaeg
+                        </label>
 
+                        <input
+                            v-model="medicationForm.reminder_time"
+                            type="time"
+                            class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                        />
+                    </div>
                     </template>
 
                     <!-- Date1 picker -->
