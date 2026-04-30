@@ -11,8 +11,9 @@ config:
 hosts:
   stage:
     hostname: 'ta24siim.itmajakas.ee'
-    http_user: virt137763
     remote_user: virt137763
+    identity_file: ~/.ssh/id_ed25519
+    forward_agent: true
     deploy_path: '~/domeenid/www.ta24siim.itmajakas.ee/faunafond'
 tasks:
   npm:production:
