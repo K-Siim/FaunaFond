@@ -10,7 +10,7 @@ import {
     CardTitle,
 } from "@/Components/ui/card";
 import { Badge } from "@/Components/ui/badge";
-import { Separator } from "@/Components/ui/Separator";
+import { Separator } from "@/Components/ui/Separator/Separator.vue";
 import {
     Accordion,
     AccordionContent,
