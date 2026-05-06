@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { Link } from "@inertiajs/vue3";
+import RemindersSection from "@/Components/RemindersSection.vue";
 import {
     Card,
     CardContent,
@@ -9,7 +10,7 @@ import {
     CardTitle,
 } from "@/Components/ui/card";
 import { Badge } from "@/Components/ui/badge";
-import { Separator } from "@/Components/ui/separator";
+import { Separator } from "@/components/ui/separator";
 import {
     Accordion,
     AccordionContent,
@@ -40,6 +41,10 @@ const stats = computed(() => ({
     vaccines: props.pet.vaccines?.length || 0,
     medications: props.pet.medications?.length || 0,
     visits: props.pet.vet_visits?.length || 0,
+    reminders:
+        (props.pet.reminders?.length || 0) +
+        (props.vaccineExpiryReminders?.length || 0) +
+        (props.medicationTodayReminders?.length || 0),
 }));
 </script>
 
@@ -60,15 +65,13 @@ const stats = computed(() => ({
                             <h1 class="text-3xl font-semibold tracking-tight text-[#275342] ">
                                 {{ pet.name }}
                             </h1>
-                            <Badge class="border border-[#275342] bg-transparent text-[#275342] rounded-full px-4 py-1.5 ">
-                                {{ pet.species || "Liik puudub" }}
-                            </Badge>
-                            <Badge class="border border-[#275342] bg-transparent text-[#275342] rounded-full px-4 py-1.5 ">
-                                {{ pet.gender || "Sugu puudub" }}
-                            </Badge>
                         </div>
                         <div class="flex flex-wrap gap-2 text-sm text-[#275342]/70">
+                            <span>{{ pet.species || "Liik puudub" }}</span>
+                            <span>•</span>
                             <span>{{ pet.breed || "Tõug puudub" }}</span>
+                            <span>•</span>
+                            <span>{{ pet.gender || "Sugu puudub" }}</span>
                             <span>•</span>
                             <span>{{ pet.formatted_dob }} ({{ pet.age }})</span>
                             <span>•</span>
@@ -121,7 +124,7 @@ const stats = computed(() => ({
                 <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none">
                     <CardHeader class="pb-2">
                         <CardDescription class="text-[#275342]/60">Meeldetuletused</CardDescription>
-                        <CardTitle class="text-3xl text-[#275342]">0</CardTitle>
+                        <CardTitle class="text-3xl text-[#275342]">{{ stats.reminders }}</CardTitle>
                     </CardHeader>
                 </Card>
             </div>
@@ -350,14 +353,14 @@ const stats = computed(() => ({
 
                     <!-- Meeldetuletused -->
                     <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
-                        <CardHeader>
-                            <CardTitle class="text-[#275342]">Meeldetuletused</CardTitle>
-                            <CardDescription class="text-[#275342]/60">Pole veel lisatud</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="rounded-xl border border-dashed border-[#275342]/30 p-6 text-center text-sm text-[#275342]/60">
-                                Meeldetuletusi pole veel lisatud.
-                            </div>
+                        <CardContent class="p-0">
+                            <RemindersSection
+                                :pet-id="pet.id"
+                                :reminders="pet.reminders ?? []"
+                                :vaccine-expiry-reminders="vaccineExpiryReminders"
+                                :medication-today-reminders="medicationTodayReminders"
+                                :format-date="formatDate"
+                            />
                         </CardContent>
                     </Card>
                 </div>

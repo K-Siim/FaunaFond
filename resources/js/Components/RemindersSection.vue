@@ -92,79 +92,6 @@ function isNight(time) {
                 >{{ showReminderForm ? '×' : '+' }}</button>
             </div>
 
-            <!-- Add form -->
-            <div v-if="showReminderForm" class="flex flex-col gap-3 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
-
-                <div v-if="!petId">
-                    <select
-                        v-model="reminderForm.pet_id"
-                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
-                    >
-                        <option value="" disabled>Vali lemmik *</option>
-                        <option v-for="p in pets" :key="p.id" :value="p.id">{{ p.name }}</option>
-                    </select>
-                    <p v-if="reminderForm.errors.pet_id" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.pet_id }}</p>
-                </div>
-
-                <div>
-                    <select
-                        v-model="reminderForm.type"
-                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
-                    >
-                        <option value="" disabled>Meeldetuletuse tüüp *</option>
-                        <option value="vaccine">Vaktsiin</option>
-                        <option value="medicine">Ravim</option>
-                        <option value="vet_visit">Arstivisiit</option>
-                    </select>
-                    <p v-if="reminderForm.errors.type" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.type }}</p>
-                </div>
-
-                <div>
-                    <input
-                        v-model="reminderForm.name"
-                        type="text"
-                        :placeholder="namePlaceholders[reminderForm.type] ?? 'Nimi *'"
-                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
-                    />
-                    <p v-if="reminderForm.errors.name" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.name }}</p>
-                </div>
-
-                <textarea
-                    v-model="reminderForm.notes"
-                    rows="2"
-                    placeholder="Märkused (valikuline)"
-                    class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#275342]/30 resize-none"
-                />
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Kuupäev *</label>
-                        <input
-                            v-model="reminderForm.reminder_date"
-                            type="date"
-                            class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
-                        />
-                        <p v-if="reminderForm.errors.reminder_date" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.reminder_date }}</p>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Kellaaeg</label>
-                        <input
-                            v-model="reminderForm.reminder_time"
-                            type="time"
-                            class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
-                        />
-                    </div>
-                </div>
-
-                <button
-                    @click="submitReminder"
-                    :disabled="reminderForm.processing"
-                    class="w-full bg-[#275342] text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-[#FFF0AA] transition disabled:opacity-60"
-                >
-                    Salvesta meeldetuletus
-                </button>
-            </div>
-
             <!-- Empty state -->
             <p v-if="!hasAnyReminders()" class="text-md text-[#275342] text-center py-4">
                 Meeldetuletusi pole veel lisatud.
@@ -318,4 +245,94 @@ function isNight(time) {
             </div>
         </div>
     </section>
+
+    <!-- Reminder modal -->
+    <div
+        v-if="showReminderForm"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+        @click.self="showReminderForm = false"
+    >
+        <div class="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl">
+            <div class="mb-4 flex items-center justify-between">
+                <h4 class="text-lg font-semibold text-[#275342]">Lisa meeldetuletus</h4>
+                <button
+                    @click="showReminderForm = false"
+                    class="rounded-full border border-[#275342]/30 px-2 text-[#275342] hover:bg-[#275342] hover:text-white transition"
+                >
+                    ×
+                </button>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <div v-if="!petId">
+                    <select
+                        v-model="reminderForm.pet_id"
+                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                    >
+                        <option value="" disabled>Vali lemmik *</option>
+                        <option v-for="p in pets" :key="p.id" :value="p.id">{{ p.name }}</option>
+                    </select>
+                    <p v-if="reminderForm.errors.pet_id" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.pet_id }}</p>
+                </div>
+
+                <div>
+                    <select
+                        v-model="reminderForm.type"
+                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                    >
+                        <option value="" disabled>Meeldetuletuse tüüp *</option>
+                        <option value="vaccine">Vaktsiin</option>
+                        <option value="medicine">Ravim</option>
+                        <option value="vet_visit">Arstivisiit</option>
+                    </select>
+                    <p v-if="reminderForm.errors.type" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.type }}</p>
+                </div>
+
+                <div>
+                    <input
+                        v-model="reminderForm.name"
+                        type="text"
+                        :placeholder="namePlaceholders[reminderForm.type] ?? 'Nimi *'"
+                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                    />
+                    <p v-if="reminderForm.errors.name" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.name }}</p>
+                </div>
+
+                <textarea
+                    v-model="reminderForm.notes"
+                    rows="2"
+                    placeholder="Märkused (valikuline)"
+                    class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#275342]/30 resize-none"
+                />
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">Kuupäev *</label>
+                        <input
+                            v-model="reminderForm.reminder_date"
+                            type="date"
+                            class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                        />
+                        <p v-if="reminderForm.errors.reminder_date" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.reminder_date }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">Kellaaeg</label>
+                        <input
+                            v-model="reminderForm.reminder_time"
+                            type="time"
+                            class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                        />
+                    </div>
+                </div>
+
+                <button
+                    @click="submitReminder"
+                    :disabled="reminderForm.processing"
+                    class="w-full bg-[#275342] text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-[#FFF0AA] transition disabled:opacity-60"
+                >
+                    Salvesta meeldetuletus
+                </button>
+            </div>
+        </div>
+    </div>
 </template>

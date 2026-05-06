@@ -12,6 +12,14 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    vaccineExpiryReminders: {
+        type: Array,
+        default: () => [],
+    },
+    medicationTodayReminders: {
+        type: Array,
+        default: () => [],
+    },
 });
 
 const showVetModal = ref(false);
@@ -122,6 +130,8 @@ function deletePet() {
             :pet="pet"
             :pending-files="pendingFiles"
             :format-date="formatDate"
+            :vaccine-expiry-reminders="vaccineExpiryReminders"
+            :medication-today-reminders="medicationTodayReminders"
             @open-vet-modal="showVetModal = true"
             @open-medical-modal="showMedicalModal = true"
             @confirm-delete="confirmDelete"
