@@ -1,7 +1,7 @@
 <script setup>
 import { reactiveOmit } from "@vueuse/core";
 import { cn } from "@/lib/utils";
-import Separator from '@/Components/ui/Separator/Separator.vue';
+import Separator from '@/Components/ui/separator/Separator.vue';
 
 const props = defineProps({
   orientation: { type: String, required: false, default: "vertical" },
