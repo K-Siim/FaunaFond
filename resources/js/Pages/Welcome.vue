@@ -257,9 +257,6 @@
           <a href="#" class="text-[#0e2c20] no-underline text-sm opacity-70 hover:opacity-100 transition-opacity">Kontakt</a>
         </div>
       </div>
-      <div class="max-w-[1160px] mx-auto px-8 text-center text-[13px] opacity-50 pt-6">
-        © 2024 FaunaFond. Kõik õigused kaitstud.
-      </div>
     </footer>
   </div>
 </template>
