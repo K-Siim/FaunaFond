@@ -54,13 +54,16 @@ const props = defineProps({
                         </div>
                         <p v-else>Lemmikloomi ei leitud</p>
                 </div>
-                <RemindersSection
-                    class="w-full max-w-md mx-auto"
-                    :reminders="reminders ?? []"
-                    :vaccine-expiry-reminders="vaccineExpiryReminders ?? []"
-                    :medication-today-reminders="medicationTodayReminders ?? []"
-                    :pets="pets"
-                />
+                <div class="w-full max-w-md flex justify-center items-center pt-5">
+                    <RemindersSection
+                        class="w-full max-w-md mx-auto"
+                        :reminders="reminders ?? []"
+                        :vaccine-expiry-reminders="vaccineExpiryReminders ?? []"
+                        :medication-today-reminders="medicationTodayReminders ?? []"
+                        :pets="pets"
+                    />                    
+                </div>
+
                 </div>
             </div>
         </template>

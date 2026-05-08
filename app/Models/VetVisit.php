@@ -33,7 +33,7 @@ class VetVisit extends Model
     }
 
     public function files()
-{
-    return $this->hasMany(VetVisitFile::class);
-}
+    {
+        return $this->hasMany(VetVisitFile::class);
+    }
 }

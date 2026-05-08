@@ -64,19 +64,19 @@ class VetVisitController extends Controller
     }
 
     public function uploadFiles(Request $request, Pet $pet, VetVisit $vetVisit)
-{
-    $request->validate([
-        'files.*' => 'required|file|mimes:pdf|max:10240',
-    ]);
-
-    foreach ($request->file('files') as $file) {
-        $path = $file->store("vet_visits/{$pet->id}", 'public');
-        $vetVisit->files()->create([
-            'original_name' => $file->getClientOriginalName(),
-            'path' => $path,
+    {
+        $request->validate([
+            'files.*' => 'required|file|mimes:pdf|max:10240',
         ]);
-    }
 
-    return back()->with('success', 'Failid lisatud!');
-}
+        foreach ($request->file('files') as $file) {
+            $path = $file->store("vet_visits/{$pet->id}", 'public');
+            $vetVisit->files()->create([
+                'original_name' => $file->getClientOriginalName(),
+                'path' => $path,
+            ]);
+        }
+
+        return back()->with('success', 'Failid lisatud!');
+    }
 }

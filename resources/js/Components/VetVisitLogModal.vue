@@ -98,17 +98,14 @@ function submit() {
 </script>
 
 <template>
-  <!-- Backdrop -->
   <Teleport to="body">
     <div
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4 overflow-auto"
       @click.self="emit('close')"
     >
-      <!-- Modal card -->
       <div
         class="relative w-full max-w-sm bg-[#F0F4EF] rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hide"
       >
-        <!-- Close button -->
         <button
           @click="emit('close')"
           class="absolute top-3.5 right-4 text-gray-500 hover:text-gray-800 transition z-10"
@@ -123,7 +120,6 @@ function submit() {
 
         <div class="p-5 pt-12 flex flex-col gap-4">
 
-          <!-- Pet name (read-only display) -->
           <div class="flex items-center justify-between bg-white rounded-xl px-4 py-3 border border-gray-200">
             <span class="text-sm text-gray-700 font-medium">{{ petName || 'Lemmiku nimi' }}</span>
             <button @click="emit('close')" class="text-gray-400 hover:text-gray-600 transition">
@@ -134,16 +130,10 @@ function submit() {
               </svg>
             </button>
           </div>
-
-          <!-- Date picker card -->
           <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-
-            <!-- "Lisa kuupäev" label -->
             <div class="px-4 pt-3 pb-1">
               <p class="text-xs text-gray-500">Lisa kuupäev</p>
             </div>
-
-            <!-- Selected date display -->
             <div class="flex items-center justify-between px-4 pb-3">
               <span class="text-2xl font-semibold text-gray-800">
                 {{ selectedLabel ?? 'Vali kuupäev' }}
@@ -159,11 +149,7 @@ function submit() {
                 </svg>
               </button>
             </div>
-
-            <!-- Calendar grid -->
             <div v-if="showCalendar" class="border-t border-gray-100 px-4 py-3">
-
-              <!-- Month navigation -->
               <div class="flex items-center justify-between mb-3">
                 <button
                   @click="showMonthPicker = !showMonthPicker"
@@ -190,16 +176,12 @@ function submit() {
                   </button>
                 </div>
               </div>
-
-              <!-- Day headers -->
               <div class="grid grid-cols-7 mb-1">
                 <span
                   v-for="d in DAYS_SHORT" :key="d"
                   class="text-center text-xs text-gray-400 font-medium py-1"
                 >{{ d }}</span>
               </div>
-
-              <!-- Day cells -->
               <div class="grid grid-cols-7 gap-y-1">
                 <button
                   v-for="(day, idx) in calendarDays"
@@ -215,8 +197,6 @@ function submit() {
                   ]"
                 >{{ day }}</button>
               </div>
-
-              <!-- Calendar actions -->
               <div class="flex justify-between mt-3 pt-3 border-t border-gray-100">
                 <button @click="clearDate"
                   class="text-sm text-gray-500 hover:text-gray-800 transition">
@@ -235,8 +215,6 @@ function submit() {
               </div>
             </div>
           </div>
-
-          <!-- Clinic name input -->
           <input
             v-model="form.clinic_name"
             type="text"
@@ -246,8 +224,6 @@ function submit() {
           <p v-if="form.errors.clinic_name" class="text-red-500 text-xs -mt-2">
             {{ form.errors.clinic_name }}
           </p>
-
-          <!-- Visit log textarea -->
           <textarea
             v-model="form.log"
             rows="4"
@@ -257,8 +233,6 @@ function submit() {
           <p v-if="form.errors.log" class="text-red-500 text-xs -mt-2">
             {{ form.errors.log }}
           </p>
-
-          <!-- Submit button -->
           <button
             @click="submit"
             :disabled="form.processing"

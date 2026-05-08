@@ -39,7 +39,6 @@ const loginWithGoogle = () => {
             style="background-color: #e7f0e4"
         >
             <div class="w-full max-w-[375px] flex flex-col items-center">
-                <!-- Logo -->
                 <div class="mb-8">
                     <img
                         :src="logo"
@@ -47,8 +46,6 @@ const loginWithGoogle = () => {
                         class="w-[130px] h-[130px] border border-[#275342] rounded-3xl object-cover"
                     />
                 </div>
-
-                <!-- Status message -->
                 <div
                     v-if="status"
                     class="mb-4 text-sm font-medium text-center"
@@ -62,7 +59,6 @@ const loginWithGoogle = () => {
                         @submit.prevent="submit"
                         class="flex flex-col gap-[10px]"
                     >
-                        <!-- Email -->
                         <div>
                             <input
                                 id="email"
@@ -85,8 +81,6 @@ const loginWithGoogle = () => {
                                 :message="form.errors.email"
                             />
                         </div>
-
-                        <!-- Password -->
                         <div>
                             <input
                                 id="password"
@@ -108,8 +102,6 @@ const loginWithGoogle = () => {
                                 :message="form.errors.password"
                             />
                         </div>
-
-                        <!-- Forgot password -->
                         <div class="text-right mt-0">
                             <Link
                                 v-if="canResetPassword"
@@ -120,8 +112,6 @@ const loginWithGoogle = () => {
                                 Unustasid parooli?
                             </Link>
                         </div>
-
-                        <!-- Login button -->
                         <button
                             type="submit"
                             :disabled="form.processing"
@@ -135,8 +125,6 @@ const loginWithGoogle = () => {
                         >
                             LOGI SISSE
                         </button>
-
-                        <!-- Google login -->
                         <button
                             type="button"
                             @click="loginWithGoogle"
@@ -171,8 +159,6 @@ const loginWithGoogle = () => {
                             </svg>
                             LOGI SISSE GOOGLE'IGA
                         </button>
-
-                        <!-- Register -->
                         <div class="text-center mt-2">
                             <Link
                                 :href="route('register')"

@@ -41,8 +41,6 @@ function toggleMedication(id) {
 
 <template>
     <div class="flex flex-col gap-10 p-6 justify-center items-center w-full">
-
-        <!-- Info -->
         <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto mt-20">
             <div class="flex flex-col gap-6">
                 <div class="flex flex-col gap-2 text-[#275342]">
@@ -89,8 +87,6 @@ function toggleMedication(id) {
                 </div>
             </div>
         </section>
-
-        <!-- Meditsiiniline info -->
         <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
             <div class="flex flex-col gap-6">
                 <div class="flex flex-row justify-between items-center">
@@ -100,8 +96,6 @@ function toggleMedication(id) {
                         class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition"
                     >+</button>
                 </div>
-
-                <!-- Vaccines -->
                 <div class="flex flex-col gap-3">
                     <h4 class="text-md font-medium text-[#275342]">Vaktsiinid</h4>
                     <p v-if="!pet.vaccines || pet.vaccines.length === 0" class="text-md text-[#275342] text-center py-4">
@@ -128,8 +122,6 @@ function toggleMedication(id) {
                         </div>
                     </div>
                 </div>
-
-                <!-- Medications -->
                 <div class="flex flex-col gap-3 mt-4">
                     <h4 class="text-md font-medium text-[#275342]">Ravimid</h4>
                     <p v-if="!pet.medications || pet.medications.length === 0" class="text-md text-[#275342] text-center py-4">
@@ -162,8 +154,6 @@ function toggleMedication(id) {
                 </div>
             </div>
         </section>
-
-        <!-- Meeldetuletused -->
         <section class="bg-[#FFFDF5] rounded-2xl w-full max-w-md mx-auto">
             <RemindersSection
                 :pet-id="pet.id"
@@ -173,8 +163,6 @@ function toggleMedication(id) {
                 :format-date="formatDate"
             />
         </section>
-
-        <!-- Arstivisiidid -->
         <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
             <div class="flex flex-col gap-6">
                 <div class="flex flex-row justify-between items-center">

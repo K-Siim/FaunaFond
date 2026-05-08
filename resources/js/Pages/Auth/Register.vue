@@ -163,7 +163,7 @@ const submit = () => {
 input:focus {
     outline: none;
     border-color: #275342;
-    box-shadow: 0 0 0 2px rgba(39, 83, 66, 0.1);
+    box-shadow: 0 0 0 2px #2753421a;
 }
 
 button:hover:not(:disabled) {
