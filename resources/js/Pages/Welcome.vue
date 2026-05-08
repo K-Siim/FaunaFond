@@ -228,6 +228,8 @@
 
         </div>
       </section>
+
+
       <section class="bg-[#275342] text-[#fffdf5] py-[120px] text-center relative overflow-hidden">
         <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);"></div>
         <div class="relative max-w-[700px] mx-auto px-8">
@@ -242,6 +244,8 @@
         </div>
       </section>
     </main>
+
+
     <footer class="bg-[#fffdf5] pt-14 pb-7">
       <div class="max-w-[1160px] mx-auto px-8 flex justify-between items-center pb-10 border-b border-[#275342]/10 flex-wrap gap-5">
         <a href="#" class="flex items-center gap-2.5 text-xl font-bold text-[#275342] no-underline">
@@ -257,6 +261,7 @@
           <a href="#" class="text-[#0e2c20] no-underline text-sm opacity-70 hover:opacity-100 transition-opacity">Kontakt</a>
         </div>
       </div>
+
     </footer>
   </div>
 </template>
