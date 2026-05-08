@@ -230,7 +230,7 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                         <p v-if="medicationForm.errors.frequency_amount" class="text-red-500 text-xs -mt-2">{{ medicationForm.errors.frequency_amount }}</p>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">
-                            Meeldetuletuse kellaaeg
+                            Korduva ravimi kellaaeg
                         </label>
 
                         <input
