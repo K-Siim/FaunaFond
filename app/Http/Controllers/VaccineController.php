@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class VaccineController extends Controller
 {
-
     public function store(Request $request, Pet $pet)
     {
         $validated = $request->validate([

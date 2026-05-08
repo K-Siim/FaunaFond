@@ -72,33 +72,25 @@ class ProfileController extends Controller
     }
 
     public function settings()
-{
-    return Inertia::render('Profile/Settings');
-}
+    {
+        return Inertia::render('Profile/Settings');
+    }
 
+    public function editPassword()
+    {
+        return Inertia::render('Profile/ChangePassword');
+    }
 
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
 
+        $request->user()->update([
+            'password' => Hash::make($request->password),
+        ]);
 
-public function editPassword()
-{
-    return Inertia::render('Profile/ChangePassword');
-}
-
-public function updatePassword(Request $request)
-{
-    $request->validate([
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    ]);
-
-    $request->user()->update([
-        'password' => Hash::make($request->password),
-    ]);
-
-    return redirect()->route('profile.settings')->with('success', 'Salasõna muudetud!');
-}
-
-
-
-
-
+        return redirect()->route('profile.settings')->with('success', 'Salasõna muudetud!');
+    }
 }

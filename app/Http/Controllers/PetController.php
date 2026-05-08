@@ -156,7 +156,6 @@ class PetController extends Controller
     public function edit(Pet $pet)
     {
         $this->authorizePetOwner($pet);
-        
 
         return Inertia::render('Pets/Edit', [
             'pet' => $pet->append(['photo_url', 'formatted_dob', 'age']),
@@ -169,7 +168,4 @@ class PetController extends Controller
             abort(403, 'Unauthorized');
         }
     }
-
-
-
 }
