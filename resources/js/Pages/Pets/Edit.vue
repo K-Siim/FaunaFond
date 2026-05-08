@@ -65,12 +65,9 @@ function submit() {
     <div class="flex justify-center p-6">
       <div class="w-full max-w-md">
         <div class="space-y-6 bg-transparent">
-
           <form @submit.prevent="submit" class="space-y-6">
-
-            <!-- Foto -->
             <div class="space-y-2">
-              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Foto</Label>
+              <Label class="font-medium text-lg" style="color: #275342">Foto</Label>
               <Input
                 type="file"
                 accept="image/*"
@@ -86,10 +83,8 @@ function submit() {
                 {{ form.errors.image }}
               </p>
             </div>
-
-            <!-- Nimi -->
             <div class="space-y-2">
-              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Nimi</Label>
+              <Label class="font-medium text-lg" style="color: #275342">Nimi</Label>
               <Input
                 v-model="form.name"
                 @input="form.name = capitalize(form.name)"
@@ -99,10 +94,8 @@ function submit() {
                 {{ form.errors.name }}
               </p>
             </div>
-
-            <!-- Kiip -->
             <div class="space-y-2">
-              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Kiip</Label>
+              <Label class="font-medium text-lg" style="color: #275342">Kiip</Label>
               <Input
                 v-model="form.chip"
                 type="number"
@@ -112,10 +105,8 @@ function submit() {
                 {{ form.errors.chip }}
               </p>
             </div>
-
-            <!-- Liik -->
             <div class="space-y-2">
-              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Liik</Label>
+              <Label class="font-medium text-lg" style="color: #275342">Liik</Label>
               <Input
                 v-model="form.species"
                 @input="form.species = capitalize(form.species)"
@@ -125,20 +116,16 @@ function submit() {
                 {{ form.errors.species }}
               </p>
             </div>
-
-            <!-- Tõug -->
             <div class="space-y-2">
-              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Tõug</Label>
+              <Label class="font-medium text-lg" style="color: #275342">Tõug</Label>
               <Input
                 v-model="form.breed"
                 @input="form.breed = capitalize(form.breed)"
                 placeholder="Tõug"
               />
             </div>
-
-            <!-- Sugu -->
             <div class="space-y-2">
-              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Sugu</Label>
+              <Label class="font-medium text-lg" style="color: #275342">Sugu</Label>
               <Select v-model="form.gender">
                 <SelectTrigger class="h-12 rounded-xl border border-input bg-[#FFFDF3] px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
                   <SelectValue placeholder="Vali sugu" />
@@ -152,10 +139,8 @@ function submit() {
                 {{ form.errors.gender }}
               </p>
             </div>
-
-            <!-- Sünniaeg -->
             <div class="space-y-2">
-              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Sünniaeg</Label>
+              <Label class="font-medium text-lg" style="color: #275342">Sünniaeg</Label>
               <Input
                 v-model="form.dob"
                 type="date"
@@ -164,10 +149,8 @@ function submit() {
                 {{ form.errors.dob }}
               </p>
             </div>
-
-            <!-- Kaal -->
             <div class="space-y-2">
-              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Kaal (kg)</Label>
+              <Label class="font-medium text-lg" style="color: #275342">Kaal (kg)</Label>
               <Input
                 v-model="form.weight"
                 type="number"
@@ -175,10 +158,8 @@ function submit() {
                 placeholder="Kaal (kg)"
               />
             </div>
-
-            <!-- Kirjeldus -->
             <div class="space-y-2">
-              <Label class="font-medium text-lg" style="color: rgb(39 83 66 / var(--tw-text-opacity, 1))">Kirjeldus</Label>
+              <Label class="font-medium text-lg" style="color: #275342">Kirjeldus</Label>
               <Textarea
                 v-model="form.description"
                 placeholder="Kirjeldus"

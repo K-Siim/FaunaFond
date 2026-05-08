@@ -161,7 +161,6 @@ function deletePet() {
             @submit-files="submitFiles"
         />
 
-        <!-- Delete pet modal -->
         <div
             v-if="showDeleteModal"
             class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"

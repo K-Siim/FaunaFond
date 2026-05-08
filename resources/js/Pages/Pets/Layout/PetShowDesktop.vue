@@ -51,8 +51,6 @@ const stats = computed(() => ({
 <template>
     <div class="min-h-screen bg-[#E7F0E4] text-[#275342] pt-36 pb-20">
         <div class="mx-auto max-w-7xl px-6">
-
-            <!-- Header -->
             <div class="mb-8 flex items-start justify-between gap-6">
                 <div class="flex items-center gap-5">
                     <img
@@ -100,8 +98,6 @@ const stats = computed(() => ({
                     </button>
                 </div>
             </div>
-
-            <!-- Stats -->
             <div class="mb-8 grid grid-cols-4 gap-4">
                 <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none ">
                     <CardHeader class="pb-2 ">
@@ -128,11 +124,7 @@ const stats = computed(() => ({
                     </CardHeader>
                 </Card>
             </div>
-
-            <!-- Main grid -->
             <div class="grid grid-cols-12 gap-6">
-
-                <!-- Left: visiidid -->
                 <div class="col-span-8 ">
                     <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none">
                         <CardHeader class="flex flex-row items-center justify-between space-y-0">
@@ -255,8 +247,6 @@ const stats = computed(() => ({
                         </CardContent>
                     </Card>
                 </div>
-
-                <!-- Right -->
                 <div class="col-span-4 space-y-6">
                     <Card class="bg-[#FFFDF5] rounded-2xl border-[#275342]/40 shadow-none">
                         <CardHeader class="flex flex-row items-center justify-between space-y-0">
@@ -272,7 +262,6 @@ const stats = computed(() => ({
                             </button>
                         </CardHeader>
                         <CardContent class="space-y-6">
-                            <!-- Vaktsiinid -->
                             <div>
                                 <div class="flex items-center justify-between mb-3">
                                     <h3 class="text-sm font-medium text-[#275342]">Vaktsiinid</h3>
@@ -307,10 +296,7 @@ const stats = computed(() => ({
                                     </div>
                                 </div>
                             </div>
-
                             <Separator class="bg-[#275342]/10" />
-
-                            <!-- Ravimid -->
                             <div>
                                 <div class="flex items-center justify-between mb-3">
                                     <h3 class="text-sm font-medium text-[#275342]">Ravimid</h3>
@@ -350,8 +336,6 @@ const stats = computed(() => ({
                             </div>
                         </CardContent>
                     </Card>
-
-                    <!-- Meeldetuletused -->
                     <Card class="bg-[#FFFDF5] rounded-2xl border-0 shadow-none">
                         <CardContent class="p-0">
                             <RemindersSection

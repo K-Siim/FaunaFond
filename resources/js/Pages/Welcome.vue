@@ -2,8 +2,6 @@
   <div class="bg-[#e8f0e5] text-[#0e2c20] font-sans antialiased overflow-x-hidden" style="font-family: 'DM Sans', system-ui, sans-serif;">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-
-    <!-- NAV -->
     <nav class="sticky top-0 z-[100] bg-[#e8f0e5]/90 backdrop-blur-md border-b border-[#275342]/10">
       <div class="max-w-[1160px] mx-auto px-8 flex items-center gap-8 py-[18px]">
         <a href="#" class="flex items-center gap-2.5 text-xl font-bold text-[#275342] no-underline shrink-0">
@@ -52,9 +50,7 @@
         <Link :href="route('login')" @click="mobileOpen = false" class="inline-flex items-center justify-center bg-[#275342] text-[#fffdf5] font-semibold rounded-full px-9 py-[18px] text-base no-underline">Logi sisse</Link>
       </div>
     </nav>
-
     <main>
-      <!-- HERO -->
       <section class="relative py-24 pb-[120px] overflow-hidden">
         <div class="absolute top-[-100px] right-[-150px] w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(39,83,66,0.12)_0%,transparent_70%)] rounded-full pointer-events-none"></div>
         <div class="max-w-[1160px] mx-auto px-8 grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-20 items-center">
@@ -82,8 +78,6 @@
               </a>
             </div>
           </div>
-
-          <!-- PHONE MOCKUP -->
           <div class="hidden md:flex justify-center" aria-hidden="true">
             <div class="w-[300px] bg-[#e8f0e5] border-[10px] border-[#0e2c20] rounded-[44px] overflow-hidden shadow-[0_40px_80px_rgba(14,44,32,0.2),0_0_0_1px_rgba(0,0,0,0.05)] relative shrink-0">
               <div class="w-[100px] h-6 bg-[#0e2c20] rounded-b-[18px] mx-auto mb-1"></div>
@@ -138,8 +132,6 @@
           </div>
         </div>
       </section>
-
-      <!-- PROBLEM -->
       <section class="bg-[#fffdf5] py-28" id="probleem">
         <div class="max-w-[1160px] mx-auto px-8">
           <div class="text-center max-w-[660px] mx-auto mb-16">
@@ -156,12 +148,8 @@
           </div>
         </div>
       </section>
-
-      <!-- FEATURES -->
       <section class="py-12" id="funktsioonid">
         <div class="max-w-[1160px] mx-auto px-8">
-
-          <!-- Feature 1 -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center py-20">
             <div>
               <div class="inline-flex items-center gap-2 bg-[#275342]/10 text-[#275342] px-4 py-1.5 rounded-full text-[13px] font-bold mb-6">
@@ -185,8 +173,6 @@
               />
             </div>
           </div>
-
-          <!-- Feature 2 -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center py-20 border-t border-[#275342]/10" id="kuidas">
             <div class="flex justify-center order-first md:order-none">
               <div class="w-[280px] bg-[#e8f0e5] border-[10px] border-[#0e2c20] rounded-[44px] overflow-hidden shadow-[0_40px_80px_rgba(14,44,32,0.2)] relative shrink-0">
@@ -242,8 +228,6 @@
 
         </div>
       </section>
-
-      <!-- CTA -->
       <section class="bg-[#275342] text-[#fffdf5] py-[120px] text-center relative overflow-hidden">
         <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);"></div>
         <div class="relative max-w-[700px] mx-auto px-8">
@@ -258,8 +242,6 @@
         </div>
       </section>
     </main>
-
-    <!-- FOOTER -->
     <footer class="bg-[#fffdf5] pt-14 pb-7">
       <div class="max-w-[1160px] mx-auto px-8 flex justify-between items-center pb-10 border-b border-[#275342]/10 flex-wrap gap-5">
         <a href="#" class="flex items-center gap-2.5 text-xl font-bold text-[#275342] no-underline">

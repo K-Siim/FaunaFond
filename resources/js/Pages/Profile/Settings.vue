@@ -23,10 +23,7 @@ const reminders = ref({
 <template>
     <div>
         <Head title="Sätted" />
-
         <div class="min-h-screen w-full relative" style="background-color: #e7f0e4">
-
-            <!-- Hamburger nupp -->
             <button @click="toggleMenu" class="absolute top-6 left-6 z-50 p-2"
                 style="color: #275342" aria-label="Menüü">
                 <svg v-if="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8"
@@ -40,8 +37,6 @@ const reminders = ref({
                         d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-
-            <!-- Profiili ikoon -->
             <Link :href="route('profile.index')" class="absolute top-6 right-6 z-50 p-2"
                 style="color: #275342">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8"
@@ -50,8 +45,6 @@ const reminders = ref({
                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
             </Link>
-
-            <!-- Slide-in menüü -->
             <transition name="slide">
                 <div v-if="menuOpen" class="fixed inset-0 z-40" style="background-color: #e7f0e4">
                     <div class="flex flex-col pt-24 px-8 space-y-6">
@@ -63,11 +56,7 @@ const reminders = ref({
                     </div>
                 </div>
             </transition>
-
-            <!-- Sisu -->
             <div class="flex flex-col min-h-screen px-6 pt-24 pb-8">
-
-                <!-- Meeldetuletused -->
                 <div class="mb-8">
                     <div class="flex items-center gap-3 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
@@ -107,10 +96,7 @@ const reminders = ref({
                         </label>
                     </div>
                 </div>
-
                 <div style="border-bottom: 1px solid #275342"></div>
-
-                <!-- Salasõna -->
                 <div class="mt-8">
                     <div class="flex items-center gap-3 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"

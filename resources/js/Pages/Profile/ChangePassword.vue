@@ -29,8 +29,6 @@ const submit = () => {
         <Head title="Parooli muutmine" />
 
         <div class="min-h-screen w-full relative" style="background-color: #e7f0e4">
-
-            <!-- Hamburger nupp -->
             <button @click="toggleMenu" class="absolute top-6 left-6 z-50 p-2"
                 style="color: #275342" aria-label="Menüü">
                 <svg v-if="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8"
@@ -44,8 +42,6 @@ const submit = () => {
                         d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-
-            <!-- X nupp lehe ülaosas -->
             <Link :href="route('profile.settings')" class="absolute top-6 right-6 z-50 p-2"
                 style="color: #275342">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
@@ -53,8 +49,6 @@ const submit = () => {
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </Link>
-
-            <!-- Slide-in menüü -->
             <transition name="slide">
                 <div v-if="menuOpen" class="fixed inset-0 z-40" style="background-color: #e7f0e4">
                     <div class="flex flex-col pt-24 px-8 space-y-6">
@@ -66,8 +60,6 @@ const submit = () => {
                     </div>
                 </div>
             </transition>
-
-            <!-- Sisu -->
             <div class="flex flex-col items-center justify-center min-h-screen px-6">
                 <div class="w-full max-w-sm">
 

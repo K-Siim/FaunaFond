@@ -190,7 +190,6 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
 
                     <template v-if="treatmentType === 'ravim'">
 
-                        <!-- Doos -->
                         <div class="flex gap-3 w-full">
                             <input
                                 v-model="medicationForm.dose_amount"
@@ -211,7 +210,6 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                         </div>
                         <p v-if="medicationForm.errors.dose_amount" class="text-red-500 text-xs -mt-2">{{ medicationForm.errors.dose_amount }}</p>
 
-                        <!-- Sagedus -->
                         <div class="flex gap-3 w-full">
                             <input
                                 v-model="medicationForm.frequency_amount"
@@ -243,7 +241,6 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                     </div>
                     </template>
 
-                    <!-- Date1 picker -->
                     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
                         <div class="px-4 pt-3 pb-1"><p class="text-xs text-gray-500">{{ date1Label }}</p></div>
                         <div class="flex items-center justify-between px-4 pb-3">
@@ -285,7 +282,6 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                         </div>
                     </div>
 
-                    <!-- Date2 picker -->
                     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
                         <div class="px-4 pt-3 pb-1"><p class="text-xs text-gray-500">{{ date2Label }}</p></div>
                         <div class="flex items-center justify-between px-4 pb-3">
@@ -326,8 +322,6 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                             </div>
                         </div>
                     </div>
-
-                    <!-- Partii number (ainult vaktsiin) -->
                     <input v-if="treatmentType === 'vaktsiin'" v-model="vaccineForm.batch_number" type="text" placeholder="Partii number (valikuline)" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
 
                     <button @click="submit" :disabled="currentForm.processing" class="w-full bg-[#2D5A3D] text-white font-semibold tracking-widest text-sm py-4 rounded-xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60">
