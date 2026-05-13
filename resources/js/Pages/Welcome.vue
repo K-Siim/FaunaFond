@@ -255,11 +255,6 @@
           </svg>
           FaunaFond
         </a>
-        <div class="flex gap-6 flex-wrap">
-          <a href="#" class="text-[#0e2c20] no-underline text-sm opacity-70 hover:opacity-100 transition-opacity">Privaatsuspoliitika</a>
-          <a href="#" class="text-[#0e2c20] no-underline text-sm opacity-70 hover:opacity-100 transition-opacity">Kasutustingimused</a>
-          <a href="#" class="text-[#0e2c20] no-underline text-sm opacity-70 hover:opacity-100 transition-opacity">Kontakt</a>
-        </div>
       </div>
 
     </footer>

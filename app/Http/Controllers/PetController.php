@@ -92,7 +92,7 @@ class PetController extends Controller
             ])
             ->values();
             
-        $medicationTodayReminders = $pet->medications
+        $medicationRepeatReminders = $pet->medications
             ->filter(fn ($m) => $m->shouldShowTodayReminder())
             ->map(fn ($m) => [
                 'id'             => 'med_' . $m->id,
@@ -109,7 +109,7 @@ class PetController extends Controller
                 ->load(['vetVisits', 'vaccines', 'medications', 'vetVisits.files'])
                 ->append(['photo_url', 'formatted_dob', 'age']),
             'vaccineExpiryReminders' => $vaccineExpiryReminders,
-            'medicationTodayReminders' => $medicationTodayReminders,
+            'medicationRepeatReminders' => $medicationRepeatReminders,
         ]);
     
     }

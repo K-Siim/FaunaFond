@@ -9,7 +9,7 @@ const props = defineProps({
     reminders:              Array,
     vaccineExpiryReminders: Array,
     pets:                   Array,  
-    medicationTodayReminders: { type: Array, default: () => [] },
+    medicationRepeatReminders: { type: Array, default: () => [] },
 });
 </script>
 
@@ -59,7 +59,7 @@ const props = defineProps({
                         class="w-full max-w-md mx-auto"
                         :reminders="reminders ?? []"
                         :vaccine-expiry-reminders="vaccineExpiryReminders ?? []"
-                        :medication-today-reminders="medicationTodayReminders ?? []"
+                        :medication-repeat-reminders="medicationRepeatReminders ?? []"
                         :pets="pets"
                     />                    
                 </div>

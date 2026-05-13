@@ -34,7 +34,7 @@ class DashboardController extends Controller
                     ]);
             })->values();
 
-        $medicationTodayReminders = $pets->load('medications')
+        $medicationRepeatReminders = $pets->load('medications')
             ->flatMap(function ($pet) {
                 return $pet->medications
                     ->filter(fn ($m) => $m->shouldShowTodayReminder())
@@ -52,7 +52,7 @@ class DashboardController extends Controller
             'pets'                   => $pets,
             'reminders'              => $reminders,
             'vaccineExpiryReminders' => $vaccineExpiryReminders,
-            'medicationTodayReminders' => $medicationTodayReminders,
+            'medicationRepeatReminders' => $medicationRepeatReminders,
         ]);
     }
 }

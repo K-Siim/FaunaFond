@@ -8,7 +8,7 @@ const props = defineProps({
     pendingFiles:             { type: Object,   required: true },
     formatDate:               { type: Function, required: true },
     vaccineExpiryReminders:   { type: Array,    default: () => [] },
-    medicationTodayReminders: { type: Array,    default: () => [] },
+    medicationRepeatReminders: { type: Array,    default: () => [] },
 });
 
 defineEmits([
@@ -159,7 +159,7 @@ function toggleMedication(id) {
                 :pet-id="pet.id"
                 :reminders="pet.reminders ?? []"
                 :vaccine-expiry-reminders="vaccineExpiryReminders"
-                :medication-today-reminders="medicationTodayReminders"
+                :medication-repeat-reminders="medicationRepeatReminders"
                 :format-date="formatDate"
             />
         </section>

@@ -44,7 +44,7 @@ const stats = computed(() => ({
     reminders:
         (props.pet.reminders?.length || 0) +
         (props.vaccineExpiryReminders?.length || 0) +
-        (props.medicationTodayReminders?.length || 0),
+        (props.medicationRepeatReminders?.length || 0),
 }));
 </script>
 
@@ -342,7 +342,7 @@ const stats = computed(() => ({
                                 :pet-id="pet.id"
                                 :reminders="pet.reminders ?? []"
                                 :vaccine-expiry-reminders="vaccineExpiryReminders"
-                                :medication-today-reminders="medicationTodayReminders"
+                                :medication-repeat-reminders="medicationRepeatReminders"
                                 :format-date="formatDate"
                             />
                         </CardContent>

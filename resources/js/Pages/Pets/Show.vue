@@ -16,7 +16,7 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
-    medicationTodayReminders: {
+    medicationRepeatReminders: {
         type: Array,
         default: () => [],
     },
@@ -131,7 +131,7 @@ function deletePet() {
             :pending-files="pendingFiles"
             :format-date="formatDate"
             :vaccine-expiry-reminders="vaccineExpiryReminders"
-            :medication-today-reminders="medicationTodayReminders"
+            :medication-repeat-reminders="medicationRepeatReminders"
             @open-vet-modal="showVetModal = true"
             @open-medical-modal="showMedicalModal = true"
             @confirm-delete="confirmDelete"

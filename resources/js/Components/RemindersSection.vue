@@ -9,7 +9,7 @@ const props = defineProps({
     petId:                  { type: Number,   default: null },
     pets:                   { type: Array,    default: () => [] },
     formatDate:             { type: Function, default: null },
-    medicationTodayReminders: { type: Array, default: () => [] },
+    medicationRepeatReminders: { type: Array, default: () => [] },
 });
 
 function fmt(dateStr) {
@@ -70,7 +70,7 @@ const visibleExpiries   = () => props.vaccineExpiryReminders.filter(r => !dismis
 const hasAnyReminders = () =>
     visibleExpiries().length +
     props.reminders.length +
-    props.medicationTodayReminders.length > 0;
+    props.medicationRepeatReminders.length > 0;
 
 function isNight(time) {
     if (!time) return false;
@@ -83,7 +83,6 @@ function isNight(time) {
     <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full">
         <div class="flex flex-col gap-6">
 
-            <!-- Header -->
             <div class="flex flex-row justify-between items-center">
                 <h3 class="text-lg font-semibold text-[#275342]">Meeldetuletused</h3>
                 <button
@@ -92,7 +91,6 @@ function isNight(time) {
                 >{{ showReminderForm ? '×' : '+' }}</button>
             </div>
 
-            <!-- Empty state -->
             <p v-if="!hasAnyReminders()" class="text-md text-[#275342] text-center py-4">
                 Meeldetuletusi pole veel lisatud.
             </p>
@@ -222,7 +220,7 @@ function isNight(time) {
 
                 <!-- Repeated medication reminders -->
                 <div
-                    v-for="r in medicationTodayReminders"
+                    v-for="r in medicationRepeatReminders"
                     :key="r.id"
                     class="bg-[#DAF2D0] text-[#275342] border border-green-100 rounded-2xl overflow-hidden shadow-sm"
                 >
