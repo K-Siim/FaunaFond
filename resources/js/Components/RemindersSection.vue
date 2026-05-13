@@ -1,15 +1,21 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useForm, router } from "@inertiajs/vue3";
-import { CircleAlert, AlarmClock, Bell, Sun, Moon } from '@lucide/vue'
+import { CircleAlert, AlarmClock, Bell, Sun, Moon, ChevronDownIcon } from '@lucide/vue'
+import { getLocalTimeZone, today, parseDate } from '@internationalized/date'
+import { Button } from '@/Components/ui/button'
+import { Calendar } from '@/Components/ui/calendar'
+import { Input } from '@/Components/ui/input'
+import { Label } from '@/Components/ui/label'
+import { Popover, PopoverContent, PopoverTrigger } from '@/Components/ui/popover'
 
 const props = defineProps({
-    reminders:              { type: Array,    default: () => [] },
-    vaccineExpiryReminders: { type: Array,    default: () => [] },
-    petId:                  { type: Number,   default: null },
-    pets:                   { type: Array,    default: () => [] },
-    formatDate:             { type: Function, default: null },
-    medicationRepeatReminders: { type: Array, default: () => [] },
+    reminders:                 { type: Array,    default: () => [] },
+    vaccineExpiryReminders:    { type: Array,    default: () => [] },
+    petId:                     { type: Number,   default: null },
+    pets:                      { type: Array,    default: () => [] },
+    formatDate:                { type: Function, default: null },
+    medicationRepeatReminders: { type: Array,    default: () => [] },
 });
 
 function fmt(dateStr) {
@@ -23,6 +29,8 @@ function fmt(dateStr) {
 const expandedId        = ref(null);
 const showReminderForm  = ref(false);
 const dismissedExpiries = ref(new Set());
+const calendarOpen      = ref(false);
+const selectedDate      = ref(null);
 
 function toggleReminder(id) {
     expandedId.value = expandedId.value === id ? null : id;
@@ -47,6 +55,21 @@ watch(() => reminderForm.type, () => {
     reminderMode.value = 'onetime';
 });
 
+watch(selectedDate, (val) => {
+    if (val) {
+        reminderForm.reminder_date = `${val.year}-${String(val.month).padStart(2, '0')}-${String(val.day).padStart(2, '0')}`;
+    } else {
+        reminderForm.reminder_date = "";
+    }
+});
+
+function formatSelectedDate(dateVal) {
+    if (!dateVal) return "Vali kuupäev";
+    return dateVal.toDate(getLocalTimeZone()).toLocaleDateString('et-EE', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+    });
+}
+
 const namePlaceholders = {
     vaccine:   "Vaktsiini nimi *",
     medicine:  "Ravimi nimi *",
@@ -59,6 +82,7 @@ function submitReminder() {
         onSuccess: () => {
             reminderForm.reset("type", "name", "notes", "reminder_date", "reminder_time");
             if (!props.petId) reminderForm.pet_id = "";
+            selectedDate.value = null;
             showReminderForm.value = false;
         },
     });
@@ -73,7 +97,7 @@ const vaccineReminders  = () => props.reminders.filter(r => r.type === "vaccine"
 const vetReminders      = () => props.reminders.filter(r => r.type === "vet_visit");
 const medicineReminders = () => props.reminders.filter(r => r.type === "medicine");
 const visibleExpiries   = () => props.vaccineExpiryReminders.filter(r => !dismissedExpiries.value.has(r.id));
-const hasAnyReminders = () =>
+const hasAnyReminders   = () =>
     visibleExpiries().length +
     props.reminders.length +
     props.medicationRepeatReminders.length > 0;
@@ -103,7 +127,6 @@ function isNight(time) {
 
             <div v-else class="flex flex-col gap-3">
 
-                <!-- Vaccine expiry -->
                 <div
                     v-for="r in visibleExpiries()"
                     :key="r.id"
@@ -111,19 +134,19 @@ function isNight(time) {
                 >
                     <div class="w-full flex items-center justify-between text-[#275342] px-3 py-3">
                         <div class="flex items-center gap-3 min-w-0">
-                            <CircleAlert class=" flex-shrink-0" />
+                            <CircleAlert class="flex-shrink-0" />
                             <div class="flex flex-col items-start text-left">
-                                <span class="text-md font-semibold ">{{ r.pet_name }}</span>
+                                <span class="text-md font-semibold">{{ r.pet_name }}</span>
                                 <span class="text-md mt-0.5">
                                     {{ r.name }} {{ r.is_expired ? 'aegus' : 'aegub' }}
                                     <strong>{{ r.end_date }}</strong>
                                 </span>
                             </div>
                         </div>
+                        <button @click="dismissExpiry(r.id)" class="hover:text-red-700 transition text-xl leading-none flex-shrink-0 ml-2">×</button>
                     </div>
                 </div>
 
-                <!-- Vaccine reminders -->
                 <div
                     v-for="r in vaccineReminders()"
                     :key="r.id"
@@ -133,8 +156,8 @@ function isNight(time) {
                         class="w-full flex items-center justify-between px-3 py-3 hover:bg-[#FFEEA1] transition"
                         @click="toggleReminder(r.id)"
                     >
-                        <div class="flex items-center gap-3 min-w-0 ">
-                            <AlarmClock class=" flex-shrink-0" />
+                        <div class="flex items-center gap-3 min-w-0">
+                            <AlarmClock class="flex-shrink-0" />
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-md font-semibold">{{ r.pet?.name }}</span>
                                 <span class="text-md mt-0.5">
@@ -156,7 +179,6 @@ function isNight(time) {
                     </div>
                 </div>
 
-                <!-- Vet visit reminders -->
                 <div
                     v-for="r in vetReminders()"
                     :key="r.id"
@@ -169,7 +191,7 @@ function isNight(time) {
                         <div class="flex items-center gap-3 min-w-0">
                             <Bell class="flex-shrink-0" />
                             <div class="flex flex-col items-start text-left">
-                                <span class="text-md font-semibold ">{{ r.pet?.name }}</span>
+                                <span class="text-md font-semibold">{{ r.pet?.name }}</span>
                                 <span class="text-md mt-0.5">
                                     {{ r.name }} — arstivisiit
                                     <strong>{{ fmt(r.reminder_date) }}</strong>
@@ -189,7 +211,6 @@ function isNight(time) {
                     </div>
                 </div>
 
-                <!-- Medicine reminders -->
                 <div
                     v-for="r in medicineReminders()"
                     :key="r.id"
@@ -200,13 +221,10 @@ function isNight(time) {
                         @click="toggleReminder(r.id)"
                     >
                         <div class="flex items-center gap-3 min-w-0">
-                            <component
-                                :is="isNight(r.reminder_time) ? Moon : Sun"
-                                class=" flex-shrink-0"
-                            />
+                            <component :is="isNight(r.reminder_time) ? Moon : Sun" class="flex-shrink-0" />
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-md font-semibold">{{ r.pet?.name }}</span>
-                                <span class="text-md  mt-0.5">
+                                <span class="text-md mt-0.5">
                                     {{ r.name }} — kellaaeg
                                     <strong>{{ r.reminder_time || fmt(r.reminder_date) }}</strong>
                                 </span>
@@ -224,7 +242,6 @@ function isNight(time) {
                     </div>
                 </div>
 
-                <!-- Repeated medication reminders -->
                 <div
                     v-for="r in medicationRepeatReminders"
                     :key="r.id"
@@ -232,13 +249,10 @@ function isNight(time) {
                 >
                     <div class="w-full flex items-center justify-between px-3 py-3">
                         <div class="flex items-center gap-3 min-w-0">
-                            <component
-                                :is="isNight(r.reminder_time) ? Moon : Sun"
-                                class="flex-shrink-0"
-                            />
+                            <component :is="isNight(r.reminder_time) ? Moon : Sun" class="flex-shrink-0" />
                             <div class="flex flex-col items-start text-left">
                                 <span class="text-md font-semibold">{{ r.pet_name }}</span>
-                                <span class="text-md  mt-0.5">
+                                <span class="text-md mt-0.5">
                                     {{ r.name }} — kellaaeg
                                     <strong>{{ r.reminder_time }}</strong>
                                 </span>
@@ -246,6 +260,7 @@ function isNight(time) {
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -261,12 +276,11 @@ function isNight(time) {
                 <button
                     @click="showReminderForm = false"
                     class="rounded-full border border-[#275342]/30 px-2 text-[#275342] hover:bg-[#275342] hover:text-white transition"
-                >
-                    ×
-                </button>
+                >×</button>
             </div>
 
             <div class="flex flex-col gap-3">
+
                 <div v-if="!petId">
                     <select
                         v-model="reminderForm.pet_id"
@@ -291,22 +305,17 @@ function isNight(time) {
                     <p v-if="reminderForm.errors.type" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.type }}</p>
                 </div>
 
-                <!-- One-time / Recurring toggle — only for medicine -->
                 <div v-if="reminderForm.type === 'medicine'" class="flex gap-2">
                     <button
                         type="button"
                         @click="reminderMode = 'onetime'"
                         :class="['flex-1 py-2 rounded-xl text-sm font-medium border transition', reminderMode === 'onetime' ? 'bg-[#275342] text-white border-[#275342]' : 'bg-white text-[#275342] border-gray-200']"
-                    >
-                        Ühekordne
-                    </button>
+                    >Ühekordne</button>
                     <button
                         type="button"
                         @click="reminderMode = 'recurring'"
                         :class="['flex-1 py-2 rounded-xl text-sm font-medium border transition', reminderMode === 'recurring' ? 'bg-[#275342] text-white border-[#275342]' : 'bg-white text-[#275342] border-gray-200']"
-                    >
-                        Korduv
-                    </button>
+                    >Korduv</button>
                 </div>
 
                 <div>
@@ -326,36 +335,52 @@ function isNight(time) {
                     class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#275342]/30 resize-none"
                 />
 
-                <!-- One-time: show date + time as normal -->
-                <div v-if="reminderForm.type !== 'medicine' || reminderMode === 'onetime'" class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Kuupäev *</label>
-                        <input
-                            v-model="reminderForm.reminder_date"
-                            type="date"
-                            class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
-                        />
+                <div v-if="reminderForm.type !== 'medicine' || reminderMode === 'onetime'" class="flex gap-3">
+                    <div class="flex flex-col gap-2 flex-1">
+                        <Label class="text-sm text-gray-500 px-1">Kuupäev *</Label>
+                        <Popover v-model:open="calendarOpen">
+                            <PopoverTrigger as-child>
+                                <Button
+                                    variant="outline"
+                                    class="w-full justify-between font-normal text-sm text-[#275342] border-gray-200 rounded-xl px-4 py-3 h-auto"
+                                >
+                                    {{ formatSelectedDate(selectedDate) }}
+                                    <ChevronDownIcon class="w-4 h-4" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent class="w-auto overflow-hidden p-0" align="start">
+                                <Calendar
+                                    :model-value="selectedDate"
+                                    @update:model-value="(value) => {
+                                        if (value) {
+                                            selectedDate = value;
+                                            calendarOpen = false;
+                                        }
+                                    }"
+                                />
+                            </PopoverContent>
+                        </Popover>
                         <p v-if="reminderForm.errors.reminder_date" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.reminder_date }}</p>
                     </div>
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Kellaaeg</label>
-                        <input
+
+                    <div class="flex flex-col gap-2 flex-1">
+                        <Label class="text-sm text-gray-500 px-1">Kellaaeg</Label>
+                        <Input
                             v-model="reminderForm.reminder_time"
                             type="time"
-                            class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                            class="w-full text-sm text-[#275342] border-gray-200 rounded-xl px-4 py-3 h-auto appearance-none [&::-webkit-calendar-picker-indicator]:hidden"
                         />
                     </div>
                 </div>
 
-                <!-- Recurring: only show time, no date -->
-                <div v-if="reminderForm.type === 'medicine' && reminderMode === 'recurring'">
-                    <label class="block text-xs text-gray-500 mb-1">Korduva ravimi kellaaeg *</label>
-                    <input
+                <div v-if="reminderForm.type === 'medicine' && reminderMode === 'recurring'" class="flex flex-col gap-2">
+                    <Label class="text-sm text-gray-500 px-1">Korduva ravimi kellaaeg *</Label>
+                    <Input
                         v-model="reminderForm.reminder_time"
                         type="time"
-                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                        class="w-full text-sm text-[#275342] border-gray-200 rounded-xl px-4 py-3 h-auto appearance-none [&::-webkit-calendar-picker-indicator]:hidden"
                     />
-                    <p class="text-xs text-gray-400 mt-1">Meeldetuletus kuvatakse iga päev selle kellaajaga.</p>
+                    <p class="text-sm text-gray-400">Meeldetuletus kuvatakse iga päev selle kellaajaga.</p>
                 </div>
 
                 <button
@@ -365,6 +390,7 @@ function isNight(time) {
                 >
                     Salvesta meeldetuletus
                 </button>
+
             </div>
         </div>
     </div>
