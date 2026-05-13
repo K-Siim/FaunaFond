@@ -17,8 +17,6 @@ class MedicationController extends Controller
             'dose_unit' => 'required|string|max:50',
             'frequency_amount' => 'required|integer|min:1',
             'frequency_unit' => 'required|in:päevas,nädalas,kuus',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
         $pet->medications()->create([
@@ -41,8 +39,6 @@ class MedicationController extends Controller
             'dose_unit' => 'required|string|max:50',
             'frequency_amount' => 'required|integer|min:1',
             'frequency_unit' => 'required|in:päevas,nädalas,kuus',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
         $medication->update($validated);

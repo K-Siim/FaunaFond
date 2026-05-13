@@ -148,8 +148,6 @@ function submit() {
             @click.self="emit('close')"
         >
             <div class="relative w-full max-w-sm bg-[#F0F4EF] rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto border border-white/30">
-
-                <!-- Close button -->
                 <button
                     @click="emit('close')"
                     class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition z-10"
@@ -158,17 +156,12 @@ function submit() {
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
-
                 <div class="p-5 pt-12 flex flex-col gap-4">
-
-                    <!-- Pet name -->
                     <div class="flex items-center bg-white rounded-2xl px-4 py-3 border border-gray-200 shadow-sm">
                         <span class="text-sm text-gray-700 font-medium">
                             {{ petName || 'Lemmiku nimi' }}
                         </span>
                     </div>
-
-                    <!-- Treatment type -->
                     <Select v-model="treatmentType">
                         <SelectTrigger class="w-full h-12 rounded-2xl border-gray-200 bg-white shadow-sm">
                             <SelectValue />
@@ -178,8 +171,6 @@ function submit() {
                             <SelectItem value="ravim">Ravim</SelectItem>
                         </SelectContent>
                     </Select>
-
-                    <!-- Shared: name field -->
                     <div class="flex flex-col gap-1.5">
                         <Label>{{ treatmentType === 'vaktsiin' ? 'Vaktsiini nimi' : 'Ravimi nimi' }}</Label>
                         <Input
@@ -192,10 +183,7 @@ function submit() {
                             {{ currentForm.errors.name }}
                         </p>
                     </div>
-
-                    <!-- Vaccine fields -->
                     <template v-if="treatmentType === 'vaktsiin'">
-
                         <div class="flex flex-col gap-1.5">
                             <Label>
                                 Partii number
@@ -208,8 +196,6 @@ function submit() {
                                 class="h-12 rounded-2xl border-gray-200 bg-white shadow-sm"
                             />
                         </div>
-
-                        <!-- Administered date calendar -->
                         <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                             <div class="px-4 pt-4 pb-2">
                                 <Label>Andmise kuupäev</Label>
@@ -278,8 +264,6 @@ function submit() {
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Expiry date calendar -->
                         <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                             <div class="px-4 pt-4 pb-2">
                                 <Label>Aegumise kuupäev</Label>
@@ -348,12 +332,8 @@ function submit() {
                                 </div>
                             </div>
                         </div>
-
                     </template>
-
-                    <!-- Medication fields -->
                     <template v-if="treatmentType === 'ravim'">
-
                         <div class="flex flex-col gap-1.5">
                             <Label>Annus</Label>
                             <div class="flex gap-3">
@@ -376,7 +356,6 @@ function submit() {
                                 </Select>
                             </div>
                         </div>
-
                         <div class="flex flex-col gap-1.5">
                             <Label>Sagedus</Label>
                             <div class="flex gap-3">
@@ -399,10 +378,7 @@ function submit() {
                                 </Select>
                             </div>
                         </div>
-
                     </template>
-
-                    <!-- Submit -->
                     <button
                         @click="submit"
                         :disabled="currentForm.processing"
@@ -410,7 +386,6 @@ function submit() {
                     >
                         {{ currentForm.processing ? 'Salvestamine...' : 'SALVESTA' }}
                     </button>
-
                 </div>
             </div>
         </div>
