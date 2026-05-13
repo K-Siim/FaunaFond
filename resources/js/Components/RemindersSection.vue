@@ -108,11 +108,9 @@ function isNight(time) {
     return h >= 18 || h < 6;
 }
 </script>
-
 <template>
     <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full">
         <div class="flex flex-col gap-6">
-
             <div class="flex flex-row justify-between items-center">
                 <h3 class="text-lg font-semibold text-[#275342]">Meeldetuletused</h3>
                 <button
@@ -120,13 +118,10 @@ function isNight(time) {
                     class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition"
                 >{{ showReminderForm ? '×' : '+' }}</button>
             </div>
-
             <p v-if="!hasAnyReminders()" class="text-md text-[#275342] text-center py-4">
                 Meeldetuletusi pole veel lisatud.
             </p>
-
             <div v-else class="flex flex-col gap-3">
-
                 <div
                     v-for="r in visibleExpiries()"
                     :key="r.id"
@@ -146,7 +141,6 @@ function isNight(time) {
                         <button @click="dismissExpiry(r.id)" class="hover:text-red-700 transition text-xl leading-none flex-shrink-0 ml-2">×</button>
                     </div>
                 </div>
-
                 <div
                     v-for="r in vaccineReminders()"
                     :key="r.id"
@@ -178,7 +172,6 @@ function isNight(time) {
                         <p class="text-sm mt-3 leading-relaxed whitespace-pre-wrap">{{ r.notes }}</p>
                     </div>
                 </div>
-
                 <div
                     v-for="r in vetReminders()"
                     :key="r.id"
@@ -210,7 +203,6 @@ function isNight(time) {
                         <p class="text-sm mt-3 leading-relaxed whitespace-pre-wrap">{{ r.notes }}</p>
                     </div>
                 </div>
-
                 <div
                     v-for="r in medicineReminders()"
                     :key="r.id"
@@ -241,7 +233,6 @@ function isNight(time) {
                         <p class="text-sm mt-3 leading-relaxed whitespace-pre-wrap">{{ r.notes }}</p>
                     </div>
                 </div>
-
                 <div
                     v-for="r in medicationRepeatReminders"
                     :key="r.id"
@@ -260,11 +251,9 @@ function isNight(time) {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-
     <div
         v-if="showReminderForm"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
@@ -278,9 +267,7 @@ function isNight(time) {
                     class="rounded-full border border-[#275342]/30 px-2 text-[#275342] hover:bg-[#275342] hover:text-white transition"
                 >×</button>
             </div>
-
             <div class="flex flex-col gap-3">
-
                 <div v-if="!petId">
                     <select
                         v-model="reminderForm.pet_id"
@@ -291,7 +278,6 @@ function isNight(time) {
                     </select>
                     <p v-if="reminderForm.errors.pet_id" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.pet_id }}</p>
                 </div>
-
                 <div>
                     <select
                         v-model="reminderForm.type"
@@ -304,7 +290,6 @@ function isNight(time) {
                     </select>
                     <p v-if="reminderForm.errors.type" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.type }}</p>
                 </div>
-
                 <div v-if="reminderForm.type === 'medicine'" class="flex gap-2">
                     <button
                         type="button"
@@ -317,7 +302,6 @@ function isNight(time) {
                         :class="['flex-1 py-2 rounded-xl text-sm font-medium border transition', reminderMode === 'recurring' ? 'bg-[#275342] text-white border-[#275342]' : 'bg-white text-[#275342] border-gray-200']"
                     >Korduv</button>
                 </div>
-
                 <div>
                     <input
                         v-model="reminderForm.name"
@@ -327,14 +311,12 @@ function isNight(time) {
                     />
                     <p v-if="reminderForm.errors.name" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.name }}</p>
                 </div>
-
                 <textarea
                     v-model="reminderForm.notes"
                     rows="2"
                     placeholder="Märkused (valikuline)"
                     class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#275342]/30 resize-none"
                 />
-
                 <div v-if="reminderForm.type !== 'medicine' || reminderMode === 'onetime'" class="flex gap-3">
                     <div class="flex flex-col gap-2 flex-1">
                         <Label class="text-sm text-gray-500 px-1">Kuupäev *</Label>
@@ -362,7 +344,6 @@ function isNight(time) {
                         </Popover>
                         <p v-if="reminderForm.errors.reminder_date" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.reminder_date }}</p>
                     </div>
-
                     <div class="flex flex-col gap-2 flex-1">
                         <Label class="text-sm text-gray-500 px-1">Kellaaeg</Label>
                         <Input
@@ -372,7 +353,6 @@ function isNight(time) {
                         />
                     </div>
                 </div>
-
                 <div v-if="reminderForm.type === 'medicine' && reminderMode === 'recurring'" class="flex flex-col gap-2">
                     <Label class="text-sm text-gray-500 px-1">Korduva ravimi kellaaeg *</Label>
                     <Input
@@ -382,7 +362,6 @@ function isNight(time) {
                     />
                     <p class="text-sm text-gray-400">Meeldetuletus kuvatakse iga päev selle kellaajaga.</p>
                 </div>
-
                 <button
                     @click="submitReminder"
                     :disabled="reminderForm.processing"
@@ -390,7 +369,6 @@ function isNight(time) {
                 >
                     Salvesta meeldetuletus
                 </button>
-
             </div>
         </div>
     </div>
