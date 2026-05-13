@@ -187,6 +187,8 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
 
                     <input v-model="currentForm.name" type="text" :placeholder="nameLabel" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
                     <p v-if="currentForm.errors.name" class="text-red-500 text-xs -mt-2">{{ currentForm.errors.name }}</p>
+                    
+                    <input v-if="treatmentType === 'vaktsiin'" v-model="vaccineForm.batch_number" type="text" placeholder="Partii number (valikuline)" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
 
                     <template v-if="treatmentType === 'ravim'">
 
@@ -228,17 +230,6 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                             </select>
                         </div>
                         <p v-if="medicationForm.errors.frequency_amount" class="text-red-500 text-xs -mt-2">{{ medicationForm.errors.frequency_amount }}</p>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">
-                                Korduva ravimi kellaaeg
-                            </label>
-
-                            <input
-                                v-model="medicationForm.reminder_time"
-                                type="time"
-                                class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
-                            />
-                        </div>
                     </template>
 
                     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
@@ -276,7 +267,7 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                                         !isDate1Selected(day) && !isDate1Today(day) && day && 'text-gray-700 hover:bg-gray-100']">{{ day }}</button>
                             </div>
                             <div class="flex justify-between mt-3 pt-3 border-t border-gray-100">
-                                <button @click="date1 = null" class="text-sm text-gray-500 hover:text-gray-800">Clear</button>
+                                <button @click="date1 = null" class="text-sm text-gray-500 hover:text-gray-800">Tühjenda</button>
                                 <button @click="showDate1Calendar = false" class="text-sm font-semibold text-[#2D5A3D]">OK</button>
                             </div>
                         </div>
@@ -317,13 +308,11 @@ const currentForm = computed(() => treatmentType.value === 'vaktsiin' ? vaccineF
                                         !isDate2Selected(day) && !isDate2Today(day) && day && 'text-gray-700 hover:bg-gray-100']">{{ day }}</button>
                             </div>
                             <div class="flex justify-between mt-3 pt-3 border-t border-gray-100">
-                                <button @click="date2 = null" class="text-sm text-gray-500 hover:text-gray-800">Clear</button>
+                                <button @click="date2 = null" class="text-sm text-gray-500 hover:text-gray-800">Tühjenda</button>
                                 <button @click="showDate2Calendar = false" class="text-sm font-semibold text-[#2D5A3D]">OK</button>
                             </div>
                         </div>
                     </div>
-                    <input v-if="treatmentType === 'vaktsiin'" v-model="vaccineForm.batch_number" type="text" placeholder="Partii number (valikuline)" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D5A3D]/40"/>
-
                     <button @click="submit" :disabled="currentForm.processing" class="w-full bg-[#2D5A3D] text-white font-semibold tracking-widest text-sm py-4 rounded-xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60">
                         {{ currentForm.processing ? 'Salvestamine...' : 'SALVESTA' }}
                     </button>
