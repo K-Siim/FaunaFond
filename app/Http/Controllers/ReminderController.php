@@ -16,7 +16,7 @@ class ReminderController extends Controller
             'type'          => ['required', 'in:vaccine,medicine,vet_visit'],
             'name'          => ['required', 'string', 'max:200'],
             'notes'         => ['nullable', 'string', 'max:2000'],
-            'reminder_date' => ['required', 'date'],
+            'reminder_date' => ['required_if:type,vaccine', 'required_if:type,vet_visit', 'nullable', 'date'],
             'reminder_time' => ['nullable', 'date_format:H:i'],
         ]);
 

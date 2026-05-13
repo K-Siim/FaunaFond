@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useForm, router } from "@inertiajs/vue3";
 import { CircleAlert, AlarmClock, Bell, Sun, Moon } from '@lucide/vue'
 
@@ -39,6 +39,12 @@ const reminderForm = useForm({
     notes:         "",
     reminder_date: "",
     reminder_time: "",
+});
+
+const reminderMode = ref('onetime');
+
+watch(() => reminderForm.type, () => {
+    reminderMode.value = 'onetime';
 });
 
 const namePlaceholders = {
@@ -244,7 +250,6 @@ function isNight(time) {
         </div>
     </section>
 
-    <!-- Reminder modal -->
     <div
         v-if="showReminderForm"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
@@ -286,6 +291,24 @@ function isNight(time) {
                     <p v-if="reminderForm.errors.type" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.type }}</p>
                 </div>
 
+                <!-- One-time / Recurring toggle — only for medicine -->
+                <div v-if="reminderForm.type === 'medicine'" class="flex gap-2">
+                    <button
+                        type="button"
+                        @click="reminderMode = 'onetime'"
+                        :class="['flex-1 py-2 rounded-xl text-sm font-medium border transition', reminderMode === 'onetime' ? 'bg-[#275342] text-white border-[#275342]' : 'bg-white text-[#275342] border-gray-200']"
+                    >
+                        Ühekordne
+                    </button>
+                    <button
+                        type="button"
+                        @click="reminderMode = 'recurring'"
+                        :class="['flex-1 py-2 rounded-xl text-sm font-medium border transition', reminderMode === 'recurring' ? 'bg-[#275342] text-white border-[#275342]' : 'bg-white text-[#275342] border-gray-200']"
+                    >
+                        Korduv
+                    </button>
+                </div>
+
                 <div>
                     <input
                         v-model="reminderForm.name"
@@ -303,7 +326,8 @@ function isNight(time) {
                     class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#275342]/30 resize-none"
                 />
 
-                <div class="grid grid-cols-2 gap-3">
+                <!-- One-time: show date + time as normal -->
+                <div v-if="reminderForm.type !== 'medicine' || reminderMode === 'onetime'" class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Kuupäev *</label>
                         <input
@@ -323,10 +347,21 @@ function isNight(time) {
                     </div>
                 </div>
 
+                <!-- Recurring: only show time, no date -->
+                <div v-if="reminderForm.type === 'medicine' && reminderMode === 'recurring'">
+                    <label class="block text-xs text-gray-500 mb-1">Korduva ravimi kellaaeg *</label>
+                    <input
+                        v-model="reminderForm.reminder_time"
+                        type="time"
+                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                    />
+                    <p class="text-xs text-gray-400 mt-1">Meeldetuletus kuvatakse iga päev selle kellaajaga.</p>
+                </div>
+
                 <button
                     @click="submitReminder"
                     :disabled="reminderForm.processing"
-                    class="w-full bg-[#275342] text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-[#FFF0AA] transition disabled:opacity-60"
+                    class="w-full bg-[#275342] text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-[#1e4234] transition disabled:opacity-60"
                 >
                     Salvesta meeldetuletus
                 </button>
