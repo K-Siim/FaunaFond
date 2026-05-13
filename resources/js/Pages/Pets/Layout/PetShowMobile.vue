@@ -141,11 +141,6 @@ function toggleMedication(id) {
                             </svg>
                         </button>
                         <div v-if="expandedMedicationId === medication.id" class="px-4 pb-4 border-t border-gray-100">
-                            <div class="mt-3 space-y-1 text-sm text-[#275342]">
-                                <p><strong>Algas:</strong> {{ formatDate(medication.start_date) }}</p>
-                                <p v-if="medication.end_date"><strong>Lõpeb:</strong> {{ formatDate(medication.end_date) }}</p>
-                                <p v-if="medication.reminder_time"><strong>Meeldetuletus:</strong> {{ medication.reminder_time }}</p>
-                            </div>
                             <div class="flex justify-end mt-3">
                                 <button @click="$emit('delete-medication', medication.id)" class="text-xs text-red-400 hover:text-red-600 transition">Kustuta</button>
                             </div>
