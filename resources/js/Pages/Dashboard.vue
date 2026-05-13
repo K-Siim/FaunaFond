@@ -24,7 +24,7 @@ const props = defineProps({
             <div class="flex justify-center items-center h-full flex-col p-5 gap-5">
                 <div class="flex justify-center items-center pb-3 gap-5 flex-col w-full">
                     <div class="flex flex-row justify-between items-center w-full pt-2 pb-2">
-                        <h5 class="text-[#275342] text-xl font-semibold">
+                        <h5 class="text-[#275342] text-2xl font-semibold">
                             Lemmikute nimekiri
                         </h5>
                         <Link :href="route('pets.index')">
