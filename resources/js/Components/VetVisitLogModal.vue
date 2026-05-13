@@ -135,7 +135,7 @@ function submit() {
               <p class="text-xs text-gray-500">Lisa kuupäev</p>
             </div>
             <div class="flex items-center justify-between px-4 pb-3">
-              <span class="text-2xl font-semibold text-gray-800">
+              <span class="text-2xl font-semibold text-gray-800 h-12">
                 {{ selectedLabel ?? 'Vali kuupäev' }}
               </span>
               <button

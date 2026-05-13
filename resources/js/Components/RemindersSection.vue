@@ -2,10 +2,11 @@
 import { ref, watch } from "vue";
 import { useForm, router } from "@inertiajs/vue3";
 import { CircleAlert, AlarmClock, Bell, Sun, Moon, ChevronDownIcon } from '@lucide/vue'
-import { getLocalTimeZone, today, parseDate } from '@internationalized/date'
+import { getLocalTimeZone, } from '@internationalized/date'
 import { Button } from '@/Components/ui/button'
-import { Calendar } from '@/Components/ui/calendar'
 import { Input } from '@/Components/ui/input'
+import { Calendar } from '@/Components/ui/calendar'
+import { TimePicker } from '@/Components/ui/time-picker'
 import { Label } from '@/Components/ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '@/Components/ui/popover'
 
@@ -281,7 +282,7 @@ function isNight(time) {
                 <div>
                     <select
                         v-model="reminderForm.type"
-                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                        class="w-full h-12 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
                     >
                         <option value="" disabled>Meeldetuletuse tüüp *</option>
                         <option value="vaccine">Vaktsiin</option>
@@ -303,7 +304,7 @@ function isNight(time) {
                     >Korduv</button>
                 </div>
                 <div>
-                    <input
+                    <Input
                         v-model="reminderForm.name"
                         type="text"
                         :placeholder="namePlaceholders[reminderForm.type] ?? 'Nimi *'"
@@ -324,7 +325,7 @@ function isNight(time) {
                             <PopoverTrigger as-child>
                                 <Button
                                     variant="outline"
-                                    class="w-full justify-between font-normal text-sm text-[#275342] border-gray-200 rounded-xl px-4 py-3 h-auto"
+                                    class="w-full h-12 justify-between font-normal text-sm text-[#275342] border-gray-200 rounded-xl px-4 py-3"
                                 >
                                     {{ formatSelectedDate(selectedDate) }}
                                     <ChevronDownIcon class="w-4 h-4" />
@@ -346,21 +347,20 @@ function isNight(time) {
                     </div>
                     <div class="flex flex-col gap-2 flex-1">
                         <Label class="text-sm text-gray-500 px-1">Kellaaeg</Label>
-                        <Input
-                            v-model="reminderForm.reminder_time"
-                            type="time"
-                            class="w-full text-sm text-[#275342] border-gray-200 rounded-xl px-4 py-3 h-auto appearance-none [&::-webkit-calendar-picker-indicator]:hidden"
-                        />
+                        <TimePicker v-model="reminderForm.reminder_time" />
                     </div>
                 </div>
-                <div v-if="reminderForm.type === 'medicine' && reminderMode === 'recurring'" class="flex flex-col gap-2">
-                    <Label class="text-sm text-gray-500 px-1">Korduva ravimi kellaaeg *</Label>
-                    <Input
-                        v-model="reminderForm.reminder_time"
-                        type="time"
-                        class="w-full text-sm text-[#275342] border-gray-200 rounded-xl px-4 py-3 h-auto appearance-none [&::-webkit-calendar-picker-indicator]:hidden"
-                    />
-                    <p class="text-sm text-gray-400">Meeldetuletus kuvatakse iga päev selle kellaajaga.</p>
+                <div
+                    v-if="reminderForm.type === 'medicine' && reminderMode === 'recurring'"
+                    class="flex flex-col gap-2"
+                >
+                    <Label class="text-sm text-gray-500 px-1">
+                        Korduva ravimi kellaaeg *
+                    </Label>
+                    <TimePicker v-model="reminderForm.reminder_time" />
+                    <p class="text-sm text-gray-400">
+                        Meeldetuletus kuvatakse iga päev selle kellaajaga.
+                    </p>
                 </div>
                 <button
                     @click="submitReminder"
