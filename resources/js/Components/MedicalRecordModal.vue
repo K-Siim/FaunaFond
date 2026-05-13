@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue'
 import { useForm } from '@inertiajs/vue3'
 import { Input } from '@/Components/ui/input'
 import { Label } from '@/Components/ui/label'
+import { Button } from '@/Components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select'
 
 const props = defineProps({
@@ -148,14 +149,14 @@ function submit() {
             @click.self="emit('close')"
         >
             <div class="relative w-full max-w-sm bg-[#F0F4EF] rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto border border-white/30">
-                <button
+                <Button
                     @click="emit('close')"
                     class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition z-10"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
-                </button>
+                </Button>
                 <div class="p-5 pt-12 flex flex-col gap-4">
                     <div class="flex items-center bg-white rounded-2xl px-4 py-3 border border-gray-200 shadow-sm">
                         <span class="text-sm text-gray-700 font-medium">
@@ -201,17 +202,18 @@ function submit() {
                                 <Label>Andmise kuupäev</Label>
                             </div>
                             <div class="flex items-center justify-between px-4 pb-4">
-                                <span class="text-xl font-semibold text-gray-800">
+                                <span class="text-lg font-semibold text-gray-800">
                                     {{ date1DisplayLabel ?? 'Lisa kuupäev' }}
                                 </span>
-                                <button
+                                <Button
+                                    variant="calendar"
                                     @click="showDate1Calendar = !showDate1Calendar"
                                     class="h-9 w-9 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10m-13 9h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v11a2 2 0 002 2z"/>
                                     </svg>
-                                </button>
+                                </Button>
                             </div>
                             <div v-if="showDate1Calendar" class="border-t border-gray-100 px-4 py-4">
                                 <div class="flex items-center gap-2 mb-4">
@@ -246,7 +248,8 @@ function submit() {
                                     </span>
                                 </div>
                                 <div class="grid grid-cols-7 gap-y-2">
-                                    <button
+                                    <Button
+                                        variant="calendar"
                                         v-for="(day, idx) in date1CalendarDays"
                                         :key="idx"
                                         @click="selectDate1Day(day)"
@@ -260,7 +263,7 @@ function submit() {
                                         ]"
                                     >
                                         {{ day }}
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -269,17 +272,18 @@ function submit() {
                                 <Label>Aegumise kuupäev</Label>
                             </div>
                             <div class="flex items-center justify-between px-4 pb-4">
-                                <span class="text-xl font-semibold text-gray-800">
+                                <span class="text-lg font-semibold text-gray-800">
                                     {{ date2DisplayLabel ?? 'Lisa kuupäev' }}
                                 </span>
-                                <button
+                                <Button
+                                    variant="calendar"
                                     @click="showDate2Calendar = !showDate2Calendar"
                                     class="h-9 w-9 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10m-13 9h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v11a2 2 0 002 2z"/>
                                     </svg>
-                                </button>
+                                </Button>
                             </div>
                             <div v-if="showDate2Calendar" class="border-t border-gray-100 px-4 py-4">
                                 <div class="flex items-center gap-2 mb-4">
@@ -314,7 +318,8 @@ function submit() {
                                     </span>
                                 </div>
                                 <div class="grid grid-cols-7 gap-y-2">
-                                    <button
+                                    <Button
+                                    variant="calendar"
                                         v-for="(day, idx) in date2CalendarDays"
                                         :key="idx"
                                         @click="selectDate2Day(day)"
@@ -328,7 +333,7 @@ function submit() {
                                         ]"
                                     >
                                         {{ day }}
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -379,13 +384,13 @@ function submit() {
                             </div>
                         </div>
                     </template>
-                    <button
+                    <Button
                         @click="submit"
                         :disabled="currentForm.processing"
                         class="w-full bg-[#2D5A3D] text-white font-semibold tracking-widest text-sm py-4 rounded-2xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60 shadow-sm"
                     >
                         {{ currentForm.processing ? 'Salvestamine...' : 'SALVESTA' }}
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

@@ -7,6 +7,8 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
+        calendar:
+          "bg-transparent text-gray-600 hover:bg-gray-100 data-[state=open]:bg-gray-100 rounded-md p-0",
         default:
           "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive:
