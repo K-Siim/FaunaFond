@@ -203,7 +203,6 @@ function submit() {
                           >
                               <SelectValue />
                           </SelectTrigger>
-
                           <SelectContent class="rounded-xl border-gray-200">
                               <SelectItem
                                   v-for="(month, idx) in MONTHS"
@@ -214,14 +213,12 @@ function submit() {
                               </SelectItem>
                           </SelectContent>
                       </Select>
-
                       <Select v-model="currentYear">
                           <SelectTrigger
                               class="w-28 h-11 rounded-xl border-gray-200 bg-white"
                           >
                               <SelectValue />
                           </SelectTrigger>
-
                           <SelectContent
                               class="rounded-xl border-gray-200 max-h-64"
                           >
@@ -235,7 +232,6 @@ function submit() {
                           </SelectContent>
                       </Select>
                   </div>
-
                   <div class="grid grid-cols-7 mb-2">
                       <span
                           v-for="d in DAYS_SHORT"
@@ -245,7 +241,6 @@ function submit() {
                           {{ d }}
                       </span>
                   </div>
-
                   <div class="grid grid-cols-7 gap-y-2">
                       <Button
                           variant="calendar"
@@ -270,7 +265,6 @@ function submit() {
                           {{ day }}
                       </Button>
                   </div>
-
                   <div class="flex justify-between mt-4 pt-4 border-t border-gray-100">
                       <Button
                           variant="ghost"
@@ -279,7 +273,6 @@ function submit() {
                       >
                           Tühjenda
                       </Button>
-
                       <div class="flex gap-2">
                           <Button
                               variant="ghost"
