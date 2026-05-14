@@ -8,7 +8,7 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         calendar:
-          "bg-transparent w-9 h-9 text-gray-600 hover:bg-gray-50 data-[state=open]:bg-gray-100 rounded-md",
+          "bg-transparent w-9 h-9 text-gray-600 hover:bg-gray-200 data-[state=open]:bg-gray-100 rounded-md",
         link: 
           "text-primary underline-offset-4 hover:underline",
         save:
