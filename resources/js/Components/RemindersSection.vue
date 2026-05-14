@@ -9,6 +9,8 @@ import { Calendar } from '@/Components/ui/calendar'
 import { TimePicker } from '@/Components/ui/time-picker'
 import { Label } from '@/Components/ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '@/Components/ui/popover'
+import { X } from '@lucide/vue';
+
 
 const props = defineProps({
     reminders:                 { type: Array,    default: () => [] },
@@ -266,25 +268,21 @@ function isNight(time) {
                 @click="showReminderForm = false"
                 class="absolute bg-transparent top-2 right-0 text-gray-400 hover:text-gray-700 transition z-10"
             >
-                ×
+                <X />
             </Button>
-
             <div class="p-5 pt-12 flex flex-col gap-4">
                 <div class="flex items-center bg-white rounded-2xl px-4 py-3 border border-gray-200 shadow-sm">
                     <span class="text-sm text-gray-700 font-medium">
                         Lisa meeldetuletus
                     </span>
                 </div>
-
                 <div v-if="!petId" class="flex flex-col gap-1.5">
                     <Label>Lemmik</Label>
-
                     <select
                         v-model="reminderForm.pet_id"
                         class="w-full h-12 rounded-2xl border border-gray-200 bg-white shadow-sm px-4 text-sm text-[#275342] focus:outline-none"
                     >
                         <option value="" disabled>Vali lemmik *</option>
-
                         <option
                             v-for="p in pets"
                             :key="p.id"
@@ -293,7 +291,6 @@ function isNight(time) {
                             {{ p.name }}
                         </option>
                     </select>
-
                     <p
                         v-if="reminderForm.errors.pet_id"
                         class="text-red-500 text-xs px-1"
@@ -301,10 +298,8 @@ function isNight(time) {
                         {{ reminderForm.errors.pet_id }}
                     </p>
                 </div>
-
                 <div class="flex flex-col gap-1.5">
                     <Label>Meeldetuletuse tüüp</Label>
-
                     <select
                         v-model="reminderForm.type"
                         class="w-full h-12 rounded-2xl border border-gray-200 bg-white shadow-sm px-4 text-sm text-[#275342] focus:outline-none"
@@ -314,7 +309,6 @@ function isNight(time) {
                         <option value="medicine">Ravim</option>
                         <option value="vet_visit">Arstivisiit</option>
                     </select>
-
                     <p
                         v-if="reminderForm.errors.type"
                         class="text-red-500 text-xs px-1"
@@ -322,7 +316,6 @@ function isNight(time) {
                         {{ reminderForm.errors.type }}
                     </p>
                 </div>
-
                 <div
                     v-if="reminderForm.type === 'medicine'"
                     class="flex gap-3"
@@ -339,7 +332,6 @@ function isNight(time) {
                     >
                         Ühekordne
                     </button>
-
                     <button
                         type="button"
                         @click="reminderMode = 'recurring'"
@@ -353,17 +345,14 @@ function isNight(time) {
                         Korduv
                     </button>
                 </div>
-
                 <div class="flex flex-col gap-1.5">
                     <Label>Nimi</Label>
-
                     <Input
                         v-model="reminderForm.name"
                         type="text"
                         :placeholder="namePlaceholders[reminderForm.type] ?? 'Nimi *'"
                         class="h-12 rounded-2xl border-gray-200 bg-white shadow-sm"
                     />
-
                     <p
                         v-if="reminderForm.errors.name"
                         class="text-red-500 text-xs px-1"
@@ -371,13 +360,11 @@ function isNight(time) {
                         {{ reminderForm.errors.name }}
                     </p>
                 </div>
-
                 <div class="flex flex-col gap-1.5">
                     <Label>
                         Märkused
                         <span class="text-gray-600 font-normal">(valikuline)</span>
                     </Label>
-
                     <textarea
                         v-model="reminderForm.notes"
                         rows="3"
@@ -385,14 +372,12 @@ function isNight(time) {
                         class="w-full rounded-2xl border border-gray-200 bg-white shadow-sm px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none resize-none"
                     />
                 </div>
-
                 <div
                     v-if="reminderForm.type !== 'medicine' || reminderMode === 'onetime'"
                     class="flex flex-col gap-4"
                 >
                     <div class="flex flex-col gap-1.5">
                         <Label>Kuupäev *</Label>
-
                         <Popover v-model:open="calendarOpen">
                             <PopoverTrigger as-child>
                                 <Button
@@ -400,11 +385,9 @@ function isNight(time) {
                                     class="w-full h-12 justify-between font-normal rounded-2xl border-gray-200 bg-white shadow-sm px-4"
                                 >
                                     {{ formatSelectedDate(selectedDate) }}
-
                                     <ChevronDownIcon class="w-4 h-4" />
                                 </Button>
                             </PopoverTrigger>
-
                             <PopoverContent
                                 class="w-auto overflow-hidden p-0 rounded-2xl border-gray-200"
                                 align="start"
@@ -420,7 +403,6 @@ function isNight(time) {
                                 />
                             </PopoverContent>
                         </Popover>
-
                         <p
                             v-if="reminderForm.errors.reminder_date"
                             class="text-red-500 text-xs px-1"
@@ -428,35 +410,30 @@ function isNight(time) {
                             {{ reminderForm.errors.reminder_date }}
                         </p>
                     </div>
-
                     <div class="flex flex-col gap-1.5">
                         <Label>Kellaaeg</Label>
-
                         <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-2">
                             <TimePicker v-model="reminderForm.reminder_time" />
                         </div>
                     </div>
                 </div>
-
                 <div
                     v-if="reminderForm.type === 'medicine' && reminderMode === 'recurring'"
                     class="flex flex-col gap-2"
                 >
                     <Label>Korduva ravimi kellaaeg *</Label>
-
                     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-2">
                         <TimePicker v-model="reminderForm.reminder_time" />
                     </div>
-
                     <p class="text-sm text-gray-600 px-1">
                         Meeldetuletus kuvatakse iga päev selle kellaajaga.
                     </p>
                 </div>
-
                 <Button
+                    variant="save"
                     @click="submitReminder"
                     :disabled="reminderForm.processing"
-                    class="w-full bg-[#2D5A3D] text-white font-semibold tracking-widest text-sm py-4 rounded-2xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60 shadow-sm"
+                    class="w-full h-12 bg-[#2D5A3D] text-[#FFFDF3] font-semibold tracking-widest text-sm py-4 rounded-2xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60 shadow-sm"
                 >
                     {{
                         reminderForm.processing

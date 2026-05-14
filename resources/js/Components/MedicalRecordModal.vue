@@ -383,7 +383,7 @@ function submit() {
                     <Button
                         @click="submit"
                         :disabled="currentForm.processing"
-                        class="w-full bg-[#2D5A3D] text-white font-semibold tracking-widest text-sm py-4 rounded-2xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60 shadow-sm"
+                        class="w-full h-12 bg-[#2D5A3D] text-[#FFFDF3] font-semibold tracking-widest text-sm py-4 rounded-2xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60 shadow-sm"
                     >
                         {{ currentForm.processing ? 'Salvestamine...' : 'SALVESTA' }}
                     </Button>

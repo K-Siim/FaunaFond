@@ -9,6 +9,10 @@ export const buttonVariants = cva(
       variant: {
         calendar:
           "bg-transparent w-9 h-9 text-gray-600 hover:bg-gray-50 data-[state=open]:bg-gray-100 rounded-md",
+        link: 
+          "text-primary underline-offset-4 hover:underline",
+        save:
+          "bg-[#2D5A3D] text-[#FFFDF3] hover:bg-[#234830] shadow-sm",
         default:
           "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive:
@@ -18,7 +22,6 @@ export const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         default: "h-9 px-4 py-2",
