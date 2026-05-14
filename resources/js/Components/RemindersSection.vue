@@ -257,81 +257,158 @@ function isNight(time) {
     </section>
     <div
         v-if="showReminderForm"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4"
         @click.self="showReminderForm = false"
     >
-        <div class="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl">
-            <div class="mb-4 flex items-center justify-between">
-                <h4 class="text-lg font-semibold text-[#275342]">Lisa meeldetuletus</h4>
-                <button
-                    @click="showReminderForm = false"
-                    class="rounded-full border border-[#275342]/30 px-2 text-[#275342] hover:bg-[#275342] hover:text-white transition"
-                >×</button>
-            </div>
-            <div class="flex flex-col gap-3">
-                <div v-if="!petId">
+        <div class="relative w-full max-w-sm bg-[#F0F4EF] rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto border border-white/30">
+            <Button
+                variant="ghost"
+                @click="showReminderForm = false"
+                class="absolute bg-transparent top-2 right-0 text-gray-400 hover:text-gray-700 transition z-10"
+            >
+                ×
+            </Button>
+
+            <div class="p-5 pt-12 flex flex-col gap-4">
+                <div class="flex items-center bg-white rounded-2xl px-4 py-3 border border-gray-200 shadow-sm">
+                    <span class="text-sm text-gray-700 font-medium">
+                        Lisa meeldetuletus
+                    </span>
+                </div>
+
+                <div v-if="!petId" class="flex flex-col gap-1.5">
+                    <Label>Lemmik</Label>
+
                     <select
                         v-model="reminderForm.pet_id"
-                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                        class="w-full h-12 rounded-2xl border border-gray-200 bg-white shadow-sm px-4 text-sm text-[#275342] focus:outline-none"
                     >
                         <option value="" disabled>Vali lemmik *</option>
-                        <option v-for="p in pets" :key="p.id" :value="p.id">{{ p.name }}</option>
+
+                        <option
+                            v-for="p in pets"
+                            :key="p.id"
+                            :value="p.id"
+                        >
+                            {{ p.name }}
+                        </option>
                     </select>
-                    <p v-if="reminderForm.errors.pet_id" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.pet_id }}</p>
+
+                    <p
+                        v-if="reminderForm.errors.pet_id"
+                        class="text-red-500 text-xs px-1"
+                    >
+                        {{ reminderForm.errors.pet_id }}
+                    </p>
                 </div>
-                <div>
+
+                <div class="flex flex-col gap-1.5">
+                    <Label>Meeldetuletuse tüüp</Label>
+
                     <select
                         v-model="reminderForm.type"
-                        class="w-full h-12 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                        class="w-full h-12 rounded-2xl border border-gray-200 bg-white shadow-sm px-4 text-sm text-[#275342] focus:outline-none"
                     >
-                        <option value="" disabled>Meeldetuletuse tüüp *</option>
+                        <option value="" disabled>Vali tüüp *</option>
                         <option value="vaccine">Vaktsiin</option>
                         <option value="medicine">Ravim</option>
                         <option value="vet_visit">Arstivisiit</option>
                     </select>
-                    <p v-if="reminderForm.errors.type" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.type }}</p>
+
+                    <p
+                        v-if="reminderForm.errors.type"
+                        class="text-red-500 text-xs px-1"
+                    >
+                        {{ reminderForm.errors.type }}
+                    </p>
                 </div>
-                <div v-if="reminderForm.type === 'medicine'" class="flex gap-2">
+
+                <div
+                    v-if="reminderForm.type === 'medicine'"
+                    class="flex gap-3"
+                >
                     <button
                         type="button"
                         @click="reminderMode = 'onetime'"
-                        :class="['flex-1 py-2 rounded-xl text-sm font-medium border transition', reminderMode === 'onetime' ? 'bg-[#275342] text-white border-[#275342]' : 'bg-white text-[#275342] border-gray-200']"
-                    >Ühekordne</button>
+                        :class="[
+                            'flex-1 py-3 rounded-2xl text-sm font-medium border transition shadow-sm',
+                            reminderMode === 'onetime'
+                                ? 'bg-[#2D5A3D] text-white border-[#2D5A3D]'
+                                : 'bg-white text-[#275342] border-gray-200'
+                        ]"
+                    >
+                        Ühekordne
+                    </button>
+
                     <button
                         type="button"
                         @click="reminderMode = 'recurring'"
-                        :class="['flex-1 py-2 rounded-xl text-sm font-medium border transition', reminderMode === 'recurring' ? 'bg-[#275342] text-white border-[#275342]' : 'bg-white text-[#275342] border-gray-200']"
-                    >Korduv</button>
+                        :class="[
+                            'flex-1 py-3 rounded-2xl text-sm font-medium border transition shadow-sm',
+                            reminderMode === 'recurring'
+                                ? 'bg-[#2D5A3D] text-white border-[#2D5A3D]'
+                                : 'bg-white text-[#275342] border-gray-200'
+                        ]"
+                    >
+                        Korduv
+                    </button>
                 </div>
-                <div>
+
+                <div class="flex flex-col gap-1.5">
+                    <Label>Nimi</Label>
+
                     <Input
                         v-model="reminderForm.name"
                         type="text"
                         :placeholder="namePlaceholders[reminderForm.type] ?? 'Nimi *'"
-                        class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#275342]/30"
+                        class="h-12 rounded-2xl border-gray-200 bg-white shadow-sm"
                     />
-                    <p v-if="reminderForm.errors.name" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.name }}</p>
+
+                    <p
+                        v-if="reminderForm.errors.name"
+                        class="text-red-500 text-xs px-1"
+                    >
+                        {{ reminderForm.errors.name }}
+                    </p>
                 </div>
-                <textarea
-                    v-model="reminderForm.notes"
-                    rows="2"
-                    placeholder="Märkused (valikuline)"
-                    class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#275342]/30 resize-none"
-                />
-                <div v-if="reminderForm.type !== 'medicine' || reminderMode === 'onetime'" class="flex gap-3">
-                    <div class="flex flex-col gap-2 flex-1">
-                        <Label class="text-sm text-gray-500 px-1">Kuupäev *</Label>
+
+                <div class="flex flex-col gap-1.5">
+                    <Label>
+                        Märkused
+                        <span class="text-gray-600 font-normal">(valikuline)</span>
+                    </Label>
+
+                    <textarea
+                        v-model="reminderForm.notes"
+                        rows="3"
+                        placeholder="Lisa märkused"
+                        class="w-full rounded-2xl border border-gray-200 bg-white shadow-sm px-4 py-3 text-sm text-[#275342] placeholder-gray-400 focus:outline-none resize-none"
+                    />
+                </div>
+
+                <div
+                    v-if="reminderForm.type !== 'medicine' || reminderMode === 'onetime'"
+                    class="flex flex-col gap-4"
+                >
+                    <div class="flex flex-col gap-1.5">
+                        <Label>Kuupäev *</Label>
+
                         <Popover v-model:open="calendarOpen">
                             <PopoverTrigger as-child>
                                 <Button
                                     variant="outline"
-                                    class="w-full h-12 justify-between font-normal text-sm text-[#275342] border-gray-200 rounded-xl px-4 py-3"
+                                    class="w-full h-12 justify-between font-normal rounded-2xl border-gray-200 bg-white shadow-sm px-4"
                                 >
                                     {{ formatSelectedDate(selectedDate) }}
+
                                     <ChevronDownIcon class="w-4 h-4" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent class="w-auto overflow-hidden p-0" align="start">
+
+                            <PopoverContent
+                                class="w-auto overflow-hidden p-0 rounded-2xl border-gray-200"
+                                align="start"
+                            >
                                 <Calendar
                                     :model-value="selectedDate"
                                     @update:model-value="(value) => {
@@ -343,32 +420,50 @@ function isNight(time) {
                                 />
                             </PopoverContent>
                         </Popover>
-                        <p v-if="reminderForm.errors.reminder_date" class="text-red-500 text-xs mt-1">{{ reminderForm.errors.reminder_date }}</p>
+
+                        <p
+                            v-if="reminderForm.errors.reminder_date"
+                            class="text-red-500 text-xs px-1"
+                        >
+                            {{ reminderForm.errors.reminder_date }}
+                        </p>
                     </div>
-                    <div class="flex flex-col gap-2 flex-1">
-                        <Label class="text-sm text-gray-500 px-1">Kellaaeg</Label>
-                        <TimePicker v-model="reminderForm.reminder_time" />
+
+                    <div class="flex flex-col gap-1.5">
+                        <Label>Kellaaeg</Label>
+
+                        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-2">
+                            <TimePicker v-model="reminderForm.reminder_time" />
+                        </div>
                     </div>
                 </div>
+
                 <div
                     v-if="reminderForm.type === 'medicine' && reminderMode === 'recurring'"
                     class="flex flex-col gap-2"
                 >
-                    <Label class="text-sm text-gray-500 px-1">
-                        Korduva ravimi kellaaeg *
-                    </Label>
-                    <TimePicker v-model="reminderForm.reminder_time" />
-                    <p class="text-sm text-gray-400">
+                    <Label>Korduva ravimi kellaaeg *</Label>
+
+                    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-2">
+                        <TimePicker v-model="reminderForm.reminder_time" />
+                    </div>
+
+                    <p class="text-sm text-gray-600 px-1">
                         Meeldetuletus kuvatakse iga päev selle kellaajaga.
                     </p>
                 </div>
-                <button
+
+                <Button
                     @click="submitReminder"
                     :disabled="reminderForm.processing"
-                    class="w-full bg-[#275342] text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-[#1e4234] transition disabled:opacity-60"
+                    class="w-full bg-[#2D5A3D] text-white font-semibold tracking-widest text-sm py-4 rounded-2xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60 shadow-sm"
                 >
-                    Salvesta meeldetuletus
-                </button>
+                    {{
+                        reminderForm.processing
+                            ? 'Salvestamine...'
+                            : 'SALVESTA'
+                    }}
+                </Button>
             </div>
         </div>
     </div>
