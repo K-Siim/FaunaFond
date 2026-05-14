@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useForm } from '@inertiajs/vue3'
+import { X, Calendar } from '@lucide/vue';
 import { Input } from '@/Components/ui/input'
 import { Label } from '@/Components/ui/label'
 import { Button } from '@/Components/ui/button'
@@ -150,12 +151,11 @@ function submit() {
         >
             <div class="relative w-full max-w-sm bg-[#F0F4EF] rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto border border-white/30">
                 <Button
+                    variant="ghost"
                     @click="emit('close')"
-                    class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition z-10"
+                    class="absolute bg-transparent top-2 right-0 text-gray-400 hover:text-gray-700 transition z-10"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
+                  <X />
                 </Button>
                 <div class="p-5 pt-12 flex flex-col gap-4">
                     <div class="flex items-center bg-white rounded-2xl px-4 py-3 border border-gray-200 shadow-sm">
@@ -208,11 +208,9 @@ function submit() {
                                 <Button
                                     variant="calendar"
                                     @click="showDate1Calendar = !showDate1Calendar"
-                                    class="h-9 w-9 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition"
+                                    class="rounded-xl p-0 m-0 border border-gray-200 flex items-center justify-center transition"
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10m-13 9h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v11a2 2 0 002 2z"/>
-                                    </svg>
+                                    <Calendar class="w-5 h-5 p-0 m-0" />
                                 </Button>
                             </div>
                             <div v-if="showDate1Calendar" class="border-t border-gray-100 px-4 py-4">
@@ -255,7 +253,7 @@ function submit() {
                                         @click="selectDate1Day(day)"
                                         :disabled="!day"
                                         :class="[
-                                            'h-9 w-9 mx-auto text-sm rounded-xl flex items-center justify-center transition',
+                                            'h-9 w-9 m-0 p-0 mx-auto text-sm rounded-xl flex items-center justify-center transition',
                                             !day && 'invisible',
                                             isDate1Selected(day) && 'bg-[#2D5A3D] text-white font-semibold shadow-sm',
                                             isDate1Today(day) && !isDate1Selected(day) && 'border border-[#2D5A3D] text-[#2D5A3D] font-semibold',
@@ -278,11 +276,9 @@ function submit() {
                                 <Button
                                     variant="calendar"
                                     @click="showDate2Calendar = !showDate2Calendar"
-                                    class="h-9 w-9 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition"
+                                    class="rounded-xl p-0 m-0 border border-gray-200 flex items-center justify-center transition"
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10m-13 9h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v11a2 2 0 002 2z"/>
-                                    </svg>
+                                    <Calendar class="w-5 h-5 p-0 m-0" />
                                 </Button>
                             </div>
                             <div v-if="showDate2Calendar" class="border-t border-gray-100 px-4 py-4">
