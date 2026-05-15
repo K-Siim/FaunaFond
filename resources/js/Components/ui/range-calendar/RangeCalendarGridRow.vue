@@ -1,12 +1,9 @@
 <script setup>
 import { reactiveOmit } from "@vueuse/core";
-import { ChevronLeft } from "lucide-vue-next";
-import { CalendarPrev, useForwardProps } from "reka-ui";
+import { RangeCalendarGridRow, useForwardProps } from "reka-ui";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from '@/Components/ui/button';
 
 const props = defineProps({
-  prevPage: { type: Function, required: false },
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false },
   class: {
@@ -22,18 +19,10 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <CalendarPrev
-    :class="
-      cn(
-        buttonVariants({ variant: 'outline' }),
-        'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
-        props.class,
-      )
-    "
+  <RangeCalendarGridRow
+    :class="cn('flex', props.class)"
     v-bind="forwardedProps"
   >
-    <slot>
-      <ChevronLeft class="h-4 w-4" />
-    </slot>
-  </CalendarPrev>
+    <slot />
+  </RangeCalendarGridRow>
 </template>

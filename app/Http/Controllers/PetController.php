@@ -78,9 +78,12 @@ class PetController extends Controller
         $vaccineExpiryReminders = $pet->vaccines
             ->filter(function ($v) {
                 if (!$v->expiry_date) return false;
+
                 $days = now()->startOfDay()->diffInDays(
-                    \Carbon\Carbon::parse($v->expiry_date)->startOfDay(), false
+                    \Carbon\Carbon::parse($v->expiry_date)->startOfDay(),
+                    false
                 );
+
                 return $days <= 14;
             })
             ->map(fn ($v) => [
@@ -91,27 +94,20 @@ class PetController extends Controller
                 'is_expired' => \Carbon\Carbon::parse($v->expiry_date)->isPast(),
             ])
             ->values();
-            
-        $medicationRepeatReminders = $pet->medications
-            ->filter(fn ($m) => $m->shouldShowTodayReminder())
-            ->map(fn ($m) => [
-                'id'             => 'med_' . $m->id,
-                'pet_name'       => $pet->name,
-                'name'           => $m->name,
-                'reminder_time'  => $m->reminder_time,
-                'dose_amount'    => $m->dose_amount,
-                'dose_unit'      => $m->dose_unit,
-            ])
-            ->values();
+
+        // ❌ REMOVED: medicationRepeatReminders logic completely
+        $medicationRepeatReminders = collect();
 
         return Inertia::render('Pets/Show', [
             'pet' => $pet
                 ->load(['vetVisits', 'vaccines', 'medications', 'vetVisits.files'])
                 ->append(['photo_url', 'formatted_dob', 'age']),
+
             'vaccineExpiryReminders' => $vaccineExpiryReminders,
+
+            // empty because reminders are handled in RemindersSection.vue
             'medicationRepeatReminders' => $medicationRepeatReminders,
         ]);
-    
     }
 
     public function update(Request $request, Pet $pet)

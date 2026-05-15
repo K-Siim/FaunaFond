@@ -2,12 +2,13 @@
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
 import RemindersSection from "@/Components/RemindersSection.vue";
+import { CircleAlert, AlarmClock, Bell, Sun, Moon, X } from '@lucide/vue';
 
 const props = defineProps({
-    pet:                      { type: Object,   required: true },
-    pendingFiles:             { type: Object,   required: true },
-    formatDate:               { type: Function, required: true },
-    vaccineExpiryReminders:   { type: Array,    default: () => [] },
+    pet:                       { type: Object,   required: true },
+    pendingFiles:              { type: Object,   required: true },
+    formatDate:                { type: Function, required: true },
+    vaccineExpiryReminders:    { type: Array,    default: () => [] },
     medicationRepeatReminders: { type: Array,    default: () => [] },
 });
 
@@ -22,11 +23,15 @@ defineEmits([
     "upload-files",
     "remove-pending-file",
     "submit-files",
+    "delete-reminder",
 ]);
 
 const expandedVisitId      = ref(null);
 const expandedVaccineId    = ref(null);
 const expandedMedicationId = ref(null);
+const expandedReminderId   = ref(null);
+const showReminderForm     = ref(false);
+const dismissedExpiries    = ref(new Set());
 
 function toggleVisit(id) {
     expandedVisitId.value = expandedVisitId.value === id ? null : id;
@@ -36,6 +41,28 @@ function toggleVaccine(id) {
 }
 function toggleMedication(id) {
     expandedMedicationId.value = expandedMedicationId.value === id ? null : id;
+}
+function toggleReminder(id) {
+    expandedReminderId.value = expandedReminderId.value === id ? null : id;
+}
+function dismissExpiry(id) {
+    dismissedExpiries.value = new Set([...dismissedExpiries.value, id]);
+}
+
+const vaccineReminders  = () => (props.pet.reminders ?? []).filter(r => r.type === "vaccine");
+const vetReminders      = () => (props.pet.reminders ?? []).filter(r => r.type === "vet_visit");
+const medicineReminders = () => (props.pet.reminders ?? []).filter(r => r.type === "medicine");
+const visibleExpiries   = () => props.vaccineExpiryReminders.filter(r => !dismissedExpiries.value.has(r.id));
+
+const hasAnyReminders = () =>
+    visibleExpiries().length +
+    (props.pet.reminders ?? []).length +
+    props.medicationRepeatReminders.length > 0;
+
+function isNight(time) {
+    if (!time) return false;
+    const h = parseInt(time.split(":")[0]);
+    return h >= 18 || h < 6;
 }
 </script>
 
@@ -141,11 +168,6 @@ function toggleMedication(id) {
                             </svg>
                         </button>
                         <div v-if="expandedMedicationId === medication.id" class="px-4 pb-4 border-t border-gray-100">
-                            <div class="mt-3 space-y-1 text-sm text-[#275342]">
-                                <p><strong>Algas:</strong> {{ formatDate(medication.start_date) }}</p>
-                                <p v-if="medication.end_date"><strong>Lõpeb:</strong> {{ formatDate(medication.end_date) }}</p>
-                                <p v-if="medication.reminder_time"><strong>Meeldetuletus:</strong> {{ medication.reminder_time }}</p>
-                            </div>
                             <div class="flex justify-end mt-3">
                                 <button @click="$emit('delete-medication', medication.id)" class="text-xs text-red-400 hover:text-red-600 transition">Kustuta</button>
                             </div>
@@ -154,15 +176,161 @@ function toggleMedication(id) {
                 </div>
             </div>
         </section>
-        <section class="bg-[#FFFDF5] rounded-2xl w-full max-w-md mx-auto">
-            <RemindersSection
-                :pet-id="pet.id"
-                :reminders="pet.reminders ?? []"
-                :vaccine-expiry-reminders="vaccineExpiryReminders"
-                :medication-repeat-reminders="medicationRepeatReminders"
-                :format-date="formatDate"
-            />
+        <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
+            <div class="flex flex-col gap-6">
+                <div class="flex flex-row justify-between items-center">
+                    <h3 class="text-lg font-semibold text-[#275342]">Meeldetuletused</h3>
+                    <button
+                        @click="showReminderForm = true"
+                        class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition"
+                    >+</button>
+                </div>
+                <p v-if="!hasAnyReminders()" class="text-md text-[#275342] text-center py-4">
+                    Meeldetuletusi pole veel lisatud.
+                </p>
+                <div v-else class="flex flex-col gap-3">
+                    <div
+                        v-for="r in visibleExpiries()"
+                        :key="r.id"
+                        class="bg-[#FFCBC7] hover:bg-[#FFA8B0] text-[#275342] border border-red-100 rounded-2xl overflow-hidden shadow-sm"
+                    >
+                        <div class="w-full flex items-center justify-between text-[#275342] px-3 py-3">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <CircleAlert class="flex-shrink-0" />
+                                <div class="flex flex-col items-start text-left">
+                                    <span class="text-md font-semibold">{{ r.pet_name }}</span>
+                                    <span class="text-md mt-0.5">
+                                        {{ r.name }} {{ r.is_expired ? 'aegus' : 'aegub' }}
+                                        <strong>{{ r.end_date }}</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <button
+                                @click="dismissExpiry(r.id)"
+                                class="flex-shrink-0 ml-2 h-8 w-8 flex items-center justify-center text-[#275342] hover:text-red-700 transition"
+                            >
+                                <X class="w-4 h-4" />
+                            </button>
+                        </div>
+                    </div>
+                    <div
+                        v-for="r in vaccineReminders()"
+                        :key="r.id"
+                        class="bg-[#FFF6CA] text-[#275342] border border-yellow-100 rounded-2xl overflow-hidden shadow-sm"
+                    >
+                        <button
+                            class="w-full flex items-center justify-between px-3 py-3 hover:bg-[#FFEEA1] transition"
+                            @click="toggleReminder(r.id)"
+                        >
+                            <div class="flex items-center gap-3 min-w-0">
+                                <AlarmClock class="flex-shrink-0" />
+                                <div class="flex flex-col items-start text-left">
+                                    <span class="text-md font-semibold">{{ r.pet?.name ?? pet.name }}</span>
+                                    <span class="text-md mt-0.5">
+                                        {{ r.name }} — vaktsineerimine
+                                        <strong>{{ formatDate(r.reminder_date) }}</strong>
+                                        <span v-if="r.reminder_time"> kell <strong>{{ r.reminder_time }}</strong></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0 ml-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#275342] transition-transform duration-200" :class="expandedReminderId === r.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                                <button @click.stop="$emit('delete-reminder', r.id)" class="hover:text-red-500 transition text-xl leading-none">×</button>
+                            </div>
+                        </button>
+                        <div v-if="expandedReminderId === r.id && r.notes" class="px-4 pb-4 border-t border-yellow-100">
+                            <p class="text-sm mt-3 leading-relaxed whitespace-pre-wrap">{{ r.notes }}</p>
+                        </div>
+                    </div>
+                    <div
+                        v-for="r in vetReminders()"
+                        :key="r.id"
+                        class="bg-[#D5EEFF] text-[#275342] border border-blue-100 rounded-2xl overflow-hidden shadow-sm"
+                    >
+                        <button
+                            class="w-full flex items-center justify-between px-3 py-3 hover:bg-[#B4E1FF] transition"
+                            @click="toggleReminder(r.id)"
+                        >
+                            <div class="flex items-center gap-3 min-w-0">
+                                <Bell class="flex-shrink-0" />
+                                <div class="flex flex-col items-start text-left">
+                                    <span class="text-md font-semibold">{{ r.pet?.name ?? pet.name }}</span>
+                                    <span class="text-md mt-0.5">
+                                        {{ r.name }} — arstivisiit
+                                        <strong>{{ formatDate(r.reminder_date) }}</strong>
+                                        <span v-if="r.reminder_time"> kell <strong>{{ r.reminder_time }}</strong></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0 ml-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#275342] transition-transform duration-200" :class="expandedReminderId === r.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                                <button @click.stop="$emit('delete-reminder', r.id)" class="hover:text-red-500 transition text-xl leading-none">×</button>
+                            </div>
+                        </button>
+                        <div v-if="expandedReminderId === r.id && r.notes" class="px-4 pb-4 border-t border-blue-100">
+                            <p class="text-sm mt-3 leading-relaxed whitespace-pre-wrap">{{ r.notes }}</p>
+                        </div>
+                    </div>
+                    <div
+                        v-for="r in medicineReminders()"
+                        :key="r.id"
+                        class="bg-[#DAF2D0] text-[#275342] border border-green-100 rounded-2xl overflow-hidden shadow-sm"
+                    >
+                        <button
+                            class="w-full flex items-center justify-between px-3 py-3 hover:bg-[#C4EDB4] transition"
+                            @click="toggleReminder(r.id)"
+                        >
+                            <div class="flex items-center gap-3 min-w-0">
+                                <component :is="isNight(r.reminder_time) ? Moon : Sun" class="flex-shrink-0" />
+                                <div class="flex flex-col items-start text-left">
+                                    <span class="text-md font-semibold">{{ r.pet?.name ?? pet.name }}</span>
+                                    <span class="text-md mt-0.5">
+                                        {{ r.name }} — kellaaeg
+                                        <strong>{{ r.reminder_time || formatDate(r.reminder_date) }}</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0 ml-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#275342] transition-transform duration-200" :class="expandedReminderId === r.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                                <button @click.stop="$emit('delete-reminder', r.id)" class="hover:text-red-500 transition text-xl leading-none">×</button>
+                            </div>
+                        </button>
+                        <div v-if="expandedReminderId === r.id && r.notes" class="px-4 pb-4 border-t border-green-100">
+                            <p class="text-sm mt-3 leading-relaxed whitespace-pre-wrap">{{ r.notes }}</p>
+                        </div>
+                    </div>
+                    <div
+                        v-for="r in medicationRepeatReminders"
+                        :key="r.id"
+                        class="bg-[#DAF2D0] text-[#275342] border border-green-100 rounded-2xl overflow-hidden shadow-sm"
+                    >
+                        <div class="w-full flex items-center justify-between px-3 py-3">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <component :is="isNight(r.reminder_time) ? Moon : Sun" class="flex-shrink-0" />
+                                <div class="flex flex-col items-start text-left">
+                                    <span class="text-md font-semibold">{{ r.pet_name }}</span>
+                                    <span class="text-md mt-0.5">
+                                        {{ r.name }} — kellaaeg
+                                        <strong>{{ r.reminder_time }}</strong>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
+        <RemindersSection
+            :pet-id="pet.id"
+            :show-form="showReminderForm"
+            @close-form="showReminderForm = false"
+        />
         <section class="bg-[#FFFDF5] p-6 rounded-2xl w-full max-w-md mx-auto">
             <div class="flex flex-col gap-6">
                 <div class="flex flex-row justify-between items-center">

@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->enum('type', ['vaccine', 'medicine', 'vet_visit']);
             $table->string('name');
             $table->text('notes')->nullable();
-            $table->date('reminder_date');
+            $table->date('reminder_date')->nullable();
             $table->time('reminder_time')->nullable();
             $table->timestamps();
         });

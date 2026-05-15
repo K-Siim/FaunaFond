@@ -12,13 +12,10 @@ const props = defineProps({
 
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="text-2xl font-semibold leading-tight text-[#275342]">
-        Minu lemmikud
-      </h2>
       <div class="flex justify-center items-center h-full w-full flex-col p-5 gap-5">
         <div class="flex flex-row justify-between items-center w-full pt-2 pb-2">
-          <h5 class="text-[#275342] text-xl font-semibold">
-            Lemmikute nimekiri
+          <h5 class="text-[#275342] text-2xl font-semibold">
+            Minu lemmikud
           </h5>
           <Link href="/pets/create" class="text-[#275342] text-lg font-bold pl-2 pr-2 border border-[#275342] rounded-full hover:bg-[#275342] hover:text-white transition">
             +
