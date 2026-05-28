@@ -75,7 +75,7 @@ function isNight(time) {
                         <img
                             :src="pet.photo_url?.medium || '/images/default-pet.png'"
                             alt="Lemmiku pilt"
-                            class="w-60 h-60 object-cover rounded-xl border"
+                            class="w-32 h-32 object-cover rounded-xl border"
                         />
                         <div class="flex flex-col justify-start h-60 w-2/3">
                             <div class="w-full h-1/3 flex justify-end items-start gap-2">
