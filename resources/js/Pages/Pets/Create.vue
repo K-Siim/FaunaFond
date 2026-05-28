@@ -160,9 +160,9 @@ function submit() {
 
             <Button
               type="submit"
-              class="w-full text-[#FFFDF5]"
-              variant="default"
+              variant="save"
               :disabled="form.processing"
+              class="w-full h-[44px] rounded-[16px] mt-4 transition-opacity"
             >
               LISA LEMMIK
             </Button>
