@@ -12,7 +12,7 @@ export const buttonVariants = cva(
         link: 
           "text-primary underline-offset-4 hover:underline",
         save:
-          "bg-[#2D5A3D] text-[#FFFDF3] hover:bg-[#234830] shadow-sm",
+          "w-full h-[44px] mt-4 bg-[#2D5A3D] text-[#FFFDF3] font-semibold tracking-widest text-sm rounded-2xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60 shadow-sm",
         default:
           "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive:

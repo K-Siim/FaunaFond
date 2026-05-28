@@ -90,7 +90,7 @@ const submit = () => {
                     <button
                         @click="submit"
                         :disabled="form.processing"
-                        class="w-full rounded-2xl py-4 font-bold tracking-widest text-sm"
+                        class="w-full h-11 rounded-2xl py-4 font-bold tracking-widest text-sm"
                         style="background-color: #275342; color: #e7f0e4;"
                     >
                         SALVESTA SALASÕNA

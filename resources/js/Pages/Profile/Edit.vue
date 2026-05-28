@@ -2,6 +2,7 @@
 import { useForm, usePage, router } from '@inertiajs/vue3';
 import { Head } from '@inertiajs/vue3';
 import InputError from '@/Components/InputError.vue';
+import { Button } from '@/Components/ui/button';
 
 const user = usePage().props.auth.user;
 
@@ -103,15 +104,15 @@ const goBack = () => {
                             <InputError class="mt-1 text-xs" :message="form.errors.phone" />
                         </div>
 
-                        <button
+                        <Button
                             type="submit"
+                            value="Save"
+                            variant="save"
                             :disabled="form.processing"
-                            :class="{ 'opacity-25': form.processing }"
-                            class="w-full h-[44px] rounded-[16px] mt-4 transition-opacity"
-                            style="background-color: #275342; color: #FFFDF3; font-weight: 800;"
+                            class="w-full h-11"
                         >
                             SALVESTA MUUTUSED
-                        </button>
+                        </Button>
                     </form>
                 </div>
             </div>

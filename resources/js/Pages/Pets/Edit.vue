@@ -169,9 +169,9 @@ function submit() {
 
             <Button
               type="submit"
-              class="w-full text-[#FFFDF5]"
-              variant="default"
+              variant="save"
               :disabled="form.processing"
+              class="w-full h-11 mt-4 "
             >
               UUENDA LEMMIKUT
             </Button>

@@ -310,10 +310,10 @@ function submit() {
             {{ form.errors.log }}
           </p>
           <Button
-            variant="default"
+            variant="save"
             @click="submit"
             :disabled="form.processing"
-            class="w-full h-12 bg-[#2D5A3D] text-[#FFFDF3] font-semibold tracking-widest text-sm rounded-2xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60 shadow-sm"
+            class="w-full h-11 bg-[#2D5A3D] text-[#FFFDF3] font-semibold tracking-widest text-sm rounded-2xl hover:bg-[#234830] active:scale-[0.98] transition disabled:opacity-60 shadow-sm"
           >
             {{
               form.processing
