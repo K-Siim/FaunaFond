@@ -82,9 +82,9 @@ const hasAnyReminders = () =>
                     </Link>
                 </div>
                 <div v-if="pets && pets.length">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <div v-for="pet in pets" :key="pet.id">
-                            <Link :href="route('pets.show', pet.id)" class="w-full">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+                        <div v-for="pet in pets" :key="pet.id" class="w-full  max-w-md mx-auto">
+                            <Link :href="route('pets.show', pet.id)" class="w-full  max-w-md mx-auto">
                                 <PetContent :pet="pet" />
                             </Link>
                         </div>
