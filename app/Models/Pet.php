@@ -101,8 +101,8 @@ class Pet extends Model implements HasMedia
 
     public function medications()
     {
-        return $this->hasMany(Medication::class)
-            ->orderBy('start_date', 'desc');
+        return $this->hasMany(Medication::class);
+           
     }
 
     public function reminders()

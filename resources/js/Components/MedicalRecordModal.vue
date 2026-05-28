@@ -67,12 +67,12 @@ function formatDate(date) {
 
 const date1DisplayLabel = computed(() => {
     if (!date1.value) return null
-    return date1.value.toLocaleDateString('et-EE', { weekday: 'short', month: 'short', day: 'numeric' })
+    return date1.value.toLocaleDateString('et-EE', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
 })
 
 const date2DisplayLabel = computed(() => {
     if (!date2.value) return null
-    return date2.value.toLocaleDateString('et-EE', { weekday: 'short', month: 'short', day: 'numeric' })
+    return date2.value.toLocaleDateString('et-EE', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
 })
 
 const date1CalendarDays = computed(() => {
