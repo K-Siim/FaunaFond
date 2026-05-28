@@ -1,6 +1,6 @@
 <template>
   <Link :href="route('pets.show', pet.id)" class="block">
-    <div class="bg-[#FFFDF5] w-full h-full p-5 rounded-lg flex flex-row items-center hover:shadow-md transition">
+    <div class="bg-[#FFFDF3] w-full h-full p-5 rounded-xl flex flex-row items-center hover:shadow-md transition">
       
       <div class="w-1/3 h-fit flex justify-center">
         <img
