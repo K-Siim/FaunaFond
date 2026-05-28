@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import VetVisitLogModal from "@/Components/VetVisitLogModal.vue";
@@ -22,14 +22,29 @@ const props = defineProps({
     },
 });
 
-const showVetModal = ref(false);
+const isDesktop = ref(false);
+
+function checkWidth() {
+    isDesktop.value = window.innerWidth >= 1024;
+}
+
+onMounted(() => {
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+});
+
+onUnmounted(() => {
+    window.removeEventListener("resize", checkWidth);
+});
+
+const showVetModal     = ref(false);
 const showMedicalModal = ref(false);
-const showDeleteModal = ref(false);
+const showDeleteModal  = ref(false);
 
 const pendingFiles = ref({});
 
-const deleteForm = useForm({});
-const uploadForm = useForm({ files: [] });
+const deleteForm    = useForm({});
+const uploadForm    = useForm({ files: [] });
 const deletePetForm = useForm({});
 
 function formatDate(dateStr) {
@@ -52,7 +67,6 @@ function removePendingFile(visitId, index) {
 
 function submitFiles(visit) {
     uploadForm.files = pendingFiles.value[visit.id] || [];
-
     uploadForm.post(
         route("vet-visits.upload-files", {
             pet: props.pet.id,
@@ -70,7 +84,6 @@ function submitFiles(visit) {
 
 function deleteVisit(visitId) {
     if (!confirm("Kustuta see arstivisiit?")) return;
-
     deleteForm.delete(
         route("vet-visits.destroy", {
             pet: props.pet.id,
@@ -82,7 +95,6 @@ function deleteVisit(visitId) {
 
 function deleteVaccine(vaccineId) {
     if (!confirm("Kustuta see vaktsiin?")) return;
-
     deleteForm.delete(
         route("vaccines.destroy", {
             pet: props.pet.id,
@@ -94,7 +106,6 @@ function deleteVaccine(vaccineId) {
 
 function deleteMedication(medicationId) {
     if (!confirm("Kustuta see ravim?")) return;
-
     deleteForm.delete(
         route("medications.destroy", {
             pet: props.pet.id,
@@ -106,8 +117,14 @@ function deleteMedication(medicationId) {
 
 function deleteFile(fileId) {
     if (!confirm("Kustuta see fail?")) return;
-
     deleteForm.delete(route("vet-visit-files.destroy", fileId), {
+        preserveScroll: true,
+    });
+}
+
+function deleteReminder(reminderId) {
+    if (!confirm("Kustuta see meeldetuletus?")) return;
+    deleteForm.delete(route("reminders.destroy", reminderId), {
         preserveScroll: true,
     });
 }
@@ -126,7 +143,7 @@ function deletePet() {
 
     <AuthenticatedLayout>
         <PetShowDesktop
-            class="hidden lg:block"
+            v-if="isDesktop"
             :pet="pet"
             :pending-files="pendingFiles"
             :format-date="formatDate"
@@ -142,13 +159,16 @@ function deletePet() {
             @upload-files="uploadFiles"
             @remove-pending-file="removePendingFile"
             @submit-files="submitFiles"
+            @delete-reminder="deleteReminder"
         />
 
         <PetShowMobile
-            class="lg:hidden"
+            v-else
             :pet="pet"
             :pending-files="pendingFiles"
             :format-date="formatDate"
+            :vaccine-expiry-reminders="vaccineExpiryReminders"
+            :medication-repeat-reminders="medicationRepeatReminders"
             @open-vet-modal="showVetModal = true"
             @open-medical-modal="showMedicalModal = true"
             @confirm-delete="confirmDelete"
@@ -159,26 +179,24 @@ function deletePet() {
             @upload-files="uploadFiles"
             @remove-pending-file="removePendingFile"
             @submit-files="submitFiles"
+            @delete-reminder="deleteReminder"
         />
 
+        <!-- Delete pet modal -->
         <div
             v-if="showDeleteModal"
             class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
         >
             <div class="w-80 rounded-2xl bg-white p-6 shadow-xl">
                 <div class="flex flex-col gap-4">
-                    <h2
-                        class="text-center text-lg font-semibold text-[#275342]"
-                    >
+                    <h2 class="text-center text-lg font-semibold text-[#275342]">
                         Kustuta lemmik
                     </h2>
-
                     <p class="text-center text-sm text-[#275342]">
                         Kas oled kindel, et soovid
                         <strong>{{ pet.name }}</strong> kustutada? Seda tegevust
                         ei saa tagasi võtta.
                     </p>
-
                     <div class="mt-2 flex gap-3">
                         <button
                             class="flex-1 rounded-xl border border-gray-300 py-2 text-sm text-[#275342] transition hover:bg-gray-50"
@@ -186,7 +204,6 @@ function deletePet() {
                         >
                             Ei
                         </button>
-
                         <button
                             class="flex-1 rounded-xl bg-red-500 py-2 text-sm text-white transition hover:bg-red-600"
                             :disabled="deletePetForm.processing"
