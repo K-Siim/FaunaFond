@@ -4,7 +4,7 @@ import PetContent from "@/Components/PetInfo/PetContent.vue";
 import RemindersSection from "@/Components/RemindersSection.vue";
 import PwaInstallButton from "@/Components/PwaInstallButton.vue";
 import { ref } from "vue";
-import { Link, Head } from "@inertiajs/vue3";
+import { Link, Head, router } from "@inertiajs/vue3";
 import { CircleAlert, AlarmClock, Bell, Sun, Moon, X } from '@lucide/vue';
 
 const props = defineProps({
@@ -28,6 +28,15 @@ function isNight(time) {
     if (!time) return false;
     const h = parseInt(time.split(":")[0]);
     return h >= 18 || h < 6;
+}
+function formatDate(date) {
+    if (!date) return '';
+    const d = new Date(date);
+    if (isNaN(d)) return date;
+    return d.toLocaleDateString('et-EE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+function deleteReminder(id) {
+    router.delete(route('reminders.destroy', id), { preserveScroll: true });
 }
 
 const vaccineReminders  = () => (props.reminders ?? []).filter(r => r.type === "vaccine");
@@ -100,6 +109,7 @@ const hasAnyReminders = () =>
 
                     <div v-else class="flex flex-col gap-3">
 
+                        <!-- Vaccine expiry alerts -->
                         <div
                             v-for="r in visibleExpiries()"
                             :key="'exp-' + r.id"
@@ -125,6 +135,7 @@ const hasAnyReminders = () =>
                             </div>
                         </div>
 
+                        <!-- Vaccine reminders -->
                         <div
                             v-for="r in vaccineReminders()"
                             :key="'vac-' + r.id"
@@ -140,7 +151,7 @@ const hasAnyReminders = () =>
                                         <span class="text-md font-semibold">{{ r.pet?.name }}</span>
                                         <span class="text-md mt-0.5">
                                             {{ r.name }} — vaktsineerimine
-                                            <strong>{{ r.reminder_date }}</strong>
+                                            <strong>{{ formatDate(r.reminder_date) }}</strong>
                                             <span v-if="r.reminder_time"> kell <strong>{{ r.reminder_time }}</strong></span>
                                         </span>
                                     </div>
@@ -149,6 +160,7 @@ const hasAnyReminders = () =>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#275342] transition-transform duration-200" :class="expandedReminderId === r.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                                     </svg>
+                                    <button @click.stop="deleteReminder(r.id)" class="hover:text-red-500 transition text-xl leading-none">×</button>
                                 </div>
                             </button>
                             <div v-if="expandedReminderId === r.id && r.notes" class="px-4 pb-4 border-t border-yellow-100">
@@ -156,6 +168,7 @@ const hasAnyReminders = () =>
                             </div>
                         </div>
 
+                        <!-- Vet visit reminders -->
                         <div
                             v-for="r in vetReminders()"
                             :key="'vet-' + r.id"
@@ -171,7 +184,7 @@ const hasAnyReminders = () =>
                                         <span class="text-md font-semibold">{{ r.pet?.name }}</span>
                                         <span class="text-md mt-0.5">
                                             {{ r.name }} — arstivisiit
-                                            <strong>{{ r.reminder_date }}</strong>
+                                            <strong>{{ formatDate(r.reminder_date) }}</strong>
                                             <span v-if="r.reminder_time"> kell <strong>{{ r.reminder_time }}</strong></span>
                                         </span>
                                     </div>
@@ -180,6 +193,7 @@ const hasAnyReminders = () =>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#275342] transition-transform duration-200" :class="expandedReminderId === r.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                                     </svg>
+                                    <button @click.stop="deleteReminder(r.id)" class="hover:text-red-500 transition text-xl leading-none">×</button>
                                 </div>
                             </button>
                             <div v-if="expandedReminderId === r.id && r.notes" class="px-4 pb-4 border-t border-blue-100">
@@ -187,6 +201,7 @@ const hasAnyReminders = () =>
                             </div>
                         </div>
 
+                        <!-- Medicine reminders -->
                         <div
                             v-for="r in medicineReminders()"
                             :key="'med-' + r.id"
@@ -202,7 +217,7 @@ const hasAnyReminders = () =>
                                         <span class="text-md font-semibold">{{ r.pet?.name }}</span>
                                         <span class="text-md mt-0.5">
                                             {{ r.name }} — kellaaeg
-                                            <strong>{{ r.reminder_time || r.reminder_date }}</strong>
+                                            <strong>{{ r.reminder_time || formatDate(r.reminder_date) }}</strong>
                                         </span>
                                     </div>
                                 </div>
@@ -210,6 +225,7 @@ const hasAnyReminders = () =>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#275342] transition-transform duration-200" :class="expandedReminderId === r.id ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                                     </svg>
+                                    <button @click.stop="deleteReminder(r.id)" class="hover:text-red-500 transition text-xl leading-none">×</button>
                                 </div>
                             </button>
                             <div v-if="expandedReminderId === r.id && r.notes" class="px-4 pb-4 border-t border-green-100">
@@ -217,6 +233,7 @@ const hasAnyReminders = () =>
                             </div>
                         </div>
 
+                        <!-- Medication repeat reminders (no delete, same as before) -->
                         <div
                             v-for="r in medicationRepeatReminders"
                             :key="'rep-' + r.id"
