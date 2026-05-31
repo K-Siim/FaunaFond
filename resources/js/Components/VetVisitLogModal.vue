@@ -153,6 +153,7 @@ function submit() {
   })
 }
 </script>
+
 <template>
   <Teleport to="body">
     <div
@@ -287,30 +288,33 @@ function submit() {
                   </div>
               </div>
           </div>
-          <Input
-            v-model="form.clinic_name"
-            type="text"
-            placeholder="Kliiniku nimi"
-            class="h-12 rounded-xl border-gray-200 bg-white text-sm focus-visible:ring-[#2D5A3D]/40"
-          />
-          <p
-            v-if="form.errors.clinic_name"
-            class="text-red-500 text-xs -mt-2"
-          >
-            {{ form.errors.clinic_name }}
-          </p>
-          <Textarea
-            v-model="form.log"
-            rows="4"
-            placeholder="Arstivisiidi logi"
-            class="rounded-xl border-gray-200 bg-white text-sm resize-y max-h-40 focus-visible:ring-[#2D5A3D]/40"
-          />
-          <p
-            v-if="form.errors.log"
-            class="text-red-500 text-xs -mt-2"
-          >
-            {{ form.errors.log }}
-          </p>
+
+          <div class="flex flex-col gap-1">
+            <Label class="text-sm text-gray-600 px-1">Kliiniku nimi</Label>
+            <Input
+              v-model="form.clinic_name"
+              type="text"
+              placeholder="Lisa kliiniku nimi"
+              class="h-12 rounded-xl border-gray-200 bg-white text-sm focus-visible:ring-[#2D5A3D]/40"
+            />
+            <p v-if="form.errors.clinic_name" class="text-red-500 text-xs px-1">
+              {{ form.errors.clinic_name }}
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <Label class="text-sm text-gray-600 px-1">Märkused</Label>
+            <Textarea
+              v-model="form.log"
+              rows="4"
+              placeholder="Lisa arstivisiidi logi"
+              class="rounded-xl border-gray-200 bg-white text-sm resize-y max-h-40 focus-visible:ring-[#2D5A3D]/40"
+            />
+            <p v-if="form.errors.log" class="text-red-500 text-xs px-1">
+              {{ form.errors.log }}
+            </p>
+          </div>
+
           <Button
             variant="save"
             @click="submit"
