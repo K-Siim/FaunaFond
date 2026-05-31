@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Storage;
 class VetVisitFileController extends Controller
 {
     public function download(VetVisitFile $file)
-    {
-        return Storage::download($file->path, $file->original_name);
-    }
+{
+    return Storage::disk('public')->download($file->path, $file->original_name);
+}
 
-    public function destroy(VetVisitFile $file)
-    {
-        Storage::delete($file->path);
-        $file->delete();
-        return back();
-    }
+public function destroy(VetVisitFile $file)
+{
+    Storage::disk('public')->delete($file->path);  // paranda ka siin!
+    $file->delete();
+    return back();
+}
 }
