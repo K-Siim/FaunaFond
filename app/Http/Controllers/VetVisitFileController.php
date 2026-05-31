@@ -14,7 +14,7 @@ class VetVisitFileController extends Controller
 
 public function destroy(VetVisitFile $file)
 {
-    Storage::disk('public')->delete($file->path);  // paranda ka siin!
+    Storage::disk('public')->delete($file->path);  
     $file->delete();
     return back();
 }

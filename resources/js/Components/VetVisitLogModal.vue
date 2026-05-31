@@ -49,6 +49,8 @@ const calendarDays = computed(() => {
     1
   ).getDay()
 
+  const offset = (firstDay + 6) % 7
+
   const daysInMonth = new Date(
     currentYear.value,
     currentMonth.value + 1,
@@ -57,7 +59,7 @@ const calendarDays = computed(() => {
 
   const cells = []
 
-  for (let i = 0; i < firstDay; i++) {
+  for (let i = 0; i < offset; i++) {
     cells.push(null)
   }
 
